@@ -3,8 +3,7 @@ import { Link,Outlet } from 'react-router-dom';
 
 const Signup = () => {
   return (
-    <div>
-      <h2>Sign Up</h2>
+    <div style={{marginTop:"10%"}}>
       <div >
         <Link to="student" style={{ marginRight: '10px' }}>Student Signup</Link>
         <Link to="company">Company Signup</Link>
