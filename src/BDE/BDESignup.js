@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
-import './Login.css';
+import './BDE.css';
 import axios from 'axios';
 
-export default function Login() {
+export default function BDELogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // eslint-disable-next-line
+  const [cpassword, setCPassword] = useState('');
   const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // eslint-disable-next-line
-      const response = await axios.post('/api/login', { username, password });
-      // handle successful login
-    } catch (error) {
-      // handle error
+    if(password=== cpassword){
+        try {
+     
+            const response = await axios.post('/api/login', { username, password });
+            // handle successful login
+          } catch (error) {
+            // handle error
+          }
     }
+    else{
+        alert("Password and confirm passwords are not matching")
+        return false
+    }
+   
   };
 
   return (
@@ -27,7 +34,7 @@ export default function Login() {
         <div>
           <label>Username or email address</label>
           <input
-            type="text" required
+            type="email" required
             placeholder="Email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -40,6 +47,15 @@ export default function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password" required
+            placeholder="Confirm Password"
+            value={cpassword}
+            onChange={(e) => setCPassword(e.target.value)}
           />
         </div>
         <div className='forgot'>

@@ -1,73 +1,106 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import {
+  AppBar,
+  Toolbar,
+  Button
+} from "@mui/material";
+//import { styled } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
+import './Navigation.css' 
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  position: 'fixed',
-  zIndex: theme.zIndex.drawer + 1,
-}));
+//import isAuth, { userType } from "../lib/isAuth";
 
-export default function Navigation() {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
-  const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
+// const useStyles = styled((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   menuButton: {
+//     marginRight: theme.spacing(2),
+//   },
+//   title: {
+//     flexGrow: 1,
+//   },
+// }));
+
+const Navigation = (props) => {
+  let navigate = useNavigate();
+
+  const handleClick = (location) => {
+    console.log(location);
+    navigate(location);
   };
 
   return (
-    <StyledAppBar position="fixed">
-      <Toolbar>
-        {isMobile && (
-          <IconButton
-            edge="start"
-            sx={{ mr: 2 }}
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
-        )}
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          My App
-        </Typography>
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Button color="inherit">Home</Button>
-        </Link>
-        <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Button color="inherit">Signup</Button>
-        </Link>
-        <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Button color="inherit">Login</Button>
-        </Link>
+    <AppBar position="fixed" className="navbar" elevation={0}>
+      <Toolbar className="tool">
+      <img
+          src="https://codegnan.com/wp-content/uploads/2024/02/Codegnan%E2%87%94Destination1.png"
+          alt="Codegnan Logo"
+          className="logo" // Add a class for styling purposes if needed
+          onClick={() => handleClick("/")} // Add onClick event handler if necessary
+        />
+        <div>
+            <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
+              Login
+            </Button>
+            <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
+              Signup
+            </Button>
+          </div>
+        {/* {isAuth() ? (
+          userType() === "recruiter" ? (
+            <>
+              <Button color="inherit" onClick={() => handleClick("/home")}>
+                Home
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/addjob")}>
+                Add Jobs
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/myjobs")}>
+                My Jobs
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/employees")}>
+                Employees
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/profile")}>
+                Profile
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/logout")}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button color="inherit" onClick={() => handleClick("/home")}>
+                Home
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => handleClick("/applications")}
+              >
+                Applications
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/profile")}>
+                Profile
+              </Button>
+              <Button color="inherit" onClick={() => handleClick("/logout")}>
+                Logout
+              </Button>
+            </>
+          )
+        ) : (
+          <>
+            <Button color="inherit" onClick={() => handleClick("/login")}>
+              Login
+            </Button>
+            <Button color="inherit" onClick={() => handleClick("/signup")}>
+              Signup
+            </Button>
+          </>
+        )} */}
       </Toolbar>
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={toggleDrawer}
-      >
-        <div
-          role="presentation"
-          onClick={toggleDrawer}
-          onKeyDown={toggleDrawer}
-        >
-          <List>
-            <ListItem button component={Link} to="/">
-              <ListItemText primary="Home" />
-            </ListItem>
-            <ListItem button component={Link} to="/signup">
-              <ListItemText primary="Signup" />
-            </ListItem>
-            <ListItem button component={Link} to="/login">
-              <ListItemText primary="Login" />
-            </ListItem>
-          </List>
-        </div>
-      </Drawer>
-    </StyledAppBar>
+    </AppBar>
   );
-}
+};
+
+export default Navigation;

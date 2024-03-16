@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
-import './Login.css';
+import './BDE.css';
 import axios from 'axios';
 
-export default function Login() {
+export default function BDELogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // eslint-disable-next-line
   const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // eslint-disable-next-line
       const response = await axios.post('/api/login', { username, password });
       // handle successful login
     } catch (error) {
@@ -25,9 +23,9 @@ export default function Login() {
       <h1 style={{ color: "black" }}>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username or email address</label>
+          <label>Email address</label>
           <input
-            type="text" required
+            type="email" required
             placeholder="Email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}

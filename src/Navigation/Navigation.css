@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Angkor&display=swap');
+
+.navbar {
+  background-color: white !important;
+  /* Set background color for the navbar */
+  padding: 0 20px;
+}
+
+.tool {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  width: auto;
+  /* Make the image responsive */
+  height: 40px;
+  /* Set the desired height */
+  cursor: pointer;
+}
+
+#nav-link {
+  color: #c36 !important;
+  /* Set color for the links */
+
+  font-family: "Angkor", serif;
+  font-weight: 400;
+  font-style: normal;
+}
