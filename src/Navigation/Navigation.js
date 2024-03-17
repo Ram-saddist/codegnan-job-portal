@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import './Navigation.css';
 
 // Dummy values for isAuth and userType
-const isAuth = false; // Set to true if user is authenticated, false otherwise
-const userType = ''; // Set user type to 'student', 'company', 'bde', or 'default'
+const isAuth = true; // Set to true if user is authenticated, false otherwise
+const userType = 'student'; // Set user type to 'student', 'company', 'bde', or 'default'
 
 const Navigation = (props) => {
   let navigate = useNavigate();
@@ -33,6 +33,12 @@ const Navigation = (props) => {
                 </Button>
                 <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
                   Profile
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentdashboard")}>
+                  Jobs List
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/applyjob")}>
+                  Apply Job
                 </Button>
                 <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
                   Logout

@@ -1,23 +1,23 @@
-.post-container {
+.apply-job-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 2%;
 }
 
-.post-container form {
-    width: 30vw;
+.apply-job-container form {
+    width: 70%;
     margin: 20px;
 }
 
-.post-container label {
+.apply-job-container label {
     font-size: 1rem;
     margin: 10px 0px;
     display: block;
     color: black;
 }
 
-.post-container input {
+.apply-job-container input {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -27,17 +27,43 @@
     color: black;
 }
 
-.post-container .btn {
+.apply-job-container .btn {
     padding: 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width:100%;
+    width:45%;
     font-size: 1.2rem;
 }
 
-.post-container .btn:hover {
+.apply-job-container .btn:hover {
     background-color: #45a049;
+}
+
+.apply-job-container .input-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.apply-job-container .input-group > div {
+    width: 48%; /* Adjust as needed */
+}
+
+@media (max-width: 768px) {
+    .apply-job-container form {
+        width: 80%;
+    }
+    
+    .apply-job-container input {
+        width: 100%;
+    }
+    
+    .apply-job-container .input-group {
+        flex-direction: column;
+    }
+    .apply-job-container .input-group > div {
+        width: 90%; /* Adjust as needed */
+    }
 }
