@@ -20,7 +20,7 @@ export default function BDELogin() {
 
   return (
     <div className="login-container">
-      <h1 style={{ color: "black" }}>Login</h1>
+      <h1 style={{ color: "black" }}>BDE Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Email address</label>

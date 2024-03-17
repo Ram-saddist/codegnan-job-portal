@@ -29,7 +29,7 @@ export default function BDELogin() {
 
   return (
     <div className="login-container">
-      <h1 style={{ color: "black" }}>Login</h1>
+      <h1 style={{ color: "black" }}>BDE SignUp</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username or email address</label>
@@ -50,7 +50,7 @@ export default function BDELogin() {
           />
         </div>
         <div>
-          <label>Password</label>
+          <label>Confirm Password</label>
           <input
             type="password" required
             placeholder="Confirm Password"
@@ -64,7 +64,7 @@ export default function BDELogin() {
         </div>
       </form>
       <div className='bottom-div'>
-          <span style={{ color: "black" }}>Don't have an account?</span>
+          <span style={{ color: "black" }}>Don't have an account? </span>
           <Link style={{ fontWeight: "bold" }} to="/login">Signup Here</Link>        
       </div>
 

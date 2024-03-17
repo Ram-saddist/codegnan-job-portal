@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import StudentSignup from './Signup/StudentSignup';
@@ -9,6 +8,10 @@ import Home from './Home/Home';
 import Signup from './Signup/Signup';
 import Login from './Login/Login';
 import Footer from './Footer/Footer';
+import BDELogin from './BDE/BDELogin'
+import BDESignup from './BDE/BDESignup'
+import AddJob from './AddJob/AddJob';
+import BDEDashboard from './BDEDashboard/BDEDashboard';
 
 export default function App() {
   return (
@@ -23,6 +26,10 @@ export default function App() {
             <Route path="company" element={<CompanySignup />} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/bdelogin" element={<BDELogin />} />
+          <Route path="/bdesignup" element={<BDESignup />} />
+          <Route path="/addjob" element={<AddJob />} />
+          <Route path="/bdedashboard" element={<BDEDashboard/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -30,4 +37,3 @@ export default function App() {
     </div>
   );
 }
-

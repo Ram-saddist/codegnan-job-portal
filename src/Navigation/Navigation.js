@@ -1,26 +1,11 @@
-import {
-  AppBar,
-  Toolbar,
-  Button
-} from "@mui/material";
-//import { styled } from '@mui/material/styles';
+import React from 'react';
+import { AppBar, Toolbar, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import './Navigation.css' 
+import './Navigation.css';
 
-//import isAuth, { userType } from "../lib/isAuth";
-
-
-// const useStyles = styled((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   menuButton: {
-//     marginRight: theme.spacing(2),
-//   },
-//   title: {
-//     flexGrow: 1,
-//   },
-// }));
+// Dummy values for isAuth and userType
+const isAuth = false; // Set to true if user is authenticated, false otherwise
+const userType = ''; // Set user type to 'student', 'company', 'bde', or 'default'
 
 const Navigation = (props) => {
   let navigate = useNavigate();
@@ -33,71 +18,78 @@ const Navigation = (props) => {
   return (
     <AppBar position="fixed" className="navbar" elevation={0}>
       <Toolbar className="tool">
-      <img
+        <img
           src="https://codegnan.com/wp-content/uploads/2024/02/Codegnan%E2%87%94Destination1.png"
           alt="Codegnan Logo"
-          className="logo" // Add a class for styling purposes if needed
-          onClick={() => handleClick("/")} // Add onClick event handler if necessary
+          className="logo"
+          onClick={() => handleClick("/")}
         />
         <div>
-            <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
-              Login
-            </Button>
-            <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
-              Signup
-            </Button>
-          </div>
-        {/* {isAuth() ? (
-          userType() === "recruiter" ? (
-            <>
-              <Button color="inherit" onClick={() => handleClick("/home")}>
-                Home
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/addjob")}>
-                Add Jobs
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/myjobs")}>
-                My Jobs
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/employees")}>
-                Employees
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/profile")}>
-                Profile
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/logout")}>
-                Logout
-              </Button>
-            </>
+          {isAuth ? (
+            userType === "student" ? (
+              <>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
+                  Home
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
+                  Profile
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  Logout
+                </Button>
+              </>
+            ) : userType === "company" ? (
+              <>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
+                  Home
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
+                  Add Jobs
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/myjobs")}>
+                  My Jobs
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
+                  Profile
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  Logout
+                </Button>
+              </>
+            ) : userType === "bde" ? (
+              <>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
+                  Add Job
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
+                  Dashboard
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                {/* Add buttons for default */}
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
+                  Login
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
+                  Signup
+                </Button>
+              </>
+            )
           ) : (
             <>
-              <Button color="inherit" onClick={() => handleClick("/home")}>
-                Home
+              <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
+                Login
               </Button>
-              <Button
-                color="inherit"
-                onClick={() => handleClick("/applications")}
-              >
-                Applications
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/profile")}>
-                Profile
-              </Button>
-              <Button color="inherit" onClick={() => handleClick("/logout")}>
-                Logout
+              <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
+                Signup
               </Button>
             </>
-          )
-        ) : (
-          <>
-            <Button color="inherit" onClick={() => handleClick("/login")}>
-              Login
-            </Button>
-            <Button color="inherit" onClick={() => handleClick("/signup")}>
-              Signup
-            </Button>
-          </>
-        )} */}
+          )}
+        </div>
       </Toolbar>
     </AppBar>
   );
