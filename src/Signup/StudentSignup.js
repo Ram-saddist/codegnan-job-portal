@@ -33,6 +33,7 @@ const StudentSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formIsValid = true;
+    console.log("formmmmm")
     const newErrors = {};
     // Name validation
     if (studentData.name.trim().length < 3 || /[^a-zA-Z\s]/.test(studentData.name)) {
@@ -62,9 +63,10 @@ const StudentSignup = () => {
     if (formIsValid) {
       // Submit the formc
       console.log(studentData)
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users`, studentData)
+      axios.post("/api/v1/signup", studentData)
         .then(response => {
           console.log('Data sent successfully:', response.data);
+          alert()
           if (response.status === 201) {
             navigate('/login');
           }
@@ -84,7 +86,7 @@ const StudentSignup = () => {
           {errors.name && <p>{errors.name}</p>}
         </div>
         <div>
-          <input type="number" placeholder='Age' name="age" value={studentData.age} onChange={handleChange} required />
+          <input type="text" placeholder='Age' name="age" value={studentData.age} onChange={handleChange} required />
           {errors.age && <p>{errors.age}</p>}
         </div>
         <div>
@@ -92,11 +94,11 @@ const StudentSignup = () => {
           {errors.email && <p>{errors.email}</p>}
         </div>
         <div>
-          <input type="password" placeholder='Password' name="password" value={studentData.password} onChange={handleChange} required />
+          <input type="text" placeholder='Password' name="password" value={studentData.password} onChange={handleChange} required />
           {errors.password && <p>{errors.password}</p>}
         </div>
         <div>
-          <input type="password" placeholder='Confirm Password' name="confirmPassword" value={studentData.confirmPassword} onChange={handleChange} required />
+          <input type="text" placeholder='Confirm Password' name="confirmPassword" value={studentData.confirmPassword} onChange={handleChange} required />
         </div>
         <div>
           <input type="tel" placeholder='Mobile Number' name="mobileNumber" value={studentData.mobileNumber} onChange={handleChange} required />
