@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './AddJob.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function AddJob() {
     const [companyName, setCompanyName] = useState('');
@@ -14,7 +15,7 @@ export default function AddJob() {
     const [bond, setBond] = useState('');
     const [jobLocation, setJobLocation] = useState('');
     const [specialNote, setSpecialNote] = useState('');
-    
+    const navigate= useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -33,17 +34,7 @@ export default function AddJob() {
             });
             console.log('Response:', response.data);
             // Reset form fields after successful submission
-            setCompanyName('');
-            setJobRole('');
-            setGraduates('');
-            setSalary('');
-            setEducationQualification('');
-            setDepartment('');
-            setPercentage('');
-            setTechnologies('');
-            setBond('');
-            setJobLocation('');
-            setSpecialNote('');
+            navigate("/bdedashboard")
         } catch (error) {
             console.error('Error:', error);
         }

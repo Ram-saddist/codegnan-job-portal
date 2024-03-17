@@ -6,15 +6,15 @@ import axios from 'axios';
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // eslint-disable-next-line
   const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // eslint-disable-next-line
+     
       const response = await axios.post('/api/login', { username, password });
       // handle successful login
+      navigate("/")
     } catch (error) {
       // handle error
     }
@@ -49,7 +49,7 @@ export default function Login() {
       </form>
       <div className='bottom-div'>
           <span style={{ color: "black" }}>Don't have an account?</span>
-          <Link style={{ fontWeight: "bold" }} to="/login">Signup Here</Link>        
+          <Link style={{ fontWeight: "bold" }} to="/signup">Signup Here</Link>        
       </div>
 
     </div>
