@@ -4,17 +4,20 @@ import './BDE.css';
 import axios from 'axios';
 
 export default function BDELogin() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
+  const [name, setName] = useState('');
   const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(password=== cpassword){
         try {
-     
-            const response = await axios.post('/api/login', { username, password });
+            await axios.post('/api/login', { name, password,email })
+              .then((response)=>{
+                console.log("response from bdesignup",response.data)
+              })
             // handle successful login
           } catch (error) {
             // handle error
@@ -31,15 +34,25 @@ export default function BDELogin() {
     <div className="login-container">
       <h1 style={{ color: "black" }}>BDE SignUp</h1>
       <form onSubmit={handleSubmit}>
+      <div>
+          <label>Name</label>
+          <input
+            type="text" required
+            placeholder="Name of BDE"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
         <div>
-          <label>Username or email address</label>
+          <label>Email address</label>
           <input
             type="email" required
             placeholder="Email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
+
         <div>
           <label>Password</label>
           <input

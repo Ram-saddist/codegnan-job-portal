@@ -1,73 +1,135 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { AppBar, Toolbar, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import './Navigation.css';
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  position: 'fixed',
-  zIndex: theme.zIndex.drawer + 1,
-}));
+// Dummy values for isAuth and userType
+const isAuth = true; // Set to true if user is authenticated, false otherwise
+const userType = 'student'; // Set user type to 'student', 'company', 'bde', or 'default'
 
-export default function Navigation() {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+const Navigation = (props) => {
+  let navigate = useNavigate();
 
-  const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
+  const handleClick = (location) => {
+    console.log(location);
+    navigate(location);
   };
 
   return (
-    <StyledAppBar position="fixed">
-      <Toolbar>
-        {isMobile && (
-          <IconButton
-            edge="start"
-            sx={{ mr: 2 }}
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
-        )}
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          My App
-        </Typography>
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Button color="inherit">Home</Button>
-        </Link>
-        <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Button color="inherit">Signup</Button>
-        </Link>
-        <Link to="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Button color="inherit">Login</Button>
-        </Link>
-      </Toolbar>
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={toggleDrawer}
-      >
-        <div
-          role="presentation"
-          onClick={toggleDrawer}
-          onKeyDown={toggleDrawer}
-        >
-          <List>
-            <ListItem button component={Link} to="/">
-              <ListItemText primary="Home" />
-            </ListItem>
-            <ListItem button component={Link} to="/signup">
-              <ListItemText primary="Signup" />
-            </ListItem>
-            <ListItem button component={Link} to="/login">
-              <ListItemText primary="Login" />
-            </ListItem>
-          </List>
+    <AppBar position="fixed" className="navbar" elevation={0}>
+      <Toolbar className="tool">
+        <img
+          src="https://codegnan.com/wp-content/uploads/2024/02/Codegnan%E2%87%94Destination1.png"
+          alt="Codegnan Logo"
+          className="logo"
+          onClick={() => handleClick("/")}
+        />
+        <div>
+          {isAuth ? (
+            userType === "student" ? (
+              <>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
+                  Home
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
+                  Profile
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentdashboard")}>
+                  Jobs List
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/applyjob")}>
+                  Apply Job
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  Logout
+                </Button>
+              </>
+            ) : userType === "company" ? (
+              <>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
+                  Home
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
+                  Add Jobs
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/myjobs")}>
+                  My Jobs
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
+                  Profile
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  Logout
+                </Button>
+              </>
+            ) : userType === "bde" ? (
+              <>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
+                  Add Job
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
+                  Dashboard
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                {/* Add buttons for default */}
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
+                  Login
+                </Button>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
+                  Signup
+                </Button>
+              </>
+            )
+          ) : (
+            <>
+              <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
+                Login
+              </Button>
+              <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
+                Signup
+              </Button>
+            </>
+          )}
         </div>
-      </Drawer>
-    </StyledAppBar>
+      </Toolbar>
+    </AppBar>
   );
+};
+
+export default Navigation;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Angkor&display=swap');
+
+.navbar {
+  background-color: white !important;
+  /* Set background color for the navbar */
+  padding: 0 20px;
+}
+
+.tool {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  width: auto;
+  /* Make the image responsive */
+  height: 40px;
+  /* Set the desired height */
+  cursor: pointer;
+}
+
+#nav-link {
+  color: #c36 !important;
+  /* Set color for the links */
+
+  font-family: "Angkor", serif;
+  font-weight: 400;
+  font-style: normal;
 }

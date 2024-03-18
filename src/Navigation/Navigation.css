@@ -4,11 +4,7 @@
   background-color: white !important;
   /* Set background color for the navbar */
   padding: 0 20px;
-}
-
-.tool {
-  display: flex;
-  justify-content: space-between;
+  margin-top: 1%;
 }
 
 .logo {
@@ -19,6 +15,13 @@
   cursor: pointer;
 }
 
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+}
+
 #nav-link {
   color: #c36 !important;
   /* Set color for the links */
@@ -26,4 +29,88 @@
   font-family: "Angkor", serif;
   font-weight: 400;
   font-style: normal;
+}
+
+.nav-links.show {
+  display: flex;
+}
+
+.toggler {
+  display: none;
+}
+
+.tool {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-btn{
+  display: none;
+  color: black;
+  font-family: "Angkor", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top:10px; /* Adjust as needed */
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+  }
+
+  .nav-links.show {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .toggler {
+    display: block;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+  }
+
+  .toggler span {
+    display: block;
+    width: 20px;
+    height: 3px;
+    background-color: #c36 !important;
+    margin-bottom: 3px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .toggler.show span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .toggler.show span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .toggler.show span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  .close-btn{
+    display: block;
+    position: absolute;
+    right:2%;
+    top:3%
+  }
 }

@@ -54,17 +54,20 @@ const StudentDashboard = () => {
             setLoading(false);
         }
     };
-  
-
+    
     // Fetch job details when the component mounts
     useEffect(() => {
         fetchJobs();
     }, []);
      */
+    function applyJob(job_id) {
+        console.log(job_id)
+        //axios.post("/delete-job-postt",{job_id,studentid})
+    }
 
     return (
         <div>
-            <h2>Student Dashboard</h2>
+            <h2 style={{color:"black",textAlign:"center"}}>Student Dashboard</h2>
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
             {jobs.length > 0 && (
@@ -82,6 +85,7 @@ const StudentDashboard = () => {
                             <p><span className="job-key">Bond:</span> {job.bond}</p>
                             <p><span className="job-key">Job Location:</span> {job.jobLocation}</p>
                             <p><span className="job-key">Special Note:</span> {job.specialNote}</p>
+                            <button className='apply-job-btn' onClick={() => applyJob(job.id)}>Apply</button>
                         </div>
                     ))}
                 </div>

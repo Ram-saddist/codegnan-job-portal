@@ -1,121 +1,208 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate,Link } from 'react-router-dom';
+import axios from 'axios'
+import './StudentSignup.css';
 
 const StudentSignup = () => {
-  const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        mobileNumber: '',
+        qualification: '',
+        department: '',
+        password:'',
+        cpassword:'',
+        state:"",
+        cityname:"",
+        yearOfPassing: '',
+        collegeName: '',
+        // resume: null,
+    });
 
-  const [studentData, setStudentData] = useState({
-    name: '',
-    age: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    mobileNumber: '',
-    city: '',
-    state: ''
-  });
-
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setStudentData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
-    setErrors(prevErrors => ({
-      ...prevErrors,
-      [name]: ''
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let formIsValid = true;
-    console.log("formmmmm")
-    const newErrors = {};
-    // Name validation
-    if (studentData.name.trim().length < 3 || /[^a-zA-Z\s]/.test(studentData.name)) {
-      newErrors.name = 'Name must be at least 3 characters long and contain only letters';
-      formIsValid = false;
-    }
-    // Age validation
-    if (isNaN(studentData.age) || studentData.age <= 0) {
-      newErrors.age = 'Age must be a positive number';
-      formIsValid = false;
-    }
-    // Email validation
-    if (!/^\S+@\S+\.\S+$/.test(studentData.email)) {
-      newErrors.email = 'Invalid email address';
-      formIsValid = false;
-    }
-    // Password validation
-    if (studentData.password.length < 6 || !/\d/.test(studentData.password)) {
-      newErrors.password = 'Password must be at least 6 characters long and contain at least one digit';
-      formIsValid = false;
-    }
-    // City and state validation
-    if (studentData.city === '' || studentData.state === '') {
-      newErrors.city = 'City and State must be empty';
-      formIsValid = false;
-    }
-    if (formIsValid) {
-      // Submit the formc
-      console.log(studentData)
-      axios.post("/api/v1/signup", studentData)
-        .then(response => {
-          console.log('Data sent successfully:', response.data);
-          alert()
-          if (response.status === 201) {
-            navigate('/login');
-          }
-        })
-        .catch(error => {
-          console.error('Error sending data:', error);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
         });
-    } else {
-      setErrors(newErrors);
-    }
-  };
-  return (
-    <div className='student-signup-parent'>
-      <form onSubmit={handleSubmit} className='form-student-signup'>
-        <div>
-          <input type="text" placeholder='Enter student name' name="name" value={studentData.name} onChange={handleChange} required />
-          {errors.name && <p>{errors.name}</p>}
+    };
+
+    // const handleFileChange = (e) => {
+    //     setFormData({
+    //         ...formData,
+    //         resume: e.target.files[0],
+    //     });
+    // };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle form submission
+        axios.post("",{formData})
+        console.log(formData);
+        // Clear form fields after submission
+        setFormData({
+            name: '',
+            email: '',
+            mobileNumber: '',
+            qualification: '',
+            department: '',
+            password:'',
+            cpassword:'',
+            yearOfPassing: '',
+            collegeName: '',
+           
+        });
+    };
+
+    return (
+        <div className='student-signup-container'>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder='Name of the Student'
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder='Working EmailID'
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder='Password'
+                            value={formData.passowrd}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            name="cpassword"
+                            placeholder='Confirm Password'
+                            value={formData.cpassword}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>WhatsApp Number</label>
+                        <input
+                            type="text"
+                            name="mobileNumber"
+                            placeholder='Mobile Number'
+                            value={formData.mobileNumber}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Highest Qualification</label>
+                        <input
+                            type="text"
+                            name="qualification"
+                            placeholder='Qualification'
+                            value={formData.qualification}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>City Name</label>
+                        <input
+                            type="text"
+                            name="cityname"
+                            placeholder='City'
+                            value={formData.cityname}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>You are from which State </label>
+                        <input
+                            type="text"
+                            name="state"
+                            placeholder='State'
+                            value={formData.state}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>Department</label>
+                        <input
+                            type="text"
+                            name="department"
+                            placeholder='Which Branch'
+                            value={formData.department}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Highest Qualification Year of Passing</label>
+                        <input
+                            type="text"
+                            name="yearOfPassing"
+                            placeholder='Year of Passing'
+                            value={formData.yearOfPassing}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>College Name</label>
+                        <input
+                            type="text"
+                            name="collegeName"
+                            placeholder='College Name'
+                            value={formData.collegeName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    {/* <div className="form-group">
+                        <label>Resume</label>
+                        <input
+                            type="file"
+                            name="resume"
+                            onChange={handleFileChange}
+                            required
+                        />
+                    </div> */}
+                </div>
+                <button className='btn'>Apply</button>
+            </form>
+
         </div>
-        <div>
-          <input type="text" placeholder='Age' name="age" value={studentData.age} onChange={handleChange} required />
-          {errors.age && <p>{errors.age}</p>}
-        </div>
-        <div>
-          <input type="email" placeholder='EmailID' name="email" value={studentData.email} onChange={handleChange} required />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
-        <div>
-          <input type="text" placeholder='Password' name="password" value={studentData.password} onChange={handleChange} required />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-        <div>
-          <input type="text" placeholder='Confirm Password' name="confirmPassword" value={studentData.confirmPassword} onChange={handleChange} required />
-        </div>
-        <div>
-          <input type="tel" placeholder='Mobile Number' name="mobileNumber" value={studentData.mobileNumber} onChange={handleChange} required />
-        </div>
-        <div>
-          <input type="text" placeholder='City' name="city" value={studentData.city} onChange={handleChange} required />
-          {errors.city && <p>{errors.city}</p>}
-        </div>
-        <div>
-          <input type="text" placeholder='State' name="state" value={studentData.state} onChange={handleChange} required />
-        </div>
-        <div className='login-here'>
-          <p>Already have an account?<Link style={{fontWeight:"bold"}} to="/login">Login Here</Link> </p>
-        </div>
-        <button className='btn'>Register</button>
-      </form>
-    </div>
-  );
+    );
 };
+
 export default StudentSignup;

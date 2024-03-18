@@ -35,10 +35,10 @@
     color: black;
 }
 
-.delete-job-post {
+.apply-job-btn {
     margin-top: auto; /* Ensures button is at the end of the card */
     align-self: flex-start; /* Aligns button to the end of the card */
-    background-color: red;
+    background-color: green;
     border: none;
     cursor: pointer;
     padding: 10px 20px;

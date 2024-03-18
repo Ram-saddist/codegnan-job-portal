@@ -1,0 +1,99 @@
+POST AddJob
+{
+    "companyName": "Company ABC",
+    "jobRole": "Software Engineer",
+    "graduates": "Bachelor's in Computer Science",
+    "salary": "60000",
+    "educationQualification": "Bachelor's Degree",
+    "department": "Engineering",
+    "percentage": "75",
+    "technologies": "JavaScript, React",
+    "bond": "2 years",
+    "jobLocation": "New York",
+    "specialNote": "Experience in React is preferred."
+}
+
+
+POST apply-job 
+Host: example.com
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="json_data"
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "whatsapp": "1234567890",
+  "qualification": "Bachelor of Engineering",
+  "department": "Computer Science",
+  "yearOfPassing": "2022",
+  "collegeName": "ABC University",
+  "job_id":1,
+  "student_id":123
+}
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="resume"; filename="resume.pdf"
+Content-Type: application/pdf
+
+[Binary Data]
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+
+
+POST BDE login
+Host: example.com
+Content-Type: application/json
+
+{
+  "username": "user@example.com",
+  "password": "password123"
+}
+
+
+POST /api/signup HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+  "username": "user@example.com",
+  "password": "password123",
+}
+
+POST login for studnet and company
+Host: example.com
+Content-Type: application/json
+
+{
+  "username": "username_or_email@example.com",
+  "password": "password123"
+}
+
+POST company-signup 
+Host: example.com
+Content-Type: application/json
+
+{
+  "name": "Company Name",
+  "email": "company@example.com",
+  "password": "password123",
+  "confirmPassword": "password123",
+  "mobileNumber": "1234567890",
+  "city": "City Name"
+}
+
+
+POST student-signup
+Host: example.com
+Content-Type: application/json
+
+{
+  "name": "Student Name",
+  "age": 20,
+  "email": "student@example.com",
+  "password": "password123",
+  "confirmPassword": "password123",
+  "mobileNumber": "1234567890",
+  "city": "City Name",
+  "state": "State Name"
+}

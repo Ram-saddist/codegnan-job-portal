@@ -9,6 +9,10 @@ const ApplyJob = () => {
         whatsapp: '',
         qualification: '',
         department: '',
+        password:'',
+        cpassword:'',
+        state:"",
+        cityname:"",
         yearOfPassing: '',
         collegeName: '',
         resume: null,
@@ -40,6 +44,8 @@ const ApplyJob = () => {
             whatsapp: '',
             qualification: '',
             department: '',
+            password:'',
+            cpassword:'',
             yearOfPassing: '',
             collegeName: '',
             resume: null,
@@ -75,6 +81,30 @@ const ApplyJob = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder='Password'
+                            value={formData.passowrd}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            name="cpassword"
+                            placeholder='Confirm Password'
+                            value={formData.cpassword}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
                         <label>WhatsApp Number</label>
                         <input
                             type="text"
@@ -92,6 +122,30 @@ const ApplyJob = () => {
                             name="qualification"
                             placeholder='Qualification'
                             value={formData.qualification}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>City Name</label>
+                        <input
+                            type="text"
+                            name="cityname"
+                            placeholder='City'
+                            value={formData.cityname}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>You are from which State </label>
+                        <input
+                            type="text"
+                            name="state"
+                            placeholder='State'
+                            value={formData.state}
                             onChange={handleChange}
                             required
                         />

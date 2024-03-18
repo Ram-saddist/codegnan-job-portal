@@ -29,6 +29,9 @@ const Signup = () => {
         </Link>
       </div>
       <Outlet />
+      <div className='signup-quote'> 
+        Embark on your journey towards your dream career starts now.<br/> Your path to success begins here.
+      </div>
     </div>
   );
 };

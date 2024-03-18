@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
-import './BDE.css';
+import './Login.css';
 import axios from 'axios';
 
-export default function BDELogin() {
+export default function CompanyLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit")
     try {
-      axios.post('/api/v1/bdeglogin', { username, password })
-        .then((response)=>{
-          console.log(response)
-        })
      
+      const response = await axios.post('/api/login', { username, password });
       // handle successful login
+      navigate("/")
     } catch (error) {
       // handle error
     }
@@ -25,12 +22,12 @@ export default function BDELogin() {
 
   return (
     <div className="login-container">
-      <h1 style={{ color: "black" }}>BDE Login</h1>
+      <h1 style={{ color: "black" }}>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email address</label>
+          <label>Username or email address</label>
           <input
-            type="email" required
+            type="text" required
             placeholder="Email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -52,7 +49,7 @@ export default function BDELogin() {
       </form>
       <div className='bottom-div'>
           <span style={{ color: "black" }}>Don't have an account?</span>
-          <Link style={{ fontWeight: "bold" }} to="/login">Signup Here</Link>        
+          <Link style={{ fontWeight: "bold" }} to="/signup">Signup Here</Link>        
       </div>
 
     </div>

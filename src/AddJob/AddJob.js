@@ -40,7 +40,7 @@ export default function AddJob() {
         }
     };
     return (
-        <div className='post-container'>
+        <div className='apply-job-container'>
             <form onSubmit={handleSubmit}>
                 <h2 style={{color:"black"}}>Job Description</h2>
                 <div>

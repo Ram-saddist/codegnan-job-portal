@@ -7,13 +7,15 @@ import Navigation from './Navigation/Navigation';
 import Home from './Home/Home';
 import Signup from './Signup/Signup';
 import Login from './Login/Login';
+import StudentLogin from './Login/StudentLogin'
+import CompanyLogin from './Login/CompanyLogin';
 import Footer from './Footer/Footer';
 import BDELogin from './BDE/BDELogin'
 import BDESignup from './BDE/BDESignup'
 import AddJob from './AddJob/AddJob';
 import BDEDashboard from './BDEDashboard/BDEDashboard';
 import StudentDashboard from './StudentDashboard/StudentDashboard';
-import ApplyJob from './ApplyJob/ApplyJob'
+// import ApplyJob from './ApplyJob/ApplyJob'
 
 export default function App() {
   return (
@@ -27,13 +29,16 @@ export default function App() {
             <Route path="student" element={<StudentSignup />} />
             <Route path="company" element={<CompanySignup />} />
           </Route>
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />}>
+            <Route path="student" element={<StudentLogin />} />
+            <Route path="company" element={<CompanyLogin />} />
+          </Route>
           <Route path="/bdelogin" element={<BDELogin />} />
           <Route path="/bdesignup" element={<BDESignup />} />
           <Route path="/addjob" element={<AddJob />} />
           <Route path="/bdedashboard" element={<BDEDashboard/>}/>
           <Route path="/studentdashboard" element={<StudentDashboard/>}/>
-          <Route path="/applyjob" element={<ApplyJob/>}/>
+          {/* <Route path="/applyjob" element={<ApplyJob/>}/> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
