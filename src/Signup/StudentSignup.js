@@ -36,7 +36,10 @@ const StudentSignup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission
-        axios.post("",{formData})
+        axios.post("/api/v1/signup",{name:formData.name,email:formData.email,password:formData.password,city:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age})
+            .then((response)=>{
+                console.log("student signup ",response.data)
+            })
         console.log(formData);
         // Clear form fields after submission
         setFormData({
@@ -55,7 +58,7 @@ const StudentSignup = () => {
 
     return (
         <div className='student-signup-container'>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <div className="form-group">
                         <label>Name</label>

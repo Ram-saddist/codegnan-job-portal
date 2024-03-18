@@ -12,11 +12,17 @@ export default function CompanyLogin() {
     e.preventDefault();
     try {
      
-      const response = await axios.post('/api/login', { username, password });
+      await axios.post('/api/v1/companylogin', { username, password })
+        .then((response)=>{
+          console.log("response from company login",response.data)
+          localStorage.setItem("userType",response.data.userType)
+          navigate("/")
+        })
       // handle successful login
-      navigate("/")
+      
     } catch (error) {
       // handle error
+      console.log(error)
     }
   };
 

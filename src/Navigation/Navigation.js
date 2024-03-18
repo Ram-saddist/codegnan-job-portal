@@ -5,13 +5,14 @@ import './Navigation.css';
 
 // Dummy values for isAuth and userType
 const isAuth = true; // Set to true if user is authenticated, false otherwise
-const userType = 'student'; // Set user type to 'student', 'company', 'bde', or 'default'
+// Set user type to 'student', 'company', 'bde', or 'default'
 
 const Navigation = (props) => {
   let navigate = useNavigate();
   const [showNavLinks, setShowNavLinks] = useState(false);
   const [showBlur, setShowBlur] = useState(false);
-
+  const userType = localStorage.getItem("userType")
+  console.log("usertype from navigation", userType)
   const handleClick = (location) => {
     console.log(location);
     navigate(location);
@@ -52,7 +53,12 @@ const Navigation = (props) => {
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentdashboard")}>
                     Jobs List
                   </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  <Button color="inherit" id="nav-link" onClick={() => {
+                    // Remove userType from localStorage
+                    localStorage.removeItem('userType');
+                    // Redirect to home page
+                    navigate("/");
+                  }}>
                     Logout
                   </Button>
                 </>
@@ -70,7 +76,12 @@ const Navigation = (props) => {
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
                     Profile
                   </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  <Button color="inherit" id="nav-link" onClick={() => {
+                    // Remove userType from localStorage
+                    localStorage.removeItem('userType');
+                    // Redirect to home page
+                    navigate("/");
+                  }}>
                     Logout
                   </Button>
                 </>
@@ -82,7 +93,12 @@ const Navigation = (props) => {
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
                     Dashboard
                   </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/logout")}>
+                  <Button color="inherit" id="nav-link" onClick={() => {
+                    // Remove userType from localStorage
+                    localStorage.removeItem('userType');
+                    // Redirect to home page
+                    navigate("/");
+                  }}>
                     Logout
                   </Button>
                 </>

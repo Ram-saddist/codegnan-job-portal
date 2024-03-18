@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import './Login.css';
 import axios from 'axios';
@@ -8,14 +8,34 @@ export default function StudentLogin() {
   const [password, setPassword] = useState('');
   const navigate=useNavigate()
 
+  useEffect(() => {
+    // Check if user is already logged in using stored token/user identifier
+    //const isLoggedIn = localStorage.getItem('isLoggedIn');
+    //console.log("studentlogin isloggedin",isLoggedIn)
+    // if (isLoggedIn) {
+    //   navigate('/');
+    // }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     
-      const response = await axios.post('/api/login', { username, password });
-      // handle successful login
-      navigate("/")
-    } catch (error) {
+      const response = await axios.post('/api/v1/studentlogin', { username, password });
+      console.log("response from studnetlogin",response.data)
+      if (response.status === 200) {
+        // Store user login status in localStorage
+        //localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem("userType",response.data.userType)
+        localStorage.setItem("student_id",response.data.student_id)
+        const s= localStorage.getItem("userType")
+        console.log("sssssssssssss",s);
+        navigate('/');
+      } else {
+        // Handle unsuccessful login
+        alert("Invalid credentials");
+        return false;
+      }
+    }  catch (error) {
       // handle error
     }
   };

@@ -4,50 +4,16 @@ import './StudentDashboard.css';
 
 const StudentDashboard = () => {
     // State variables to store job details
-    //const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-
-    // Dummy jobs data (replace with actual API call)
-    const jobs = [
-        {
-            id: 1,
-            companyName: 'ABC Inc.',
-            jobRole: 'Software Engineer',
-            salary: '$80,000',
-            graduates: 'B.Tech/M.Tech',
-            educationQualification: 'Computer Science',
-            department: 'Engineering',
-            percentage: '70%',
-            technologies: 'React, Node.js',
-            bond: '2 years',
-            jobLocation: 'New York',
-            specialNote: 'Experience with AWS preferred',
-        },
-        {
-            id: 2,
-            companyName: 'XYZ Corp.',
-            jobRole: 'Data Analyst',
-            salary: '$60,000',
-            graduates: 'B.Sc/M.Sc',
-            educationQualification: 'Statistics',
-            department: 'Analytics',
-            percentage: '65%',
-            technologies: 'Python, SQL',
-            bond: '1 year',
-            jobLocation: 'San Francisco',
-            specialNote: 'Knowledge of Tableau required',
-        },
-    ];
-
+    const student_id=localStorage.getItem("student_id")
     // Function to fetch job details from the backend API
-    /*const fetchJobs = async () => {
+    const fetchJobs = async () => {
         try {
-            // Simulate fetching data from API
-            setLoading(true);
-            // const response = await axios.get('/api/student/jobs');
-            // setJobs(response.data);
-            setJobs(jobs); // Replace with response.data when API is available
+            const response = await axios.get('/api/v1/listopenings');
+            console.log(response.data)
+            setJobs(response.data.jobs);
             setLoading(false);
         } catch (error) {
             setError('Failed to fetch job details');
@@ -59,21 +25,25 @@ const StudentDashboard = () => {
     useEffect(() => {
         fetchJobs();
     }, []);
-     */
+     
     function applyJob(job_id) {
         console.log(job_id)
-        //axios.post("/delete-job-postt",{job_id,studentid})
+        axios.post("/api/v1/applyforjob",{job_id,student_id})
+            .then((response)=>{
+                console.log("response from studentdashboard for apply job",response.data)
+            })
     }
 
     return (
         <div>
             <h2 style={{color:"black",textAlign:"center"}}>Student Dashboard</h2>
+            {console.log("jobs from retirn",jobs)}
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
             {jobs.length > 0 && (
                 <div className="job-container">
                     {jobs.map(job => (
-                        <div key={job.id} className="job-card">
+                        <div key={job.job_id} className="job-card">
                             <h3>{job.companyName}</h3>
                             <p><span className="job-key">Job Role:</span> {job.jobRole}</p>
                             <p><span className="job-key">Salary:</span> {job.salary}</p>
@@ -85,7 +55,7 @@ const StudentDashboard = () => {
                             <p><span className="job-key">Bond:</span> {job.bond}</p>
                             <p><span className="job-key">Job Location:</span> {job.jobLocation}</p>
                             <p><span className="job-key">Special Note:</span> {job.specialNote}</p>
-                            <button className='apply-job-btn' onClick={() => applyJob(job.id)}>Apply</button>
+                            <button className='apply-job-btn' onClick={() => applyJob(job.job_id)}>Apply</button>
                         </div>
                     ))}
                 </div>

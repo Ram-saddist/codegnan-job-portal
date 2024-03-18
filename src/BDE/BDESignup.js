@@ -7,14 +7,14 @@ export default function BDELogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(password=== cpassword){
         try {
-            await axios.post('/api/login', { name, password,email })
+            await axios.post('/api/v1/bdesignup', { username, password,email })
               .then((response)=>{
                 console.log("response from bdesignup",response.data)
               })
@@ -39,8 +39,8 @@ export default function BDELogin() {
           <input
             type="text" required
             placeholder="Name of BDE"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div>

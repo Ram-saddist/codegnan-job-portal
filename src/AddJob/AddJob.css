@@ -47,6 +47,12 @@
     justify-content: space-between;
 }
 
+.job-page-title{
+    color:black;
+    text-align:center;
+    margin-bottom:10px
+}
+
 .apply-job-container .input-group > div {
     width: 48%; /* Adjust as needed */
 }

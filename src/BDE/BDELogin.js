@@ -12,14 +12,16 @@ export default function BDELogin() {
     e.preventDefault();
     console.log("submit")
     try {
-      axios.post('/api/v1/bdeglogin', { username, password })
+      axios.post('/api/v1/bdelogin', { username, password })
         .then((response)=>{
-          console.log(response)
+          console.log("response from bdelogin",response.data)
+          localStorage.setItem("userType",response.data.userType)
+          navigate("/")
         })
      
       // handle successful login
     } catch (error) {
-      // handle error
+      console.log(error)
     }
   };
 

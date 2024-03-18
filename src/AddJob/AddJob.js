@@ -19,7 +19,7 @@ export default function AddJob() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/your-backend-route', {
+            await axios.post('/api/v1/postjobs', {
                 companyName,
                 jobRole,
                 graduates,
@@ -31,8 +31,11 @@ export default function AddJob() {
                 bond,
                 jobLocation,
                 specialNote
-            });
-            console.log('Response:', response.data);
+            })
+                .then((response)=>{
+                    console.log("response from addjob",response.data)
+                })
+            
             // Reset form fields after successful submission
             navigate("/bdedashboard")
         } catch (error) {
@@ -42,8 +45,9 @@ export default function AddJob() {
     return (
         <div className='apply-job-container'>
             <form onSubmit={handleSubmit}>
-                <h2 style={{color:"black"}}>Job Description</h2>
-                <div>
+                <h2 className='job-page-title'>Job Description</h2>
+                <div className="input-group">
+                <div  className="form-group">
                     <label>Company Name</label>
                     <input
                         type="text" required
@@ -52,7 +56,7 @@ export default function AddJob() {
                         onChange={(e) => setCompanyName(e.target.value)}
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Job Role</label>
                     <input
                         type="text" required
@@ -61,7 +65,9 @@ export default function AddJob() {
                         onChange={(e) => setJobRole(e.target.value)}
                     />
                 </div>
-                <div>
+                </div>
+               <div className='input-group'>
+               <div>
                     <label>Graduates</label>
                     <input
                         type="text" required
@@ -79,6 +85,8 @@ export default function AddJob() {
                         onChange={(e) => setSalary(e.target.value)}
                     />
                 </div>
+               </div>
+               <div className="input-group">
                 <div>
                     <label>Education Qualification</label>
                     <input
@@ -97,6 +105,8 @@ export default function AddJob() {
                         onChange={(e) => setDepartment(e.target.value)}
                     />
                 </div>
+                </div>
+                <div className="input-group">
                 <div>
                     <label>Academic Percentage</label>
                     <input
@@ -115,6 +125,8 @@ export default function AddJob() {
                         onChange={(e) => setTechnologies(e.target.value)}
                     />
                 </div>
+                </div>
+                <div className="input-group">
                 <div>
                     <label>Bond</label>
                     <input
@@ -133,6 +145,8 @@ export default function AddJob() {
                         onChange={(e) => setJobLocation(e.target.value)}
                     />
                 </div>
+                </div>
+               
                 <div>
                     <label>Special Note</label>
                     <input
@@ -142,6 +156,7 @@ export default function AddJob() {
                         onChange={(e) => setSpecialNote(e.target.value)}
                     />
                 </div>
+                
                 <button className="btn">Add Job</button>
             </form>
         </div>
