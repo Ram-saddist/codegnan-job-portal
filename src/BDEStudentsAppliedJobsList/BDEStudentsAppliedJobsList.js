@@ -28,19 +28,30 @@ const BDEStudentsAppliedJobsList = () => {
 
   return (
     <div className='students-jobs-list'>
-      <h2>Students Applied for Job</h2>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {appliedStudents.length > 0 && (
-        <ul>
-          {appliedStudents.map(student => (
-            <li key={student.id}>
-              <p>Name: {student.name}</p>
-              <p>Email: {student.email}</p>
-            
-            </li>
-          ))}
-        </ul>
+      <h2 style={{textAlign:"center"}}>Students Applied for Job</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          {error ? (
+            <p>{error}</p>
+          ) : (
+            <>
+              {appliedStudents.length > 0 ? (
+                <ol>
+                  {appliedStudents.map(student => (
+                    <li className='student-jobs-list-card' key={student.id}>
+                      <p>Name: {student.name}</p>
+                      <p>Email: {student.email}</p>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p>No students have applied for this job.</p>
+              )}
+            </>
+          )}
+        </>
       )}
     </div>
   );

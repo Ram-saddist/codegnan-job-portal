@@ -9,9 +9,12 @@
     font-style: normal;
     font-variation-settings: "wdth" 100;
 }
+.cover-page{
+    width:100%;
+}
 
 .bgimg {
-    background-image: url('https://img.freepik.com/premium-photo/videographer-works-computer-against-background-sunset_158582-1794.jpg?w=1060');
+    background-image: url('https://media.istockphoto.com/id/536245001/photo/job-search-still-life-with-title-jobs.jpg?s=612x612&w=0&k=20&c=wHYAgKQc-3WngZYF2BeAWfqrDuOjHp6ji4jfPPvM3iw=');
     width: 100%; /* Adjusted */
     min-height: 100vh; /* Changed to min-height for smaller screens */
     background-position: center;

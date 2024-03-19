@@ -1,4 +1,5 @@
 import './Home.css';
+import coverpage from '../images/codegnan_cover_page.jpg'
 //import CardSlider from './CardSlider';
 
 export default function Home() {
@@ -37,6 +38,7 @@ export default function Home() {
   ];*/
   return (
     <div style={{width:"100%"}}>
+      <img className='cover-page' src={coverpage} alt="cover page "/>
       <section className='bgimg'>
         <h1 className="heading">Find The Job That Fits <br />
           Your Life</h1>

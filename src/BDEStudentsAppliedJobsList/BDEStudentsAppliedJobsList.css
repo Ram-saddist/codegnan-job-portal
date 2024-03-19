@@ -1,3 +1,8 @@
-.students-jobs-list *{
-    color:black
+.students-jobs-list{
+    min-height: 70vh;
 }
+.students-jobs-list *{
+    color:black;
+    line-height: 2;
+}
+
