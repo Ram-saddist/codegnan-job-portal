@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import './StudentSignup.css';
+import { useNavigate,Link } from 'react-router-dom';
 
 const StudentSignup = () => {
+    const navigate=useNavigate()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -39,6 +41,7 @@ const StudentSignup = () => {
         axios.post("/api/v1/signup",{name:formData.name,email:formData.email,password:formData.password,city:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age})
             .then((response)=>{
                 console.log("student signup ",response.data)
+                navigate("/login")
             })
         console.log(formData);
         // Clear form fields after submission
@@ -201,7 +204,7 @@ const StudentSignup = () => {
                         />
                     </div> */}
                 </div>
-                <button className='btn'>Apply</button>
+                <button className='btn'>SignUp Now</button>
             </form>
 
         </div>

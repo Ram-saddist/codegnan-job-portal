@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './JobsList.css';
+import { useNavigate } from 'react-router-dom';
 
 const JobsList = () => {
     // State variables to store job details
@@ -8,6 +9,7 @@ const JobsList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const student_id=localStorage.getItem("student_id")
+    const navigate=useNavigate()
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
@@ -31,6 +33,7 @@ const JobsList = () => {
         axios.post("/api/v1/applyforjob",{job_id,student_id})
             .then((response)=>{
                 console.log("response from studentdashboard for apply job",response.data)
+                navigate("/studentsapplied")
             })
     }
 

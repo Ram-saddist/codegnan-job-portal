@@ -17,8 +17,9 @@ export default function BDELogin() {
             await axios.post('/api/v1/bdesignup', { username, password,email })
               .then((response)=>{
                 console.log("response from bdesignup",response.data)
+                navigate("/bdelogin")
               })
-            // handle successful login
+           
           } catch (error) {
             // handle error
           }
@@ -72,7 +73,7 @@ export default function BDELogin() {
           />
         </div>
         <div className='forgot'>
-          <button className="btn">Login</button>
+          <button className="btn">Signup</button>
           <Link className='forgot-password'>Forgot password?</Link>
         </div>
       </form>
