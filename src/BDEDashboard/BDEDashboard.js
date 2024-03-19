@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import useNavigate hook
 import axios from 'axios';
 import './BDEDashboard.css'
 
@@ -7,6 +8,7 @@ const BDEDashboard = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    // Initialize useNavigate hook
 
     
     // Function to fetch job details from the backend API
@@ -31,6 +33,7 @@ const BDEDashboard = () => {
         console.log(id)
         //axios.delete("/delete-job-postt")
     }
+    
 
     return (
         <div>
@@ -51,8 +54,11 @@ const BDEDashboard = () => {
                             <p><span className="job-key">Eligible Technologies:</span>  {job.technologies}</p>
                             <p><span className="job-key">Bond:</span>  {job.bond}</p>
                             <p><span className="job-key">Job Location:</span>  {job.jobLocation}</p>
-                            <p><span className="job-key">Special Note:</span>  {job.specialNote}</p>
-                            <button className='delete-job-post' onClick={() => deleteJobPost(job.job_id)}>Delete</button>
+                            <p style={{marginBottom:"5%"}}><span className="job-key">Special Note:</span>  {job.specialNote}</p>
+                            <div className='btns'>  
+                                <button className='delete-job-post' onClick={() => deleteJobPost(job.job_id)}>Delete</button>
+                                <Link to={`/bdestudentsappliedjoblist/${job.job_id}`} className='applied-students-list'>Applied Students</Link>
+                            </div>
                         </div>
                     ))}
                 </div>

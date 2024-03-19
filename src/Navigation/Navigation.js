@@ -50,8 +50,11 @@ const Navigation = (props) => {
                   {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
                     Profile
                   </Button> */}
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentdashboard")}>
+                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/jobslist")}>
                     Jobs List
+                  </Button>
+                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentsapplied")}>
+                    Applied Jobs
                   </Button>
                   <Button color="inherit" id="nav-link" onClick={() => {
                     // Remove userType from localStorage

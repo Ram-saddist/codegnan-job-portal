@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './StudentDashboard.css';
+import './JobsList.css';
 
-const StudentDashboard = () => {
+const JobsList = () => {
     // State variables to store job details
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,21 +41,21 @@ const StudentDashboard = () => {
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
             {jobs.length > 0 && (
-                <div className="job-container">
+                <div className="job-list-container">
                     {jobs.map(job => (
-                        <div key={job.job_id} className="job-card">
+                        <div key={job.job_id} className="job-list-card">
                             <h3>{job.companyName}</h3>
-                            <p><span className="job-key">Job Role:</span> {job.jobRole}</p>
-                            <p><span className="job-key">Salary:</span> {job.salary}</p>
-                            <p><span className="job-key">Graduate:</span> {job.graduates}</p>
-                            <p><span className="job-key">Education Qualification:</span> {job.educationQualification}</p>
-                            <p><span className="job-key">Department:</span> {job.department}</p>
-                            <p><span className="job-key">Percentage Criteria:</span> {job.percentage}</p>
-                            <p><span className="job-key">Eligible Technologies:</span> {job.technologies}</p>
-                            <p><span className="job-key">Bond:</span> {job.bond}</p>
-                            <p><span className="job-key">Job Location:</span> {job.jobLocation}</p>
-                            <p><span className="job-key">Special Note:</span> {job.specialNote}</p>
-                            <button className='apply-job-btn' onClick={() => applyJob(job.job_id)}>Apply</button>
+                            <p><span className="job-list-key">Job Role:</span> {job.jobRole}</p>
+                            <p><span className="job-list-key">Salary:</span> {job.salary}</p>
+                            <p><span className="job-list-key">Graduate:</span> {job.graduates}</p>
+                            <p><span className="job-list-key">Education Qualification:</span> {job.educationQualification}</p>
+                            <p><span className="job-list-key">Department:</span> {job.department}</p>
+                            <p><span className="job-list-key">Percentage Criteria:</span> {job.percentage}</p>
+                            <p><span className="job-list-key">Eligible Technologies:</span> {job.technologies}</p>
+                            <p><span className="job-list-key">Bond:</span> {job.bond}</p>
+                            <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
+                            <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
+                            <button className='apply-job-list-btn' onClick={() => applyJob(job.job_id)}>Apply</button>
                         </div>
                     ))}
                 </div>
@@ -64,4 +64,4 @@ const StudentDashboard = () => {
     );
 };
 
-export default StudentDashboard;
+export default JobsList;

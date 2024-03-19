@@ -14,7 +14,9 @@ import BDELogin from './BDE/BDELogin'
 import BDESignup from './BDE/BDESignup'
 import AddJob from './AddJob/AddJob';
 import BDEDashboard from './BDEDashboard/BDEDashboard';
-import StudentDashboard from './StudentDashboard/StudentDashboard';
+import JobsList from './JobsList/JobsList';
+import StudentsApplied from './StudentsApplied/StudentsApplied';
+import BDEStudentsAppliedJobsList from './BDEStudentsAppliedJobsList/BDEStudentsAppliedJobsList'
 // import ApplyJob from './ApplyJob/ApplyJob'
 
 export default function App() {
@@ -37,7 +39,9 @@ export default function App() {
           <Route path="/bdesignup" element={<BDESignup />} />
           <Route path="/addjob" element={<AddJob />} />
           <Route path="/bdedashboard" element={<BDEDashboard/>}/>
-          <Route path="/studentdashboard" element={<StudentDashboard/>}/>
+          <Route path="/jobslist" element={<JobsList/>}/>
+          <Route path="/studentsapplied" element={<StudentsApplied/>}/>
+          <Route path="/bdestudentsappliedjoblist/:jobId" element={<BDEStudentsAppliedJobsList/>}/>
           {/* <Route path="/applyjob" element={<ApplyJob/>}/> */}
           <Route path="*" element={<NotFound />} />
         </Routes>

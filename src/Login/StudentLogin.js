@@ -27,7 +27,7 @@ export default function StudentLogin() {
         //localStorage.setItem('isLoggedIn', true);
         localStorage.setItem("userType",response.data.userType)
         localStorage.setItem("student_id",response.data.student_id)
-        const s= localStorage.getItem("userType")
+        const s= localStorage.getItem("student_id")
         console.log("sssssssssssss",s);
         navigate('/');
       } else {
