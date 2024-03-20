@@ -57,6 +57,10 @@
     width: 48%; /* Adjust as needed */
 }
 
+.error-message{
+    color: red
+}
+
 @media (max-width: 768px) {
     .apply-job-container form {
         width: 80%;

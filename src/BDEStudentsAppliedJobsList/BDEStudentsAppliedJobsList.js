@@ -50,6 +50,7 @@ const BDEStudentsAppliedJobsList = () => {
                       <li className='student-jobs-list-card' key={student.id}>
                         <p>Name: {student.name}</p>
                         <p>Email: {student.email}</p>
+                        <p></p>
                       </li>
                     ))}
                   </ol>
