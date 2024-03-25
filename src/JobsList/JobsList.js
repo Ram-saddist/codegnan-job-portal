@@ -13,7 +13,7 @@ const JobsList = () => {
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
-            const response = await axios.get('/api/v1/listopenings');
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/listopenings`);
             console.log(response.data)
             setJobs(response.data.jobs);
             setLoading(false);
