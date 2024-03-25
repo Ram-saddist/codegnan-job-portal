@@ -9,12 +9,13 @@
     font-style: normal;
     font-variation-settings: "wdth" 100;
 }
+
 .cover-page{
     width:100%;
 }
 
 .bgimg {
-    background-image: url('https://media.istockphoto.com/id/536245001/photo/job-search-still-life-with-title-jobs.jpg?s=612x612&w=0&k=20&c=wHYAgKQc-3WngZYF2BeAWfqrDuOjHp6ji4jfPPvM3iw=');
+    background-image: url('../images/statistics.jpeg');
     width: 100%; /* Adjusted */
     min-height: 100vh; /* Changed to min-height for smaller screens */
     background-position: center;
@@ -38,8 +39,16 @@
     .heading {
         font-size: 8vw; /* Adjusted for smaller screens */
     }
-
+    .bgimg{
+        min-height:80vh ;
+    }
     .para {
         font-size: 5vw; /* Adjusted for smaller screens */
+    }
+}
+
+@media (max-width:430px){
+    .bgimg{
+        min-height:50vh ;
     }
 }

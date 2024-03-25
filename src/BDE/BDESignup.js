@@ -55,8 +55,9 @@ export default function BDELogin() {
       try {
         await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bdesignup`, { username, password, email })
           .then((response) => {
+            console.log(response)
             console.log("response from bdesignup", response.data);
-            if (response.status === 200) {
+            if (response.status === 201) {
               alert("BDESignup is successfully")
               // Redirect to dashboard or another page
               navigate("/bdelogin");
