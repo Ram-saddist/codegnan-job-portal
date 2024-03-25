@@ -13,7 +13,7 @@ const BDEStudentsAppliedJobsList = () => {
   useEffect(() => {
     const fetchAppliedStudents = async () => {
       try {
-        const response = await axios.get(`/api/v1/getappliedstudentslist?job_id=${jobId}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
         setAppliedStudents(response.data.students_applied);
         setLoading(false);
       } catch (error) {

@@ -17,29 +17,9 @@ export default function StudentLogin() {
     setUsernameError('');
     setPasswordError('');
 
-    // Validation
-    let isValid = true;
-
-    // Email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!username || !emailPattern.test(username)) {
-      setUsernameError('Please enter a valid email address.');
-      isValid = false;
-    }
-
-    // Password validation
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
-    if (!password || !passwordPattern.test(password)) {
-      setPasswordError('Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least six characters long.');
-      isValid = false;
-    }
-
-    if (!isValid) {
-      return;
-    }
 
     try {
-      const response = await axios.post('/api/v1/studentlogin', { username, password });
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/studentlogin`, { username, password });
       console.log("response from studentlogin", response.data);
       if (response.status === 200) {
         localStorage.setItem("userType", response.data.userType);

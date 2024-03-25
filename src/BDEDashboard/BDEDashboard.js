@@ -2,19 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Import useNavigate hook
 import axios from 'axios';
 import './BDEDashboard.css'
-
 const BDEDashboard = () => {
     // State variables to store job details
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     // Initialize useNavigate hook
-
+    console.log(process.env.REACT_APP_BACKEND_URL)
     
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
-            const response = await axios.get('/api/v1/listopenings');
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/listopenings`);
             console.log(response.data)
             setJobs(response.data.jobs);
             setLoading(false);

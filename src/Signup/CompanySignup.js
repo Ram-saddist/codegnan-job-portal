@@ -71,7 +71,7 @@ const CompanySignup = () => {
     if (formIsValid) {
       // Submit the form
       console.log(companyData);
-      axios.post("/api/v1/companysignup", companyData)
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/companysignup`, companyData)
         .then(response => {
           console.log('response from company signup', response.data);
           if (response.status === 201) {

@@ -53,7 +53,7 @@ export default function BDELogin() {
     // If all validations pass, submit the data
     if(isValid){
       try {
-        await axios.post('/api/v1/bdesignup', { username, password, email })
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bdesignup`, { username, password, email })
           .then((response) => {
             console.log("response from bdesignup", response.data);
             if (response.status === 200) {

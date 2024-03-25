@@ -10,7 +10,7 @@ const StudentsApplied = () => {
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       try {
-        const response = await axios.get(`/api/v1/getappliedjobslist?student_id=${student_id}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedjobslist?student_id=${student_id}`);
         setAppliedJobs(response.data.jobs_applied);
         setLoading(false);
       } catch (error) {

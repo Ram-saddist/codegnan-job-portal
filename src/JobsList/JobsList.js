@@ -30,7 +30,7 @@ const JobsList = () => {
      
     function applyJob(job_id) {
         console.log(job_id)
-        axios.post("/api/v1/applyforjob",{job_id,student_id})
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`,{job_id,student_id})
             .then((response)=>{
                 console.log("response from studentdashboard for apply job",response.data)
                 navigate("/studentsapplied")

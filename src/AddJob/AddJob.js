@@ -112,7 +112,7 @@ export default function AddJob() {
     
         if (isValid) {
             try {
-                await axios.post('/api/v1/postjobs', {
+                await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/postjobs`, {
                     companyName,
                     jobRole,
                     graduates,

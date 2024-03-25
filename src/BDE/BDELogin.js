@@ -31,32 +31,9 @@ export default function BDELogin() {
     setPasswordError('');
     setError('');
 
-    // Validation
-    let isValid = true;
-
-    if (!username) {
-      setUsernameError('Please enter your email.');
-      isValid = false;
-    } else if (!isValidEmail(username)) {
-      setUsernameError('Please enter a valid email address.');
-      isValid = false;
-    }
-
-    if (!password) {
-      setPasswordError('Please enter your password.');
-      isValid = false;
-    } else if (!isValidPassword(password)) {
-      setPasswordError('Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least six characters long.');
-      isValid = false;
-    }
-
-    if (!isValid) {
-      return;
-    }
-
     try {
       console.log("try block")
-      const response = await axios.post('/api/v1/bdelogin', { username, password });
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bdelogin`, { username, password });
       console.log("response from bdelogin", response.data);
       alert("Login Successful")
       localStorage.setItem("userType", response.data.userType);

@@ -35,28 +35,25 @@ const StudentSignup = () => {
     //     });
     // };
 
+
+
+
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission
-        axios.post("/api/v1/signup",{name:formData.name,email:formData.email,password:formData.password,city:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age})
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`,{name:formData.name,email:formData.email,password:formData.password,city:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age})
             .then((response)=>{
+                console.log("",response.data)
                 console.log("student signup ",response.data)
                 navigate("/login")
             })
+            .catch((error)=>{
+                console.log("error from tsudent signup",error)
+                alert(error.response.data.error)
+            })
         console.log(formData);
-        // Clear form fields after submission
-        setFormData({
-            name: '',
-            email: '',
-            mobileNumber: '',
-            qualification: '',
-            department: '',
-            password:'',
-            cpassword:'',
-            yearOfPassing: '',
-            collegeName: '',
-           
-        });
+    
     };
 
     return (
