@@ -17,7 +17,7 @@ const StudentSignup = () => {
         cityname:"",
         yearOfPassing: '',
         collegeName: '',
-        // resume: null,
+        resume: null,
     });
 
     const handleChange = (e) => {
@@ -28,21 +28,22 @@ const StudentSignup = () => {
         });
     };
 
-    // const handleFileChange = (e) => {
-    //     setFormData({
-    //         ...formData,
-    //         resume: e.target.files[0],
-    //     });
-    // };
-
-
-
-
+    const handleFileChange = (e) => {
+        setFormData({
+            ...formData,
+            resume: e.target.files[0],
+        });
+    };
     
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission
-        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`,{name:formData.name,email:formData.email,password:formData.password,city:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age})
+        console.log(formData)
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`,{name:formData.name,email:formData.email,password:formData.password,cityname:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age,resume:formData.resume},{
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        })
             .then((response)=>{
                 console.log("",response.data)
                 console.log("student signup ",response.data)
@@ -52,13 +53,13 @@ const StudentSignup = () => {
                 console.log("error from tsudent signup",error)
                 alert(error.response.data.error)
             })
-        console.log(formData);
+        //console.log(formData);
     
     };
 
     return (
         <div className='student-signup-container'>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="input-group">
                     <div className="form-group">
                         <label>Name</label>
@@ -191,7 +192,7 @@ const StudentSignup = () => {
                             required
                         />
                     </div>
-                    {/* <div className="form-group">
+                    <div className="form-group">
                         <label>Resume</label>
                         <input
                             type="file"
@@ -199,7 +200,7 @@ const StudentSignup = () => {
                             onChange={handleFileChange}
                             required
                         />
-                    </div> */}
+                    </div>
                 </div>
                 <button className='btn'>SignUp Now</button>
             </form>
