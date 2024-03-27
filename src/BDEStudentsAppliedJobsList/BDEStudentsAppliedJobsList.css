@@ -6,3 +6,27 @@
     line-height: 2;
 }
 
+.btn-excel, .btn-download-single-resume{
+    margin-left: 70px;
+    background-color: #c36;
+    color: white;
+    border:1px solid black;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.btn-download-single-resume{
+    background-color: #363f8f;
+    margin-left: 0px;
+}
+
+.student-jobs-list-card{
+    margin-bottom: 20px;
+}
+
+@media (max-width:500px){
+    .btn-excel{
+        display: block;
+        margin:auto;
+        margin-bottom:10px ;
+    }
+}

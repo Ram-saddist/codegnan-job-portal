@@ -25,6 +25,28 @@ const BDEStudentsAppliedJobsList = () => {
     fetchAppliedStudents();
   }, [jobId]);
 
+  const downloadResume = async (studentId) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume?student_id=${studentId}`, {
+        responseType: 'blob' // Ensure response is treated as binary data
+      });
+      
+      // Create a temporary URL for the downloaded resume blob
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      // Create a link element to trigger the download
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `resume_${studentId}.pdf`);
+      // Append the link to the body and trigger the download
+      document.body.appendChild(link);
+      link.click();
+      // Clean up
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Failed to download resume:', error);
+    }
+  };
+
   const downloadExcel = () => {
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(appliedStudents);
@@ -34,7 +56,10 @@ const BDEStudentsAppliedJobsList = () => {
 
   return (
     <div className='students-jobs-list'>
-      <h2 style={{ textAlign: 'center' }}>Students Applied for Job</h2>
+      <h2 style={{ textAlign: 'center' }}>
+        Students Applied for Job
+        <button className='btn-excel' onClick={downloadExcel}>Download Excel</button>
+      </h2>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -47,14 +72,14 @@ const BDEStudentsAppliedJobsList = () => {
                 <>
                   <ol>
                     {appliedStudents.map(student => (
-                      <li className='student-jobs-list-card' key={student.id}>
+                      <li className='student-jobs-list-card' key={student.student_id}>
                         <p>Name: {student.name}</p>
                         <p>Email: {student.email}</p>
-                        <p></p>
+                        <p><button className='btn-download-single-resume' onClick={() => downloadResume(student.student_id)}>Download Resume</button></p>
                       </li>
                     ))}
                   </ol>
-                  <button onClick={downloadExcel}>Download Excel</button>
+                  
                 </>
               ) : (
                 <p>No students have applied for this job.</p>

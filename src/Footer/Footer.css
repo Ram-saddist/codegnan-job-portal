@@ -1,5 +1,5 @@
 .footer {
-    margin-top: -2%;    
+       
     background-color: black;
     padding: 20px;
   }
@@ -24,9 +24,3 @@
     text-align: center;
   }
   
-
-  @media (max-width:430px){
-    .footer{
-      margin-top: -3%;   
-    }
-}
