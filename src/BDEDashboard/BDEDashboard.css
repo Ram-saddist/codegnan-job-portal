@@ -18,14 +18,14 @@
 
 .job-card h3 {
     margin-bottom: 10px;
-    color: #e41f3a; /* Red color for names */
+    color: rgb(204, 51, 102); /* Red color for names */
     font-family: "Angkor", serif;
     font-weight: 400;
     font-style: normal;
 }
 
 .job-card .job-key {
-    color: #363f8f; /* Blue color for values */
+    color:  rgba(54, 63, 143,0.8); /* Blue color for values */
     font-family: "Angkor", serif;
     font-weight: 400;
     font-style: normal;

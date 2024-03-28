@@ -17,21 +17,23 @@
 
 .job-list-card h3 {
     margin-bottom: 10px;
-    color: #c36; /* Red color for names */
-    font-family: "Angkor", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.job-list-card .job-list-key {
-    color: #363f8f; /* Blue color for values */
-    font-family: "Angkor", serif;
+    color: rgb(204, 51, 102);/* Red color for names */
+    font-family:"Angkor", serif;
+    font-size: 1.2rem;
     font-weight: 400;
     font-style: normal;
 }
 
 .job-list-card p {
+    color: rgba(54, 63, 143,0.8); /* Blue color for values */
+    font-family: "Angkor", serif;
+    font-weight: 200;
+    font-style: normal;
     margin: 5px 0;
+}
+
+.job-list-card .job-list-key {
+    font-family: serif;
     color: black;
 }
 
@@ -44,3 +46,9 @@
     padding: 10px 20px;
     border-radius: 5px;
 }
+
+
+.apply-job-list-btn.disabled {
+    background-color: #ccc; /* Gray background color for disabled button */
+    cursor: not-allowed; /* Change cursor to indicate button is not clickable */
+  }

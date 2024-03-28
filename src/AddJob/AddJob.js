@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './AddJob.css'
+import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddJob() {
@@ -128,7 +130,7 @@ export default function AddJob() {
                     deadLine
                 }).then((response) => {
                     console.log(response);
-                    if (response.status === 200) {
+                    if (response.status===201) {
                         alert("Job is added successfully")
                         // Redirect to dashboard or another page
                         navigate('/bdedashboard');
@@ -136,7 +138,7 @@ export default function AddJob() {
                 })
 
                 // Redirect to dashboard or another page
-                navigate('/bdedashboard');
+                // navigate('/bdedashboard');
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -271,11 +273,17 @@ export default function AddJob() {
                         <label>Dead Line</label>
                         <input
                             type="text" required
-                            placeholder="yyyy-mm-dd"
+                            placeholder="yyyy-mm-dd hh:mm"
                             value={deadLine}
                             onChange={(e) => setDeadLine(e.target.value)}
                         />
-                        {specialNoteError && <p className="error-message">{specialNoteError}</p>}
+                         {/* <Datetime
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            dateFormat="YYYY-MM-DD"
+                            timeFormat="HH:mm"
+                        /> */}
+                        {/* {specialNoteError && <p className="error-message">{specialNoteError}</p>} */}
                     </div>
                 </div>
 

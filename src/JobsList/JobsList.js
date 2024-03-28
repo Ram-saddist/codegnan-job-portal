@@ -8,13 +8,14 @@ const JobsList = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const student_id=localStorage.getItem("student_id")
-    const navigate=useNavigate()
+    const student_id = localStorage.getItem("student_id");
+    const navigate = useNavigate();
+
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/listopenings`);
-            console.log(response.data)
+            console.log(response.data.jobs)
             setJobs(response.data.jobs);
             setLoading(false);
         } catch (error) {
@@ -22,25 +23,33 @@ const JobsList = () => {
             setLoading(false);
         }
     };
-    
+
     // Fetch job details when the component mounts
     useEffect(() => {
         fetchJobs();
     }, []);
-     
+
     function applyJob(job_id) {
-        console.log(job_id)
-        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`,{job_id,student_id})
-            .then((response)=>{
-                console.log("response from studentdashboard for apply job",response.data)
-                navigate("/studentsapplied")
-            })
+        const job = jobs.find(job => job.job_id === job_id);
+        if (job.isActive) {
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`, { job_id, student_id })
+                .then((response) => {
+                    if (response.status === 200)
+                        navigate("/studentsapplied");
+                })
+                .catch((error) => {
+                    if (error.response.status === 400)
+                        alert("Already applied for the job");
+                });
+        } 
+        else{
+            alert("This job is not active. You cannot apply.");
+        }
     }
 
     return (
         <div>
-            <h2 style={{color:"black",textAlign:"center"}}>Student Dashboard</h2>
-            {console.log("jobs from retirn",jobs)}
+            <h2 style={{ color: "black", textAlign: "center" }}>Student Dashboard</h2>
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
             {jobs.length > 0 && (
@@ -58,7 +67,7 @@ const JobsList = () => {
                             <p><span className="job-list-key">Bond:</span> {job.bond}</p>
                             <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
                             <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
-                            <button className='apply-job-list-btn' onClick={() => applyJob(job.job_id)}>Apply</button>
+                            <button className={`apply-job-list-btn ${!job.isActive ? 'disabled' : ''}`} onClick={() => applyJob(job.job_id)} disabled={!job.isActive}>Apply</button>
                         </div>
                     ))}
                 </div>
