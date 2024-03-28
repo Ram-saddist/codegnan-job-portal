@@ -1,6 +1,6 @@
 import './Home.css';
-import coverpage from '../images/codegnan_cover_page.jpg'
-import statistics from '../images/statistics.jpeg'
+import coverpage from '../images/2.png'
+import joinus from '../images/1.png'
 //import CardSlider from './CardSlider';
 
 export default function Home() {
@@ -40,14 +40,11 @@ export default function Home() {
   return (
     <div style={{width:"100%"}}>
       <img className='cover-page' src={coverpage} alt="cover page "/>
-      <section className='bgimg'>
-       
-      </section>
-      {/* <div>
-          <h1>Card Slider</h1>
-          <CardSlider cards={cards} />
-        </div> */}
-
+      <div className='ceo-word'>
+        <p className='title'>Word of Our CEO</p>
+        <p className='word'>As a seasoned industry leader, our company boasts extensive expertise and a proven track record in providing top-notch services and comprehensive training solutions</p>
+      </div>
+      <img className='cover-page' src={joinus} alt="cover page "/>
 
     </div>
   );

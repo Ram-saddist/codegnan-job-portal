@@ -11,18 +11,6 @@ export default function BDELogin() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Function to validate email format
-  const isValidEmail = (value) => {
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return pattern.test(value);
-  };
-
-  // Function to validate password format
-  const isValidPassword = (value) => {
-    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
-    return pattern.test(value);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

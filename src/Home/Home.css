@@ -7,31 +7,22 @@
     font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
-    font-variation-settings: "wdth" 100;
 }
 
 .cover-page{
     width:100%;
 }
-
-.bgimg {
-    background-image: url('../images/statistics.jpeg');
-    width: 100%; /* Adjusted */
-    min-height: 100vh; /* Changed to min-height for smaller screens */
-    background-position: center;
-    background-size: cover;
+.ceo-word{
+    padding: 4%;
 }
-
-.heading {
-    padding-top: 10%;
-    padding-left: 4%;
-    font-size: 5vw; /* Adjusted to be responsive */
-    font-weight: bold;
+.ceo-word .title{
+    font-size: 1.6rem;
+    color: black !important;
 }
-
-.para {
-    padding-left: 4%;
-    font-size: 20px; /* Adjusted to be responsive */
+.ceo-word .word{
+    margin-top: 2%;
+    text-indent: 80px;
+    color: black !important;
 }
 
 /* Media Query for smaller screens */
