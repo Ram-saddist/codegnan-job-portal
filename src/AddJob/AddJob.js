@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './AddJob.css'
-import Datetime from 'react-datetime';
-import 'react-datetime/css/react-datetime.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddJob() {
@@ -277,12 +275,7 @@ export default function AddJob() {
                             value={deadLine}
                             onChange={(e) => setDeadLine(e.target.value)}
                         />
-                         {/* <Datetime
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            dateFormat="YYYY-MM-DD"
-                            timeFormat="HH:mm"
-                        /> */}
+                         
                         {/* {specialNoteError && <p className="error-message">{specialNoteError}</p>} */}
                     </div>
                 </div>
