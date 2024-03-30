@@ -143,7 +143,7 @@ export default function BDELogin() {
       </form>
       <div className='bottom-div'>
         <span style={{ color: "black" }}>Don't have an account? </span>
-        <Link style={{ fontWeight: "bold" }} to="/login">Signup Here</Link>
+        <Link style={{ fontWeight: "bold" }} to="/bdesignup">Signup Here</Link>
       </div>
 
     </div>

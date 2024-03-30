@@ -39,6 +39,39 @@ const StudentSignup = () => {
         e.preventDefault();
         // Handle form submission
         console.log(formData)
+
+        if (!formData.name) {
+            alert('Name is required');
+            return false;
+        }
+
+        if (!formData.email) {
+            alert('Email is required');
+            return false;
+        }
+
+        if (!formData.password) {
+            alert('Password is required');
+            return false;
+        }
+
+        if (!formData.cpassword) {
+            alert('Confirm Password is required');
+            return false;
+        }
+
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if (!passwordRegex.test(formData.password)) {
+            alert('Password must contain at least one uppercase letter, one lowercase letter, and one digit, and be at least 6 characters long');
+            return false;
+        }
+
+        if (formData.password !== formData.cpassword) {
+            alert('Password and Confirm Password do not match');
+            return false;
+        }
+
+
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`,{name:formData.name,email:formData.email,password:formData.password,cityname:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age,resume:formData.resume},{
             headers:{
                 "Content-Type":"multipart/form-data"
@@ -51,7 +84,7 @@ const StudentSignup = () => {
             })
             .catch((error)=>{
                 console.log("error from tsudent signup",error)
-                alert(error.response.data.error)
+                alert("Unable to make signup due to server issue")
             })
         //console.log(formData);
     
@@ -77,7 +110,7 @@ const StudentSignup = () => {
                         <input
                             type="email"
                             name="email"
-                            placeholder='Working EmailID'
+                            placeholder='EmailID'
                             value={formData.email}
                             onChange={handleChange}
                             required

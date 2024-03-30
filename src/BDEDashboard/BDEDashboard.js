@@ -55,7 +55,6 @@ const BDEDashboard = () => {
                             <p><span className="job-key">Job Location:</span>  {job.jobLocation}</p>
                             <p style={{marginBottom:"5%"}}><span className="job-key">Special Note:</span>  {job.specialNote}</p>
                             <div className='btns'>  
-                                <button className='delete-job-post' onClick={() => deleteJobPost(job.job_id)}>Delete</button>
                                 <Link to={`/bdestudentsappliedjoblist/${job.job_id}`} className='applied-students-list'>Applied Students</Link>
                             </div>
                         </div>
