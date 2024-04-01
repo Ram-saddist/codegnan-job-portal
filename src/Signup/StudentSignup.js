@@ -17,6 +17,9 @@ const StudentSignup = () => {
         cityname:"",
         yearOfPassing: '',
         collegeName: '',
+        tenthStandard:'',
+        twelfthStandard:'',
+        profilePic:'',
         resume: null,
     });
 
@@ -29,9 +32,12 @@ const StudentSignup = () => {
     };
 
     const handleFileChange = (e) => {
+        const fieldName = e.target.name;
+        const file = e.target.files[0];
+    
         setFormData({
             ...formData,
-            resume: e.target.files[0],
+            [fieldName]: file,
         });
     };
     
@@ -39,27 +45,6 @@ const StudentSignup = () => {
         e.preventDefault();
         // Handle form submission
         console.log(formData)
-
-        if (!formData.name) {
-            alert('Name is required');
-            return false;
-        }
-
-        if (!formData.email) {
-            alert('Email is required');
-            return false;
-        }
-
-        if (!formData.password) {
-            alert('Password is required');
-            return false;
-        }
-
-        if (!formData.cpassword) {
-            alert('Confirm Password is required');
-            return false;
-        }
-
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
         if (!passwordRegex.test(formData.password)) {
             alert('Password must contain at least one uppercase letter, one lowercase letter, and one digit, and be at least 6 characters long');
@@ -70,9 +55,9 @@ const StudentSignup = () => {
             alert('Password and Confirm Password do not match');
             return false;
         }
-
-
-        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`,{name:formData.name,email:formData.email,password:formData.password,cityname:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age,resume:formData.resume},{
+        console.log("signup form \n",formData,"\n\n")
+        alert()
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`,{name:formData.name,email:formData.email,password:formData.password,cityname:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age,resume:formData.resume,profilePic:formData.profilePic,tenthStandard:formData.tenthStandard,twelfthStandard:formData.twelfthStandard},{
             headers:{
                 "Content-Type":"multipart/form-data"
             }
@@ -215,13 +200,36 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>College Name</label>
+                        <label>10th class marks</label>
                         <input
                             type="text"
-                            name="collegeName"
-                            placeholder='College Name'
-                            value={formData.collegeName}
+                            name="tenthStandard"
+                            placeholder='tenthpass'
+                            value={formData.tenthStandard}
                             onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>12th Standard Marks</label>
+                        <input
+                            type="text"
+                            name="twelfthStandard"
+                            placeholder='Confirm Password'
+                            value={formData.twelfthStandard}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>Profile Picture</label>
+                        <input
+                            type="file"
+                            name="profilePic"
+                            onChange={handleFileChange}
                             required
                         />
                     </div>
@@ -235,6 +243,19 @@ const StudentSignup = () => {
                         />
                     </div>
                 </div>
+                
+                <div className="form-group">
+                        <label>College Name</label>
+                        <input
+                            type="text"
+                            name="collegeName"
+                            placeholder='College Name'
+                            value={formData.collegeName}
+                            onChange={handleChange}
+                            required
+                        />
+                </div>
+    
                 <button className='btn'>SignUp Now</button>
             </form>
 

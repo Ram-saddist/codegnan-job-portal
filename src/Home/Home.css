@@ -9,12 +9,12 @@
     font-style: normal;
 }
 .codegnan-cover-page{
-    background-image: url("../images/2.png");
+    background-image: url("../images/2.webp");
     background-size: cover;
     min-height: 90vh;
 }
 .achievements{
-    background-image: url("../images/1.png");
+    background-image: url("../images/1.webp");
     background-size: cover;
     min-height: 100vh;
 }

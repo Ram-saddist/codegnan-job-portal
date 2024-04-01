@@ -1,5 +1,4 @@
 import './Home.css';
-import joinus from '../images/1.png'
 
 export default function Home() {
   return (
