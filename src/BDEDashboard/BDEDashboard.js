@@ -7,9 +7,6 @@ const BDEDashboard = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    // Initialize useNavigate hook
-    console.log(process.env.REACT_APP_BACKEND_URL)
-    
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
@@ -22,18 +19,10 @@ const BDEDashboard = () => {
             setLoading(false);
         }
     };
-
     // Fetch job details when the component mounts
     useEffect(() => {
         fetchJobs();
     }, []);
-    
-    function deleteJobPost(id) {
-        console.log(id)
-        //axios.delete("/delete-job-postt")
-    }
-    
-
     return (
         <div>
             <h2 style={{color:"black",textAlign:"center"}}>BDE Dashboard</h2>
@@ -64,5 +53,4 @@ const BDEDashboard = () => {
         </div>
     );
 };
-
 export default BDEDashboard;

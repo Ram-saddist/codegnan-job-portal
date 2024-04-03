@@ -57,14 +57,14 @@ export default function BDELogin() {
           />
           {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         </div>
-        {/* <div className='forgot'>
+        <div className='forgot'>
           <button className="btn">Login</button>
-          <Link className='forgot-password'>Forgot password?</Link>
-        </div> */}
+          {/* <Link className='forgot-password'>Forgot password?</Link> */}
+        </div>
       </form>
       <div className='bottom-div'>
           <span style={{ color: "black" }}>Don't have an account?</span>
-          <Link style={{ fontWeight: "bold" }} to="/bdelogin">Signup Here</Link>        
+          <Link style={{ fontWeight: "bold" }} to="/bdesignup">Signup Here</Link>        
       </div>
     </div>
   );

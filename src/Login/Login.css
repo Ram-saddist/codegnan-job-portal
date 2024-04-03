@@ -96,4 +96,10 @@
     .login-container form {
         width: 80%;
     }
+    .login-link-button{
+        width: 100%;
+    }
+    .login .link{
+        font-size: 0.9rem;
+    }
 }

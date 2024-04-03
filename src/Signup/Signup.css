@@ -84,4 +84,7 @@
     .signup .link{
         font-size: 0.9rem;
     }
+    .student-signup-container input{
+        width:100%
+    }
 }

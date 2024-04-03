@@ -4,24 +4,27 @@ import './StudentSignup.css';
 import { useNavigate } from 'react-router-dom';
 
 const StudentSignup = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         mobileNumber: '',
         qualification: '',
         department: '',
-        password:'',
-        cpassword:'',
-        state:"",
-        cityname:"",
+        password: '',
+        cpassword: '',
+        state: "",
+        cityname: "",
         yearOfPassing: '',
         collegeName: '',
-        tenthStandard:'',
-        twelfthStandard:'',
-        profilePic:'',
+        tenthStandard: '',
+        twelfthStandard: '',
+        profilePic: '',
         resume: null,
+        highestGraduationPercentage: 0,
+        skills: [],
     });
+    const [newSkill, setNewSkill] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,18 +37,31 @@ const StudentSignup = () => {
     const handleFileChange = (e) => {
         const fieldName = e.target.name;
         const file = e.target.files[0];
-    
+
         setFormData({
             ...formData,
             [fieldName]: file,
         });
     };
-    
+
+    const addSkill = () => {
+        setFormData({ ...formData, skills: [...formData.skills, newSkill] });
+            setNewSkill('');
+        console.log(formData.skills)
+    };
+
+    const removeSkill = (index) => {
+        const updatedSkills = [...formData.skills];
+        updatedSkills.splice(index, 1);
+        setFormData({ ...formData, skills: updatedSkills });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission
         console.log(formData)
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        const graduationRegex = /^\d*\.?\d*$/
         if (!passwordRegex.test(formData.password)) {
             alert('Password must contain at least one uppercase letter, one lowercase letter, and one digit, and be at least 6 characters long');
             return false;
@@ -55,24 +71,46 @@ const StudentSignup = () => {
             alert('Password and Confirm Password do not match');
             return false;
         }
-        console.log("signup form \n",formData,"\n\n")
+        if (!graduationRegex.test(formData.highestGraduationPercentage)) {
+            alert("Highest graduation must be a number");
+            return false
+        }
+        console.log("signup form \n", formData, "\n\n")
         alert()
-        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`,{name:formData.name,email:formData.email,password:formData.password,cityname:formData.city,department:formData.department,yearOfPassing:formData.yearOfPassing,state:formData.state,collegeName:formData.collegeName,qualification:formData.qualification,mobileNumber:formData.mobileNumber,age:formData.age,resume:formData.resume,profilePic:formData.profilePic,tenthStandard:formData.tenthStandard,twelfthStandard:formData.twelfthStandard},{
-            headers:{
-                "Content-Type":"multipart/form-data"
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`, {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            cityname: formData.city,
+            department: formData.department,
+            yearOfPassing: formData.yearOfPassing,
+            state: formData.state,
+            collegeName: formData.collegeName,
+            qualification: formData.qualification,
+            mobileNumber: formData.mobileNumber,
+            age: formData.age,
+            resume: formData.resume,
+            profilePic: formData.profilePic,
+            tenthStandard: formData.tenthStandard,
+            twelfthStandard: formData.twelfthStandard,
+            highestGraduationPercentage: formData.highestGraduationPercentage,
+            skills: formData.skills // Include skills field
+        }, {
+            headers: {
+                "Content-Type": "multipart/form-data"
             }
         })
-            .then((response)=>{
-                console.log("",response.data)
-                console.log("student signup ",response.data)
+            .then((response) => {
+                console.log("", response.data)
+                console.log("student signup ", response.data)
                 navigate("/login")
             })
-            .catch((error)=>{
-                console.log("error from tsudent signup",error)
+            .catch((error) => {
+                console.log("error from tsudent signup", error)
                 alert("Unable to make signup due to server issue")
             })
         //console.log(formData);
-    
+
     };
 
     return (
@@ -204,7 +242,7 @@ const StudentSignup = () => {
                         <input
                             type="text"
                             name="tenthStandard"
-                            placeholder='tenthpass'
+                            placeholder='10th Grade Percentage'
                             value={formData.tenthStandard}
                             onChange={handleChange}
                             required
@@ -215,14 +253,14 @@ const StudentSignup = () => {
                         <input
                             type="text"
                             name="twelfthStandard"
-                            placeholder='Confirm Password'
+                            placeholder='12th Grade Percentage'
                             value={formData.twelfthStandard}
                             onChange={handleChange}
                             required
                         />
                     </div>
                 </div>
-                
+
                 <div className="input-group">
                     <div className="form-group">
                         <label>Profile Picture</label>
@@ -243,20 +281,56 @@ const StudentSignup = () => {
                         />
                     </div>
                 </div>
-                
-                <div className="form-group">
+
+                <div className="input-group">
+                    <div className="form-group">
                         <label>College Name</label>
                         <input
                             type="text"
                             name="collegeName"
-                            placeholder='College Name'
+                            placeholder='Graduated College Name'
                             value={formData.collegeName}
                             onChange={handleChange}
                             required
                         />
+                    </div>
+                    <div className="form-group">
+                        <label>Graduation in CGPA</label>
+                        <input
+                            type="text"
+                            name="highestGraduationPercentage"
+                            placeholder='Highest Graduation CGPA'
+                            value={formData.highestGraduationPercentage}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                 </div>
-    
-                <button className='btn'>SignUp Now</button>
+                {/* sill set*/}
+                <div>
+                    <label htmlFor="skills">Skills:</label>
+                    <input
+                        type="text"
+                        id="skills"
+                        name="skills"
+                        value={newSkill}
+                        onChange={(e)=>setNewSkill(e.target.value)}
+                    />
+                    <button type="button" className='add-skill' onClick={addSkill}>Add Skill</button>
+                </div>
+                <div>
+                    <table className='skill-data'>
+                        <tbody>
+                        {formData.skills.map((skill, index) => (
+                            <tr key={index}>
+                                <td>{skill}</td>
+                                <td> <button className='remove-skill' type="button" onClick={() => removeSkill(index)}>Remove</button></td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+                <button className='btn'>Signup Now</button>
             </form>
 
         </div>

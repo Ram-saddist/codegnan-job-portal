@@ -10,6 +10,15 @@
     margin: 20px;
 }
 
+.student-signup-container .input-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.student-signup-container .input-group > div {
+    width: 48%; /* Adjust as needed */
+}
+
 .student-signup-container label {
     font-size: 1rem;
     margin: 10px 0px;
@@ -35,21 +44,33 @@
     border-radius: 4px;
     cursor: pointer;
     width:45%;
+    margin-top: 2%;
     font-size: 0.9rem;
+}
+
+.skill-data td{
+   color:black
+}
+
+
+.add-skill{
+    
+    color: black;
+    padding:5px;
+    margin-bottom: 3%;
+}
+
+.remove-skill{
+    background-color: red;
+    border:none;
+    padding:5px;
+    margin-left: 5%;
 }
 
 .student-signup-container .btn:hover {
     background-color: #45a049;
 }
 
-.student-signup-container .input-group {
-    display: flex;
-    justify-content: space-between;
-}
-
-.student-signup-container .input-group > div {
-    width: 48%; /* Adjust as needed */
-}
 
 @media (max-width: 768px) {
     .student-signup-container form {
@@ -68,6 +89,6 @@
     }
     .student-signup-container .btn {
         font-size: 1rem;
-        width:35%;
+        width:55%;
     }   
 }
