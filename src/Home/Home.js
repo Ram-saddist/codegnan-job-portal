@@ -5,11 +5,10 @@ export default function Home() {
     <div style={{width:"100%"}}>
       <div className='codegnan-cover-page'></div>
       <div className='ceo-word'>
-        <p className='title'>Word of Our CEO</p>
-        <p className='word'>As a seasoned industry leader, our company boasts extensive expertise and a proven track record in providing top-notch services and comprehensive training solutions</p>
+        <p className='title'>Word of CEO</p>
+        <p className='word'>Being a pioneer in the field, our organisation has a wealth of knowledge and a solid track record of offering excellent services and all-inclusive training solutions.</p>
       </div>
       <div className='achievements'></div>
-
     </div>
   );
 }

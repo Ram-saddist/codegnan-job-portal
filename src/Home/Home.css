@@ -34,7 +34,10 @@
 
 /* Media Query for smaller screens */
 @media (max-width: 768px) {
-    
+    .achievements{
+        background-image: url("../images/1\ mobile.png");
+        min-height: 50vh;
+    }
 }
 
 @media (max-width:430px){
