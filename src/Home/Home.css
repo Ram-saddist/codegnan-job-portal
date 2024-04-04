@@ -41,5 +41,7 @@
 }
 
 @media (max-width:430px){
-    
+    .achievements{
+        width:500px
+    }
 }
