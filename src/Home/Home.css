@@ -41,7 +41,7 @@
 }
 
 @media (max-width:430px){
-    .achievements{
-        width:500px
+    .achievements,.codegnan-cover-page{
+       width:100%
     }
 }
