@@ -11,7 +11,6 @@ export default function AddJob() {
     const [educationQualification, setEducationQualification] = useState('');
     const [department, setDepartment] = useState('');
     const [percentage, setPercentage] = useState('');
-    const [technologies, setTechnologies] = useState('');
     const [bond, setBond] = useState('');
     const [jobLocation, setJobLocation] = useState('');
     const [specialNote, setSpecialNote] = useState('');
@@ -27,6 +26,21 @@ export default function AddJob() {
     const [bondError, setBondError] = useState('');
     const [jobLocationError, setJobLocationError] = useState('');
     const [specialNoteError, setSpecialNoteError] = useState('');
+    const [skills, setSkills] = useState([]);
+    const [newSkill, setNewSkill] = useState('');
+
+    const addSkill = () => {
+        setSkills([...skills, newSkill]);
+        setNewSkill('');
+    };
+
+    const removeSkill = (index) => {
+        const updatedSkills = [...skills];
+        updatedSkills.splice(index, 1);
+        setSkills(updatedSkills);
+    };
+
+
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -46,8 +60,8 @@ export default function AddJob() {
 
         // Validation for companyName
         // Validation for companyName
-        if (!companyName || !/^[a-zA-Z\s]+$/.test(companyName.trim())) {
-            setCompanyNameError('Company name must contain characters only (no special symbols) and spaces.');
+        if (!companyName) {
+            setCompanyNameError('Company name is required');
             isValid = false;
         }
 
@@ -77,18 +91,18 @@ export default function AddJob() {
 
         // Validation for Department
         if (!department) {
-            setDepartmentError('Department field must be empty.');
+            setDepartmentError('Department could not be empty.');
             isValid = false;
         }
 
         // Validation for Percentage
         if (!percentage) {
-            setPercentageError('Percentage field must be empty.');
+            setPercentageError('Percentage could not be empty or characters are not allowed.');
             isValid = false;
         }
 
         // Validation for Technologies
-        if (!technologies) {
+        if (!skills) {
             setTechnologiesError('Technologies field must be empty.');
             isValid = false;
         }
@@ -121,22 +135,19 @@ export default function AddJob() {
                     educationQualification,
                     department,
                     percentage,
-                    technologies,
                     bond,
                     jobLocation,
                     specialNote,
-                    deadLine
+                    deadLine,
+                    skills
                 }).then((response) => {
                     console.log(response);
-                    if (response.status===201) {
+                    if (response.status === 200) {
                         alert("Job is added successfully")
                         // Redirect to dashboard or another page
                         navigate('/bdedashboard');
                     }
                 })
-
-                // Redirect to dashboard or another page
-                // navigate('/bdedashboard');
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -170,10 +181,10 @@ export default function AddJob() {
                 </div>
                 <div className='input-group'>
                     <div>
-                        <label>Graduates</label>
+                        <label>Graduated Year</label>
                         <input
-                            type="text" required
-                            placeholder="Graduation Information"
+                            type="number" required
+                            placeholder="Academic completion Year"
                             value={graduates}
                             onChange={(e) => setGraduates(e.target.value)}
                         />
@@ -183,7 +194,7 @@ export default function AddJob() {
                         <label>Salary</label>
                         <input
                             type="text" required
-                            placeholder="Salary"
+                            placeholder="Package"
                             value={salary}
                             onChange={(e) => setSalary(e.target.value)}
                         />
@@ -216,7 +227,7 @@ export default function AddJob() {
                     <div>
                         <label>Academic Percentage</label>
                         <input
-                            type="text" required
+                            type="number" required
                             placeholder="Pass Percentage "
                             value={percentage}
                             onChange={(e) => setPercentage(e.target.value)}
@@ -224,21 +235,22 @@ export default function AddJob() {
                         {percentageError && <p className="error-message">{percentageError}</p>}
                     </div>
                     <div>
-                        <label>Technologies</label>
+                        <label>Special Note</label>
                         <input
                             type="text" required
-                            placeholder="role"
-                            value={technologies}
-                            onChange={(e) => setTechnologies(e.target.value)}
+                            placeholder="Note Points"
+                            value={specialNote}
+                            onChange={(e) => setSpecialNote(e.target.value)}
                         />
-                        {technologiesError && <p className="error-message">{technologiesError}</p>}
+                        {specialNoteError && <p className="error-message">{specialNoteError}</p>}
                     </div>
+
                 </div>
                 <div className="input-group">
                     <div>
                         <label>Bond</label>
                         <input
-                            type="text" required
+                            type="number" required
                             placeholder="bond"
                             value={bond}
                             onChange={(e) => setBond(e.target.value)}
@@ -258,14 +270,40 @@ export default function AddJob() {
                 </div>
                 <div className="input-group">
                     <div>
-                        <label>Special Note</label>
+                        <label htmlFor="skills">Skills:</label>
                         <input
-                            type="text" required
-                            placeholder="Note Points"
-                            value={specialNote}
-                            onChange={(e) => setSpecialNote(e.target.value)}
+                            type="text"
+                            id="skills"
+                            name="skills"
+                            placeholder='Enter your skill'
+                            value={newSkill}
+                            onChange={(e) => setNewSkill(e.target.value)}
                         />
-                        {specialNoteError && <p className="error-message">{specialNoteError}</p>}
+                        {technologiesError && <p className="error-message">{technologiesError}</p>}
+                        <button type="button" className="add-skill" onClick={addSkill}>
+                            Add Skill
+                        </button>
+                        <div>
+                            <table className="skill-data">
+                                <tbody>
+                                    {skills.map((skill, index) => (
+                                        <tr key={index}>
+                                            <td>{skill}</td>
+                                            <td>
+                                                <button
+                                                    className="remove-skill"
+                                                    type="button"
+                                                    onClick={() => removeSkill(index)}
+                                                >
+                                                    Remove
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                     <div>
                         <label>Dead Line</label>
@@ -275,7 +313,7 @@ export default function AddJob() {
                             value={deadLine}
                             onChange={(e) => setDeadLine(e.target.value)}
                         />
-                         
+
                         {/* {specialNoteError && <p className="error-message">{specialNoteError}</p>} */}
                     </div>
                 </div>

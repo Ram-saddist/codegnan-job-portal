@@ -61,7 +61,7 @@ export default function CompanyLogin() {
         </div>
         <div className='forgot'>
           <button className="btn">Login</button>
-          <Link className='forgot-password'>Forgot password?</Link>
+          {/* <Link className='forgot-password'>Forgot password?</Link> */}
         </div>
       </form>
       <div className='bottom-div'>

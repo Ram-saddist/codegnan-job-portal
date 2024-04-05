@@ -67,6 +67,11 @@ const BDEStudentsAppliedJobsList = () => {
           <option value="CSE">CSE</option>
           <option value="IT">IT</option>
           <option value="EEE">EEE</option>
+          <option value="ECE">ECE</option>
+          <option value="MEC">MEC</option>
+          <option value="EIE">EIE</option>
+          <option value="MSC">MSC</option>
+          <option value="MCA">MCA</option>
           {/* Add more options as needed */}
         </select>
       </div>

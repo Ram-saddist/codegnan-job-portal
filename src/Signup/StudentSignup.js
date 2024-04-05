@@ -76,7 +76,6 @@ const StudentSignup = () => {
             return false
         }
         console.log("signup form \n", formData, "\n\n")
-        alert()
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`, {
             name: formData.name,
             email: formData.email,
@@ -103,6 +102,7 @@ const StudentSignup = () => {
             .then((response) => {
                 console.log("", response.data)
                 console.log("student signup ", response.data)
+                alert("Student Signup Successful")
                 navigate("/login")
             })
             .catch((error) => {

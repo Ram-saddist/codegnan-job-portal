@@ -56,7 +56,7 @@ const Navigation = (props) => {
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentsapplied")}>
                     Applied Jobs
                   </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => {
+                  <Button color="inherit" onClick={() => {
                     // Remove userType from localStorage
                     localStorage.removeItem('userType');
                     // Redirect to home page
@@ -96,7 +96,7 @@ const Navigation = (props) => {
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
                     Dashboard
                   </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => {
+                  <Button  color="inherit" id="nav-link" onClick={() => {
                     // Remove userType from localStorage
                     localStorage.removeItem('userType');
                     // Redirect to home page

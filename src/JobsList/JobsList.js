@@ -35,6 +35,7 @@ const JobsList = () => {
             axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`, { job_id, student_id })
                 .then((response) => {
                     if (response.status === 200)
+                        alert("Job Applied Successfully")
                         navigate("/studentsapplied");
                 })
                 .catch((error) => {

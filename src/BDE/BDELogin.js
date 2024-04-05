@@ -23,7 +23,6 @@ export default function BDELogin() {
       console.log("try block")
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/bdelogin`, { username, password });
       console.log("response from bdelogin", response.data);
-      alert("Login Successful")
       localStorage.setItem("userType", response.data.userType);
       navigate("/");
     } catch (error) {

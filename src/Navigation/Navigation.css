@@ -23,6 +23,8 @@
 }
 
 #nav-link {
+  box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+  margin-left: 5px;
   color: rgb(204, 51, 102) !important;
   /* Set color for the links */
   font-family:  serif;
