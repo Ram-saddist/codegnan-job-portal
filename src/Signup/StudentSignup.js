@@ -240,7 +240,7 @@ const StudentSignup = () => {
                     <div className="form-group">
                         <label>10th class marks</label>
                         <input
-                            type="text"
+                            type="number"
                             name="tenthStandard"
                             placeholder='10th Grade Percentage'
                             value={formData.tenthStandard}
@@ -251,7 +251,7 @@ const StudentSignup = () => {
                     <div className="form-group">
                         <label>12th Standard Marks</label>
                         <input
-                            type="text"
+                            type="number"
                             name="twelfthStandard"
                             placeholder='12th Grade Percentage'
                             value={formData.twelfthStandard}
