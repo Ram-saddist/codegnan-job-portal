@@ -26,24 +26,25 @@ export default function AddJob() {
     const [bondError, setBondError] = useState('');
     const [jobLocationError, setJobLocationError] = useState('');
     const [specialNoteError, setSpecialNoteError] = useState('');
-    const [skills, setSkills] = useState([]);
-    const [newSkill, setNewSkill] = useState('');
+
+    const [skills, setSkills] = useState(['HTML', 'CSS', 'React', 'Python', 'R language', 'Django']);
+    const [selectedSkills, setSelectedSkills] = useState([]);
+    const [currentSkill, setCurrentSkill] = useState('');
 
     const addSkill = () => {
-        setSkills([...skills, newSkill]);
-        setNewSkill('');
+        if (currentSkill && !selectedSkills.includes(currentSkill)) {
+            setSelectedSkills([...selectedSkills, currentSkill]);
+        }
     };
-
-    const removeSkill = (index) => {
-        const updatedSkills = [...skills];
-        updatedSkills.splice(index, 1);
-        setSkills(updatedSkills);
+    const removeSkill = (skill) => {
+        const updatedSkills = selectedSkills.filter(item => item !== skill);
+        setSelectedSkills(updatedSkills);
     };
-
 
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
+        console.log(selectedSkills)
         e.preventDefault();
         let isValid = true;
         setCompanyNameError('');
@@ -97,11 +98,11 @@ export default function AddJob() {
 
         // Validation for Percentage
         if (!percentage) {
-            setPercentageError('Percentage could not be empty or characters are not allowed.');
+            setPercentageError('Percentage could not be empty');
             isValid = false;
         }
 
-        // Validation for Technologies
+        // Validation for skills
         if (!skills) {
             setTechnologiesError('Technologies field must be empty.');
             isValid = false;
@@ -124,7 +125,11 @@ export default function AddJob() {
             setSpecialNoteError('Special note field must be empty.');
             isValid = false;
         }
-
+        if (!deadLine) {
+            alert("Deadline field is required")
+            isValid = false
+        }
+        
         if (isValid) {
             try {
                 await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/postjobs`, {
@@ -139,7 +144,7 @@ export default function AddJob() {
                     jobLocation,
                     specialNote,
                     deadLine,
-                    skills
+                    selectedSkills
                 }).then((response) => {
                     console.log(response);
                     if (response.status === 200) {
@@ -183,7 +188,7 @@ export default function AddJob() {
                     <div>
                         <label>Graduated Year</label>
                         <input
-                            type="number" required
+                            type="text" required
                             placeholder="Academic completion Year"
                             value={graduates}
                             onChange={(e) => setGraduates(e.target.value)}
@@ -270,42 +275,6 @@ export default function AddJob() {
                 </div>
                 <div className="input-group">
                     <div>
-                        <label htmlFor="skills">Skills:</label>
-                        <input
-                            type="text"
-                            id="skills"
-                            name="skills"
-                            placeholder='Enter your skill'
-                            value={newSkill}
-                            onChange={(e) => setNewSkill(e.target.value)}
-                        />
-                        {technologiesError && <p className="error-message">{technologiesError}</p>}
-                        <button type="button" className="add-skill" onClick={addSkill}>
-                            Add Skill
-                        </button>
-                        <div>
-                            <table className="skill-data">
-                                <tbody>
-                                    {skills.map((skill, index) => (
-                                        <tr key={index}>
-                                            <td>{skill}</td>
-                                            <td>
-                                                <button
-                                                    className="remove-skill"
-                                                    type="button"
-                                                    onClick={() => removeSkill(index)}
-                                                >
-                                                    Remove
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div>
                         <label>Dead Line</label>
                         <input
                             type="text" required
@@ -313,12 +282,34 @@ export default function AddJob() {
                             value={deadLine}
                             onChange={(e) => setDeadLine(e.target.value)}
                         />
-
-                        {/* {specialNoteError && <p className="error-message">{specialNoteError}</p>} */}
+                    </div>
+                    <div>
+                        <label htmlFor="skills">Skills:</label>
+                        <select
+                            id="skills"
+                            name="skills"
+                            value={currentSkill}
+                            onChange={(e) => setCurrentSkill(e.target.value)}
+                        >
+                            <option value="">Select a skill</option>
+                            {skills.map((skill, index) => (
+                                <option key={index} value={skill}>{skill}</option>
+                            ))}
+                        </select>
+                        {technologiesError && <p className="error-message">{technologiesError}</p>}
+                        <button type="button" className='add-skill' onClick={addSkill}>
+                            Add Skill
+                        </button>
+                        <div className='selected-skills'>
+                            {selectedSkills.map((skill, index) => (
+                                <p style={{ color: 'black' }} key={index}>
+                                    {skill}
+                                    <button className='remove-skill' type='button' onClick={() => removeSkill(skill)}>X</button>
+                                </p>
+                            ))}
+                        </div>
                     </div>
                 </div>
-
-
                 <button className="btn">Add Job</button>
             </form>
         </div>

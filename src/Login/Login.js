@@ -20,13 +20,14 @@ const Login = () => {
         >
           Student Login
         </Link>
-        <Link
+        {/* commenting the login in here need to update in navigation also with /login only */}
+        {/* <Link
           className={`link ${activeLink === 'company' ? 'active' : ''}`}
           to="company"
           onClick={() => handleLinkClick('company')}
         >
           Company Login
-        </Link>
+        </Link> */}
       </div>
       <Outlet />
     </div>

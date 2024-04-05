@@ -36,6 +36,33 @@
     color: black;
 }
 
+
+.student-signup-container input, .student-signup-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: black;
+}
+
+.selected-skills{
+    display:flex;
+    padding:10px;
+    flex-wrap: wrap;
+}
+.selected-skills *{
+    margin: 5px;
+}
+
+.student-signup-container option{
+    color: black;
+}
+.add-skill{
+    color: black;
+}
+
 .student-signup-container .btn {
     padding: 10px;
     background-color: #4CAF50;
@@ -48,23 +75,9 @@
     font-size: 0.9rem;
 }
 
-.skill-data td{
-   color:black
-}
-
-
-.add-skill{
-    
-    color: black;
-    padding:5px;
-    margin-bottom: 3%;
-}
 
 .remove-skill{
-    background-color: red;
-    border:none;
-    padding:5px;
-    margin-left: 5%;
+    color: black;
 }
 
 .student-signup-container .btn:hover {

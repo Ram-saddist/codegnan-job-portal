@@ -44,9 +44,7 @@ const Navigation = (props) => {
             {isAuth ? (
               userType === "student" ? (
                 <>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
-                    Home
-                  </Button>
+                  
                   {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
                     Profile
                   </Button> */}
@@ -56,7 +54,7 @@ const Navigation = (props) => {
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentsapplied")}>
                     Applied Jobs
                   </Button>
-                  <Button color="inherit" onClick={() => {
+                  <Button color="inherit" id="nav-link"  onClick={() => {
                     // Remove userType from localStorage
                     localStorage.removeItem('userType');
                     // Redirect to home page
@@ -67,9 +65,9 @@ const Navigation = (props) => {
                 </>
               ) : userType === "company" ? (
                 <>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
+                  {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
                     Home
-                  </Button>
+                  </Button> */}
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
                     Add Jobs
                   </Button>
@@ -108,20 +106,20 @@ const Navigation = (props) => {
               ) : (
                 <>
                   {/* Add buttons for default */}
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
+                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/login/student")}>
                     Login
                   </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
+                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup/student")}>
                     Signup
                   </Button>
                 </>
               )
             ) : (
               <>
-                <Button color="inherit" id="nav-link" onClick={() => handleClick("/login")}>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/login/student")}>
                   Login
                 </Button>
-                <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup")}>
+                <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup/student")}>
                   Signup
                 </Button>
               </>

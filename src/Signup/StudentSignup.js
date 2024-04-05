@@ -22,9 +22,20 @@ const StudentSignup = () => {
         profilePic: '',
         resume: null,
         highestGraduationPercentage: 0,
-        skills: [],
     });
-    const [newSkill, setNewSkill] = useState('');
+    const [skills, setSkills] = useState(['HTML', 'CSS', 'React', 'Python', 'R language', 'Django']);
+    const [selectedSkills, setSelectedSkills] = useState([]);
+    const [currentSkill, setCurrentSkill] = useState('');
+
+    const addSkill = () => {
+        if (currentSkill && !selectedSkills.includes(currentSkill)) {
+            setSelectedSkills([...selectedSkills, currentSkill]);
+        }
+    };
+    const removeSkill = (skill) => {
+        const updatedSkills = selectedSkills.filter(item => item !== skill);
+        setSelectedSkills(updatedSkills);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,17 +55,6 @@ const StudentSignup = () => {
         });
     };
 
-    const addSkill = () => {
-        setFormData({ ...formData, skills: [...formData.skills, newSkill] });
-            setNewSkill('');
-        console.log(formData.skills)
-    };
-
-    const removeSkill = (index) => {
-        const updatedSkills = [...formData.skills];
-        updatedSkills.splice(index, 1);
-        setFormData({ ...formData, skills: updatedSkills });
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -93,7 +93,7 @@ const StudentSignup = () => {
             tenthStandard: formData.tenthStandard,
             twelfthStandard: formData.twelfthStandard,
             highestGraduationPercentage: formData.highestGraduationPercentage,
-            skills: formData.skills // Include skills field
+            skills: selectedSkills // Include skills field
         }, {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -122,7 +122,7 @@ const StudentSignup = () => {
                         <input
                             type="text"
                             name="name"
-                            placeholder='Name of the Student'
+                            placeholder='Full name'
                             value={formData.name}
                             onChange={handleChange}
                             required
@@ -309,26 +309,29 @@ const StudentSignup = () => {
                 {/* sill set*/}
                 <div>
                     <label htmlFor="skills">Skills:</label>
-                    <input
-                        type="text"
+                    <select
                         id="skills"
                         name="skills"
-                        value={newSkill}
-                        onChange={(e)=>setNewSkill(e.target.value)}
-                    />
-                    <button type="button" className='add-skill' onClick={addSkill}>Add Skill</button>
-                </div>
-                <div>
-                    <table className='skill-data'>
-                        <tbody>
-                        {formData.skills.map((skill, index) => (
-                            <tr key={index}>
-                                <td>{skill}</td>
-                                <td> <button className='remove-skill' type="button" onClick={() => removeSkill(index)}>Remove</button></td>
-                            </tr>
+                        value={currentSkill}
+                        onChange={(e) => setCurrentSkill(e.target.value)}
+                    >
+                        <option value="">Select a skill</option>
+                        {skills.map((skill, index) => (
+                            <option key={index} value={skill}>{skill}</option>
                         ))}
-                        </tbody>
-                    </table>
+                    </select>
+
+                    <button type="button" className='add-skill' onClick={addSkill}>
+                        Add Skill
+                    </button>
+                    <div className='selected-skills'>
+                        {selectedSkills.map((skill, index) => (
+                            <p key={index}>
+                                <span style={{color: 'black'}}>{skill}</span>
+                                <button className='remove-skill' type='button' onClick={() => removeSkill(skill)}>X</button>
+                            </p>
+                        ))}
+                    </div>
                 </div>
                 <button className='btn'>Signup Now</button>
             </form>

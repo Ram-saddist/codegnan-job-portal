@@ -20,13 +20,14 @@ const Signup = () => {
         >
           Student Signup
         </Link>
-        <Link
+          {/* commenting the signup for company in here need to update in navigation also with /signup only for both*/}
+        {/* <Link
           className={`link ${activeLink === 'company' ? 'active' : ''}`}
           to="company"
           onClick={() => handleLinkClick('company')}
         >
           Company Signup
-        </Link>
+        </Link> */}
       </div>
       <Outlet />
       <div className='signup-quote'> 

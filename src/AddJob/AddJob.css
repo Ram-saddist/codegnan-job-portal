@@ -17,13 +17,19 @@
     color: black;
 }
 
-.apply-job-container input {
+.apply-job-container input, .apply-job-container select {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
+    color: black;
+}
+.apply-job-container option{
+    color: black;
+}
+.add-skill{
     color: black;
 }
 
