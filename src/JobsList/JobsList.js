@@ -46,11 +46,17 @@ const JobsList = () => {
                 })
                 .catch((error) => {
                     if (error.response.status === 400)
-                        alert("Already applied for the job");
+                        Swal.fire({
+                            icon: "error",
+                            title: "Already applied for the job",
+                          });
                 });
         } 
         else{
-            alert("This job is not active. You cannot apply.");
+            Swal.fire({
+                icon: "error",
+                title: "This job is not active. You cannot apply.",
+              });
         }
     }
 
