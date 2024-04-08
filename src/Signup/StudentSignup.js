@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StudentSignup = () => {
     const navigate = useNavigate()
+    const [buttonClicked, setButtonClicked] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -103,17 +104,15 @@ const StudentSignup = () => {
             .then((response) => {
                 console.log("", response.data)
                 console.log("student signup ", response.data)
-                alert("Student Signup Successful")
                 Swal.fire({
                     title: "Signup Successful!",
                     text: "Your details are added!",
                     icon: "success"
                   });
-                navigate("/login")
+                navigate("/login/student")
             })
             .catch((error) => {
                 console.log("error from tsudent signup", error)
-                alert("Unable to make signup due to server issue")
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -344,7 +343,7 @@ const StudentSignup = () => {
                         ))}
                     </div>
                 </div>
-                <button className='btn'>Signup Now</button>
+                <button disabled={buttonClicked} className='btn'>Signup Now</button>
             </form>
 
         </div>

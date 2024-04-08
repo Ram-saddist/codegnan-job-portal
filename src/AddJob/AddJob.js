@@ -48,7 +48,6 @@ export default function AddJob() {
 
     const handleSubmit = async (e) => {
         console.log(selectedSkills)
-        alert()
         e.preventDefault();
         let isValid = true;
         setCompanyNameError('');

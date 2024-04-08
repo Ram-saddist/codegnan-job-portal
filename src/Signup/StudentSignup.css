@@ -75,12 +75,16 @@
     font-size: 0.9rem;
 }
 
+.student-signup-container .btn:disabled {
+    background-color: #ccc; /* Grey color when disabled */
+    cursor: not-allowed;
+  }
 
 .remove-skill{
     color: black;
 }
 
-.student-signup-container .btn:hover {
+.student-signup-container .btn:not([disabled]):hover {
     background-color: #45a049;
 }
 
