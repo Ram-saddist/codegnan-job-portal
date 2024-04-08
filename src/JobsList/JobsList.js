@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './JobsList.css';
+import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
 
 const JobsList = () => {
@@ -35,7 +36,12 @@ const JobsList = () => {
             axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`, { job_id, student_id })
                 .then((response) => {
                     if (response.status === 200)
-                        alert("Job Applied Successfully")
+                    Swal.fire({
+                        icon: "success",
+                        title: "Job Applied Successfully",
+                        showConfirmButton: false,
+                        timer: 3500
+                      });
                         navigate("/studentsapplied");
                 })
                 .catch((error) => {

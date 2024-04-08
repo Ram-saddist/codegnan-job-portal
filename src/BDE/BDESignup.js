@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './BDE.css';
+import Swal from 'sweetalert2'
 import axios from 'axios';
 
 export default function BDELogin() {
@@ -58,7 +59,10 @@ export default function BDELogin() {
             console.log(response)
             console.log("response from bdesignup", response.data);
             if (response.status === 201) {
-              alert("BDESignup is successfully")
+              Swal.fire({
+                title: "SignUp Successful",
+                icon: "success"
+              });
               // Redirect to dashboard or another page
               navigate("/bdelogin");
           } 
@@ -66,6 +70,11 @@ export default function BDELogin() {
           });
       } catch (error) {
         // Handle error
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong!!!",
+          text: "Please check the fields again"
+        });
       }
     }
   };

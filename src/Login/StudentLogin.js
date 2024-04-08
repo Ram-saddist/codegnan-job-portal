@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 import './Login.css';
 import axios from 'axios';
 
@@ -24,6 +25,11 @@ export default function StudentLogin() {
       if (response.status === 200) {
         localStorage.setItem("userType", response.data.userType);
         localStorage.setItem("student_id", response.data.student_id);
+        Swal.fire({
+          title: "Login Successful!",
+          text: "You clicked the button!",
+          icon: "success"
+        });
         navigate('/');
       } else {
         alert("Invalid credentials");

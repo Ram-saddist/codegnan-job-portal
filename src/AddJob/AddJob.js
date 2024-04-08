@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './AddJob.css'
+import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
 
 export default function AddJob() {
@@ -26,10 +27,12 @@ export default function AddJob() {
     const [bondError, setBondError] = useState('');
     const [jobLocationError, setJobLocationError] = useState('');
     const [specialNoteError, setSpecialNoteError] = useState('');
-
+    // eslint-disable-next-line
     const [skills, setSkills] = useState(['HTML', 'CSS', 'React', 'Python', 'R language', 'Django']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
+    const [buttonClicked, setButtonClicked] = useState(false);
+
 
     const addSkill = () => {
         if (currentSkill && !selectedSkills.includes(currentSkill)) {
@@ -45,6 +48,7 @@ export default function AddJob() {
 
     const handleSubmit = async (e) => {
         console.log(selectedSkills)
+        alert()
         e.preventDefault();
         let isValid = true;
         setCompanyNameError('');
@@ -59,68 +63,47 @@ export default function AddJob() {
         setJobLocationError('');
         setSpecialNoteError('');
 
-        // Validation for companyName
-        // Validation for companyName
         if (!companyName) {
             setCompanyNameError('Company name is required');
             isValid = false;
         }
 
-        // Validation for jobRole
         if (!jobRole || jobRole.length < 3) {
             setJobRoleError('Job role is required.');
             isValid = false;
         }
-
-        // Validation for Graduates
         if (!graduates) {
             setGraduatesError('Graduates field must be empty.');
             isValid = false;
         }
-
-        // Validation for Salary
         if (!salary) {
             setSalaryError('Salary field must be empty.');
             isValid = false;
         }
-
-        // Validation for Education Qualification
         if (!educationQualification) {
             setEducationQualificationError('Education qualification field must be empty.');
             isValid = false;
         }
-
-        // Validation for Department
         if (!department) {
             setDepartmentError('Department could not be empty.');
             isValid = false;
         }
-
-        // Validation for Percentage
         if (!percentage) {
             setPercentageError('Percentage could not be empty');
             isValid = false;
         }
-
-        // Validation for skills
         if (!skills) {
             setTechnologiesError('Technologies field must be empty.');
             isValid = false;
         }
-
-        // Validation for Bond
         if (!bond) {
             setBondError('Bond field must be empty.');
             isValid = false;
         }
-
-        // Validation for Job Location
         if (!jobLocation) {
             setJobLocationError('Job location field must be empty.');
             isValid = false;
         }
-
-        // Validation for Special Note
         if (!specialNote) {
             setSpecialNoteError('Special note field must be empty.');
             isValid = false;
@@ -129,8 +112,8 @@ export default function AddJob() {
             alert("Deadline field is required")
             isValid = false
         }
-        
-        if (isValid) {
+        if (!buttonClicked && isValid) {
+            setButtonClicked(true); 
             try {
                 await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/postjobs`, {
                     companyName,
@@ -148,14 +131,24 @@ export default function AddJob() {
                 }).then((response) => {
                     console.log(response);
                     if (response.status === 200) {
-                        alert("Job is added successfully")
+                        Swal.fire({
+                            title: "Job added successfully!",
+                            icon: "success"
+                          });
                         // Redirect to dashboard or another page
                         navigate('/bdedashboard');
                     }
                 })
             } catch (error) {
                 console.error('Error:', error);
-            }
+                Swal.fire({
+                    icon: "error",
+                    title: "Something went wrong!!!",
+                    text: "Please check the fields again"
+                  });
+            }finally {
+                setButtonClicked(false); // Re-enable the button after the action completes
+              }
         }
     };
     return (
@@ -310,7 +303,7 @@ export default function AddJob() {
                         </div>
                     </div>
                 </div>
-                <button className="btn">Add Job</button>
+                <button disabled={buttonClicked} className="btn">Add Job</button>
             </form>
         </div>
     )

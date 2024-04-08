@@ -44,7 +44,12 @@
     font-size: 1.2rem;
 }
 
-.apply-job-container .btn:hover {
+.btn:disabled {
+    background-color: #ccc; /* Grey color when disabled */
+    cursor: not-allowed;
+  }
+
+.apply-job-container .btn:not([disabled]):hover {
     background-color: #45a049;
 }
 

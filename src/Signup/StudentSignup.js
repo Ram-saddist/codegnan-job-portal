@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import './StudentSignup.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +23,7 @@ const StudentSignup = () => {
         profilePic: '',
         resume: null,
         highestGraduationPercentage: 0,
-    });
+    });// eslint-disable-next-line
     const [skills, setSkills] = useState(['HTML', 'CSS', 'React', 'Python', 'R language', 'Django']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
@@ -103,11 +104,21 @@ const StudentSignup = () => {
                 console.log("", response.data)
                 console.log("student signup ", response.data)
                 alert("Student Signup Successful")
+                Swal.fire({
+                    title: "Signup Successful!",
+                    text: "Your details are added!",
+                    icon: "success"
+                  });
                 navigate("/login")
             })
             .catch((error) => {
                 console.log("error from tsudent signup", error)
                 alert("Unable to make signup due to server issue")
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Unable to make signup",
+                  });
             })
         //console.log(formData);
 
