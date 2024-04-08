@@ -25,18 +25,19 @@ export default function StudentLogin() {
       if (response.status === 200) {
         localStorage.setItem("userType", response.data.userType);
         localStorage.setItem("student_id", response.data.student_id);
-        Swal.fire({
-          title: "Login Successful!",
-          text: "You clicked the button!",
-          icon: "success"
-        });
         navigate('/');
       } else {
-        alert("Invalid credentials");
+        Swal.fire({
+          icon: "error",
+          title: "Invalid credentials",
+        });
       }
     } catch (error) {
       console.error("Login failed:", error);
-      alert("Login failed. Please try again.");
+      Swal.fire({
+        icon: "error",
+        title: "Login failed. Please try again",
+      });
     }
   };
 
