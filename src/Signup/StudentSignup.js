@@ -10,6 +10,7 @@ const StudentSignup = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        age:'',
         mobileNumber: '',
         qualification: '',
         department: '',
@@ -23,7 +24,7 @@ const StudentSignup = () => {
         twelfthStandard: '',
         profilePic: '',
         resume: null,
-        highestGraduationPercentage: 0,
+        highestGraduationCGPA: 0,
     });// eslint-disable-next-line
     const [skills, setSkills] = useState(['HTML', 'CSS', 'React', 'Python', 'R language', 'Django']);
     const [selectedSkills, setSelectedSkills] = useState([]);
@@ -73,29 +74,29 @@ const StudentSignup = () => {
             alert('Password and Confirm Password do not match');
             return false;
         }
-        if (!graduationRegex.test(formData.highestGraduationPercentage)) {
+        if (!graduationRegex.test(formData.highestGraduationCGPA)) {
             alert("Highest graduation must be a number");
             return false
         }
-        console.log("signup form \n", formData, "\n\n")
+        console.log("signup form \n", formData,selectedSkills, "\n\n")
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`, {
             name: formData.name,
             email: formData.email,
             password: formData.password,
-            cityname: formData.city,
+            cityName: formData.city,
             department: formData.department,
             yearOfPassing: formData.yearOfPassing,
             state: formData.state,
             collegeName: formData.collegeName,
             qualification: formData.qualification,
-            mobileNumber: formData.mobileNumber,
-            age: formData.age,
+            mobileNumber: Number(formData.mobileNumber),
+            age: Number(formData.age),
             resume: formData.resume,
             profilePic: formData.profilePic,
-            tenthStandard: formData.tenthStandard,
-            twelfthStandard: formData.twelfthStandard,
-            highestGraduationPercentage: formData.highestGraduationPercentage,
-            skills: selectedSkills // Include skills field
+            tenthStandard: Number(formData.tenthStandard),
+            twelfthStandard: Number(formData.twelfthStandard),
+            highestGraduationCGPA: Number(formData.highestGraduationCGPA),
+            studentSkills: selectedSkills // Include skills field
         }, {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -112,12 +113,21 @@ const StudentSignup = () => {
                 navigate("/login/student")
             })
             .catch((error) => {
-                console.log("error from tsudent signup", error)
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Unable to make signup",
-                  });
+                console.log("error from student signup", error)
+                if(error.response.status === 409){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Email already exists",
+                      });
+                }
+                else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Unable to make signup",
+                      });
+                }
             })
         //console.log(formData);
 
@@ -308,15 +318,16 @@ const StudentSignup = () => {
                         <label>Graduation in CGPA</label>
                         <input
                             type="text"
-                            name="highestGraduationPercentage"
+                            name="highestGraduationCGPA"
                             placeholder='Highest Graduation CGPA'
-                            value={formData.highestGraduationPercentage}
+                            value={formData.highestGraduationCGPA}
                             onChange={handleChange}
                             required
                         />
                     </div>
                 </div>
                 {/* sill set*/}
+                <div className="input-group">
                 <div>
                     <label htmlFor="skills">Skills:</label>
                     <select
@@ -342,6 +353,18 @@ const StudentSignup = () => {
                             </p>
                         ))}
                     </div>
+                </div>
+                <div className="form-group">
+                        <label>Age</label>
+                        <input
+                            type="text"
+                            name="age"
+                            placeholder='Enter your age'
+                            value={formData.age}
+                            onChange={handleChange}
+                            required
+                        />
+                </div>
                 </div>
                 <button disabled={buttonClicked} className='btn'>Signup Now</button>
             </form>

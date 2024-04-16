@@ -7,10 +7,7 @@ export default function Home() {
       <div>
         <img className='codegnan-cover-page' src={cover} alt='cover-page'/>
       </div>
-      <div className='ceo-word'>
-        <p className='title'>Word of CEO</p>
-        <p className='word'>Being a pioneer in the field, our organisation has a wealth of knowledge and a solid track record of offering excellent services and all-inclusive training solutions.</p>
-      </div>
+      
       <div>
         <img className='codegnan-cover-page' src={achievements} alt='cover-page'/>
       </div>
