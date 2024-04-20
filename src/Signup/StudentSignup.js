@@ -188,7 +188,7 @@ const StudentSignup = () => {
                     <div className="form-group">
                         <label>WhatsApp Number</label>
                         <input
-                            type="text"
+                            type="number"
                             name="mobileNumber"
                             placeholder='Mobile Number'
                             value={formData.mobileNumber}
