@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StudentSignup = () => {
     const navigate = useNavigate()
+    // eslint-disable-next-line
     const [buttonClicked, setButtonClicked] = useState(false);
     const [formData, setFormData] = useState({
         name: '',

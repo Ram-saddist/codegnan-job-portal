@@ -62,9 +62,16 @@ const acceptSelectedStudents = async () => {
           console.log(selectedStudentIds,jobId)
           // Call your backend API with selectedStudentIds
           const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/updatejobapplicants`, {
-              selectedStudentIds,job_id:jobId
+            selected_student_ids:selectedStudentIds,job_id:jobId
           });
           console.log('Selected students accepted:', response.data);
+          console.log(response)
+          if(response.status===200){
+            Swal.fire({
+              title: "Accecpted these selected students",
+              icon: "success"
+            });
+          }
           // Optionally, you can perform any additional actions after accepting the students, such as updating UI or showing a success message.
       } catch (error) {
           console.error('Failed to accept selected students:', error);

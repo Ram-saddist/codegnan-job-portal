@@ -17,6 +17,7 @@ import BDEDashboard from './BDEDashboard/BDEDashboard';
 import JobsList from './JobsList/JobsList';
 import StudentsApplied from './StudentsApplied/StudentsApplied';
 import BDEStudentsAppliedJobsList from './BDEStudentsAppliedJobsList/BDEStudentsAppliedJobsList'
+import StudentProfile from './StudentProfile.js/StudentProfile';
 // import ApplyJob from './ApplyJob/ApplyJob'
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/studentsapplied" element={<StudentsApplied/>}/>
           <Route path="/bdestudentsappliedjoblist/:jobId" element={<BDEStudentsAppliedJobsList/>}/>
           {/* <Route path="/applyjob" element={<ApplyJob/>}/> */}
+          <Route path="/student-profile" element={<StudentProfile/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
