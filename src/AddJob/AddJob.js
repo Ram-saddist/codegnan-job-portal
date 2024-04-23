@@ -50,17 +50,6 @@ export default function AddJob() {
         console.log(selectedSkills)
         e.preventDefault();
         let isValid = true;
-        setCompanyNameError('');
-        setJobRoleError('');
-        setGraduatesError('');
-        setSalaryError('');
-        setEducationQualificationError('');
-        setDepartmentError('');
-        setPercentageError('');
-        setTechnologiesError('');
-        setBondError('');
-        setJobLocationError('');
-        setSpecialNoteError('');
 
         if (!companyName) {
             setCompanyNameError('Company name is required');

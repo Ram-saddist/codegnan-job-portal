@@ -27,14 +27,33 @@ const BDEStudentsAppliedJobsList = () => {
     };
     fetchAppliedStudents();
   }, [jobId]);
+  
   const downloadResume = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume?job_id=${jobId}`);
-      console.log(response);
+      const selectedStudentIds = filteredStudents.map(student => student.student_id);
+      console.log(selectedStudentIds, jobId)
+      // Call your backend API with selectedStudentIds
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume`, {
+        selected_student_ids: selectedStudentIds
+      }, {
+        responseType: 'blob' // Set responseType to blob
+      });
+      console.log('Selected students accepted:', response.data); 
+      const blob = new Blob([response.data]);
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'resumes.zip'); // Set the filename for download
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Failed to download resume:', error);
+      console.error('Failed to download resumes:', error);
     }
   };
+  
+
+
   const downloadExcel = () => {
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(appliedStudents);
@@ -42,42 +61,42 @@ const BDEStudentsAppliedJobsList = () => {
     XLSX.writeFile(workbook, 'applied_students.xlsx');
   };
   //accepting students 
-  
-const acceptSelectedStudents = async () => {
-  // Display a confirmation dialog using SweetAlert
-  const result = await Swal.fire({
+
+  const acceptSelectedStudents = async () => {
+    // Display a confirmation dialog using SweetAlert
+    const result = await Swal.fire({
       title: 'Confirm Acceptance',
       text: 'Are you sure you want to reject the remaining students?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Accept',
       cancelButtonText: 'Cancel'
-  });
+    });
 
-  // If the user confirms, send the selected student IDs to the backend API
-  if (result.isConfirmed) {
-    
+    // If the user confirms, send the selected student IDs to the backend API
+    if (result.isConfirmed) {
+
       try {
-          const selectedStudentIds = filteredStudents.map(student => student.student_id);
-          console.log(selectedStudentIds,jobId)
-          // Call your backend API with selectedStudentIds
-          const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/updatejobapplicants`, {
-            selected_student_ids:selectedStudentIds,job_id:jobId
+        const selectedStudentIds = filteredStudents.map(student => student.student_id);
+        console.log(selectedStudentIds, jobId)
+        // Call your backend API with selectedStudentIds
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/updatejobapplicants`, {
+          selected_student_ids: selectedStudentIds, job_id: jobId
+        });
+        console.log('Selected students accepted:', response.data);
+        console.log(response)
+        if (response.status === 200) {
+          Swal.fire({
+            title: "Accecpted these selected students",
+            icon: "success"
           });
-          console.log('Selected students accepted:', response.data);
-          console.log(response)
-          if(response.status===200){
-            Swal.fire({
-              title: "Accecpted these selected students",
-              icon: "success"
-            });
-          }
-          // Optionally, you can perform any additional actions after accepting the students, such as updating UI or showing a success message.
+        }
+        // Optionally, you can perform any additional actions after accepting the students, such as updating UI or showing a success message.
       } catch (error) {
-          console.error('Failed to accept selected students:', error);
+        console.error('Failed to accept selected students:', error);
       }
-  }
-};
+    }
+  };
 
   // Filter applied students based on selected department, CGPA, and skill
   const filteredStudents = appliedStudents.filter(student => {
