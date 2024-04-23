@@ -23,8 +23,11 @@
     font-size: 0.97rem;
 }
 
-
-.btn-excel, .btn-download-single-resume,.btn-accept-job-students{
+.resume-download{
+   
+    background-color: #ecb833 !important;
+}
+.btn-excel,.resume-download, .btn-accept-job-students{
     margin:auto;
     background-color: #c36;
     color: white;
@@ -32,10 +35,10 @@
     padding:5px;
     border-radius: 2px;
     cursor: pointer;
+    margin-left: 10px
 }
 
 .btn-accept-job-students{
-    margin-left: 10px !important;
     background-color: rgb(15, 144, 15) !important;
 }
 

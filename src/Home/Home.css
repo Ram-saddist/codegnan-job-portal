@@ -9,18 +9,7 @@
     font-style: normal;
 }
 .codegnan-cover-page{
-    width:100%
+    width:100%;
+    min-height: 40vh;
 }
 
-.ceo-word{
-    padding: 4%;
-}
-.ceo-word .title{
-    font-size: 1.6rem;
-    color: black !important;
-}
-.ceo-word .word{
-    margin-top: 2%;
-    text-indent: 80px;
-    color: black !important;
-}

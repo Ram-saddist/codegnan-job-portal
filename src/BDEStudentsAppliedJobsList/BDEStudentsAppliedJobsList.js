@@ -27,9 +27,9 @@ const BDEStudentsAppliedJobsList = () => {
     };
     fetchAppliedStudents();
   }, [jobId]);
-  const downloadResume = async (studentId) => {
+  const downloadResume = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume?student_id=${studentId}`);
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume?job_id=${jobId}`);
       console.log(response);
     } catch (error) {
       console.error('Failed to download resume:', error);
@@ -103,11 +103,11 @@ const acceptSelectedStudents = async () => {
         Students Applied for Job
         <div className='btn-parent'>
           <button className='btn-excel' onClick={downloadExcel}>Download Excel</button>
+          <button className='resume-download' onClick={downloadResume}>Get the Resumes</button>
           <button onClick={acceptSelectedStudents} className='btn-accept-job-students'>Accept the selected students </button>
         </div>
       </h2>
       <div className='filter-list'>
-        {/* Dropdown menu for selecting department */}
         <div>
           <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
             <option value="">All Departments</option>
@@ -119,10 +119,8 @@ const acceptSelectedStudents = async () => {
             <option value="EIE">EIE</option>
             <option value="MSC">MSC</option>
             <option value="MCA">MCA</option>
-            {/* Add more options as needed */}
           </select>
         </div>
-        {/* Input for filtering by CGPA */}
         <div>
           <select
             className='cgpa'
@@ -167,9 +165,6 @@ const acceptSelectedStudents = async () => {
                   <li className='student-jobs-list-card' key={student.student_id}>
                     <p>Name: {student.name}</p>
                     <p>Email: {student.email}</p>
-                    <p>
-                      <button className='btn-download-single-resume' onClick={() => downloadResume(student.student_id)}>Download Resume</button>
-                    </p>
                   </li>
                 ))}
               </ol>
