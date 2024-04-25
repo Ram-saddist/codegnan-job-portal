@@ -47,13 +47,13 @@
 }
 
 /* Styles for active jobs */
-.apply-job-list-btn.active {
+.apply-job-list-btn {
     background-color: green;
     cursor: pointer;
 }
 
 /* Styles for inactive jobs */
-.apply-job-list-btn.inactive {
+.apply-job-list-btn.disabled {
     background-color: #ccc; /* Gray background color for inactive button */
     cursor: not-allowed; /* Change cursor to indicate button is not clickable */
 }

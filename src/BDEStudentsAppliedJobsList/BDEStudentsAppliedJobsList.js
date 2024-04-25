@@ -17,7 +17,9 @@ const BDEStudentsAppliedJobsList = () => {
   useEffect(() => {
     const fetchAppliedStudents = async () => {
       try {
+        console.log(jobId)
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
+        console.log(response.data)
         console.log(response.data.students_applied)
         setAppliedStudents(response.data.students_applied);
         setJobSkills(response.data.jobSkills)
@@ -159,15 +161,15 @@ const BDEStudentsAppliedJobsList = () => {
           </select>
         </div>
         {/* Dropdown menu for selecting a skill */}
-        <div>
+          <div>
           <select value={selectedSkill} onChange={(e) => setSelectedSkill(e.target.value)}>
             <option value="">All Skills</option>
             {jobSkills.map(skill => (
               <option key={skill} value={skill}>{skill}</option>
             ))}
-            {/* Add more options as needed */}
           </select>
         </div>
+      
       </div>
       {loading ? (
         <p>Loading...</p>

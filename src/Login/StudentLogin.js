@@ -18,6 +18,7 @@ export default function StudentLogin() {
       if (response.status === 200) {
         localStorage.setItem("userType", response.data.userType);
         localStorage.setItem("student_id", response.data.student_id);
+        // localStorage.setItem("student_details", JSON.stringify(response.data.student_details));
         navigate('/');
       } else {
         Swal.fire({

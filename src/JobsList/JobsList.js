@@ -9,6 +9,9 @@ const JobsList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const student_id = localStorage.getItem("student_id");
+    const studentDetails = JSON.parse(localStorage.getItem("student_details")); // Retrieve student details here
+
+    console.log(studentDetails)
     const navigate = useNavigate();
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
@@ -31,15 +34,15 @@ const JobsList = () => {
         if (job.isActive) {
             axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`, { job_id, student_id })
                 .then((response) => {
-                    if (response.status === 200)
-
+                    if (response.status === 200){
                         Swal.fire({
                             icon: "success",
                             title: "Job Applied Successfully",
                             showConfirmButton: false,
-                            timer: 3500
+                            timer: 3000
                         });
                     navigate("/studentsapplied");
+                    }        
                 })
                 .catch((error) => {
                     if (error.response.status === 400)
@@ -76,12 +79,8 @@ const JobsList = () => {
                             <p><span className="job-list-key">Bond:</span> {job.bond}</p>
                             <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
                             <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
-                            <button
-                                className={`apply-job-list-btn ${!job.isActive ? 'active' : 'inactive'}`}
-                                onClick={() => applyJob(job.job_id)}
-                                disabled={!job.isActive} // Disable button if job is not active
-                            >
-                                {!job.isActive ? 'Apply' : 'Applied'}
+                            <button className={`apply-job-list-btn ${!job.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(job.job_id)) ? 'disabled' : '')}`} onClick={() => applyJob(job.job_id)} disabled={!job.isActive}>
+                                {(!job.isActive) ? 'Timeout' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(job.job_id)) ? 'Already applied' : 'Apply')}
                             </button>
                         </div>
                     ))}
