@@ -10,6 +10,7 @@ const BDEStudentsAppliedJobsList = () => {
   const [appliedStudents, setAppliedStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [jobSkills, setJobSkills] = useState([])
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [selectedCGPA, setSelectedCGPA] = useState('');
   const [selectedSkill, setSelectedSkill] = useState(''); // State for selected skill filter
@@ -19,6 +20,7 @@ const BDEStudentsAppliedJobsList = () => {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
         console.log(response.data.students_applied)
         setAppliedStudents(response.data.students_applied);
+        setJobSkills(response.data.jobSkills)
         setLoading(false);
       } catch (error) {
         setError('Failed to fetch applied students');
@@ -160,12 +162,9 @@ const BDEStudentsAppliedJobsList = () => {
         <div>
           <select value={selectedSkill} onChange={(e) => setSelectedSkill(e.target.value)}>
             <option value="">All Skills</option>
-            <option value="HTML">HTML</option>
-            <option value="CSS">CSS</option>
-            <option value="React">React</option>
-            <option value="Python">Python</option>
-            <option value="R language">R language</option>
-            <option value="Django">Django</option>
+            {jobSkills.map(skill => (
+              <option key={skill} value={skill}>{skill}</option>
+            ))}
             {/* Add more options as needed */}
           </select>
         </div>
