@@ -51,9 +51,6 @@ const BDEStudentsAppliedJobsList = () => {
       console.error('Failed to download resumes:', error);
     }
   };
-  
-
-
   const downloadExcel = () => {
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(appliedStudents);

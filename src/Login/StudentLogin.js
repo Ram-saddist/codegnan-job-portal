@@ -7,17 +7,10 @@ import axios from 'axios';
 export default function StudentLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Clear previous errors
-    setUsernameError('');
-    setPasswordError('');
-
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/studentlogin`, { username, password });
@@ -48,12 +41,12 @@ export default function StudentLogin() {
         <div>
           <label>Username or email address</label>
           <input
-            type="text" required
+            type="email" required
             placeholder="Email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {usernameError && <p style={{ color: 'red' }}>{usernameError}</p>}
+          
         </div>
         <div>
           <label>Password</label>
@@ -63,7 +56,7 @@ export default function StudentLogin() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+         
         </div>
         <div className='forgot'>
           <button className="btn">Login</button>
