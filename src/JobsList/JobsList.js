@@ -3,7 +3,6 @@ import axios from 'axios';
 import './JobsList.css';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
-
 const JobsList = () => {
     // State variables to store job details
     const [jobs, setJobs] = useState([]);
@@ -11,7 +10,6 @@ const JobsList = () => {
     const [error, setError] = useState('');
     const student_id = localStorage.getItem("student_id");
     const navigate = useNavigate();
-
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
@@ -24,42 +22,40 @@ const JobsList = () => {
             setLoading(false);
         }
     };
-
     // Fetch job details when the component mounts
     useEffect(() => {
         fetchJobs();
     }, []);
-
     function applyJob(job_id) {
         const job = jobs.find(job => job.job_id === job_id);
         if (job.isActive) {
             axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`, { job_id, student_id })
                 .then((response) => {
                     if (response.status === 200)
-                    Swal.fire({
-                        icon: "success",
-                        title: "Job Applied Successfully",
-                        showConfirmButton: false,
-                        timer: 3500
-                      });
-                        navigate("/studentsapplied");
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "Job Applied Successfully",
+                            showConfirmButton: false,
+                            timer: 3500
+                        });
+                    navigate("/studentsapplied");
                 })
                 .catch((error) => {
                     if (error.response.status === 400)
                         Swal.fire({
                             icon: "error",
                             title: "Already applied for the job",
-                          });
+                        });
                 });
-        } 
-        else{
+        }
+        else {
             Swal.fire({
                 icon: "error",
                 title: "This job is not active. You cannot apply.",
-              });
+            });
         }
     }
-
     return (
         <div>
             <h2 style={{ color: "black", textAlign: "center" }}>Student Dashboard</h2>
@@ -80,7 +76,13 @@ const JobsList = () => {
                             <p><span className="job-list-key">Bond:</span> {job.bond}</p>
                             <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
                             <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
-                            <button className={`apply-job-list-btn ${!job.isActive ? 'disabled' : ''}`} onClick={() => applyJob(job.job_id)} disabled={!job.isActive}>Apply</button>
+                            <button
+                                className={`apply-job-list-btn ${!job.isActive ? 'active' : 'inactive'}`}
+                                onClick={() => applyJob(job.job_id)}
+                                disabled={!job.isActive} // Disable button if job is not active
+                            >
+                                {!job.isActive ? 'Apply' : 'Applied'}
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -88,5 +90,4 @@ const JobsList = () => {
         </div>
     );
 };
-
 export default JobsList;

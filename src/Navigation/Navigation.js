@@ -45,9 +45,9 @@ const Navigation = (props) => {
               userType === "student" ? (
                 <>
                   
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/student-profile")}>
+                  {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/student-profile")}>
                     Profile
-                  </Button>
+                  </Button> */}
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/jobslist")}>
                     Jobs List
                   </Button>

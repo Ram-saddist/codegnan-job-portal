@@ -32,9 +32,9 @@ const BDEStudentsAppliedJobsList = () => {
     try {
       const selectedStudentIds = filteredStudents.map(student => student.student_id);
       console.log(selectedStudentIds, jobId)
-      // Call your backend API with selectedStudentIds
+      // Call your backend API with selectedStudentIds 
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume`, {
-        selected_student_ids: selectedStudentIds
+        student_ids: selectedStudentIds
       }, {
         responseType: 'blob' // Set responseType to blob
       });
