@@ -1,42 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Home.css';
 import cover from '../images/2 c.jpg';
-import achievements from '../images/1.webp';
-import axios from 'axios';
+import CompanyDashboard from './CompanyDashboard';
+import BranchDashboard from './BranchDashboard';
 
 export default function Home() {
-  const [dashboardData, setDashboardData] = useState(null);
+  const dashboardData = {
+    "YOP_DICT": {
+      "2022.0": 377,
+      "2020.0": 363,
+      "2021.0": 229,
+      "2023.0": 88,
+      "2019.0": 25,
+      "2024.0": 3,
+      "2018.0": 2,
+      "NaN": 1
+    },
+    "COMPANIES": {
+      "Mphasis": 292,
+      "Bosch Global Technologies Pvt Ltd": 264,
+      "Infinite Computers Solutions": 44,
+      "Tech Mahindra": 42,
+      "Capgemini": 38,
+      "Microland": 30,
+      "Accenture": 29,
+      "TCS": 29,
+      "MPHASIS": 26
+    },
+    "COLLEGES_LIST": {
+      "NaN": 138,
+      "CIT BANGALORE - CAMBRIDGE INSTITUTE OF TECHNOLOGY - BANGALORE": 21,
+      "MVJCE Bengaluru - M.V.Jayaraman College of Engineering - Bengaluru": 18,
+      "G Pulliah College of engineering and technology": 14,
+      "KS School of Engineering and Management": 13,
+      "Don Bosco Institute Of Technology": 12,
+      "SVIOT Bangalore - Sai Vidya Institute of Technology - Bangalore": 12,
+      "Vemu Institute of technology": 11,
+      "R L Jalappa Institute of Technology": 11,
+      "KSIT Bangalore - Kammavari Sangha Institute of Technology - Bangalore": 11,
+      "PES Institute of Technology and Management": 10
+    },
+    "BRANCH_LIST": {
+      "CSE": 336,
+      "NaN": 297,
+      "ECE": 269,
+      "EEE": 74,
+      "ISE": 68,
+      "Electronics and Communication Engineering": 50,
+      "CS": 23,
+      "MCA": 20
+    }
+  };
 
-  useEffect(() => {
-    // Fetch data from the API endpoint when the component mounts
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/refreshdashboard`)
-    
-      .then(response => {
-        // Store the fetched data in the state
-        console.log(response.data)
-        setDashboardData(response.data);
-
-      })
-      .catch(error => {
-        console.error('Error fetching dashboard data:', error);
-      });
-  }, []); // Empty dependency array ensures this effect runs only once, when the component mounts
+  const companiesData = dashboardData.COMPANIES;
+  const branchList = dashboardData.BRANCH_LIST;
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', backgroundColor:"grey" }}>
       {/* Display cover image */}
       <div>
         <img className='codegnan-cover-page' src={cover} alt='cover-page' />
       </div>
-      
-     
-
-      {/* Render dashboard data */}
-      {dashboardData && (
-        <div>
-          {/* Render dashboard data here */}
-        </div>
-      )}
+      {/* Company Dashboard */}
+      <CompanyDashboard companiesData={companiesData} />
+      {/* Branch Dashboard */}
+      <BranchDashboard branchList={branchList} />
     </div>
   );
 }

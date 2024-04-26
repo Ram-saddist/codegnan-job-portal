@@ -1,0 +1,61 @@
+.company-dashbaord{
+    background-color: black !important;
+    display: flex;
+    padding:2% 10%;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    margin-top: -1%;
+}
+.success{
+    margin: auto;
+}
+.company-search-bar{
+    width: 40%;
+    margin:1.8% auto;
+    border:none;
+    border-radius: 2px;
+    padding:10px;
+    color: black;
+}
+
+table{
+    padding: 10px;
+}
+
+td,th{
+    background-color: rgba(175, 169, 169, 0.4) !important;
+    padding:20px; 
+    border-radius: 5px;
+}
+
+th{
+    background-color: black !important;
+    border: 1px solid white;
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;  
+}
+.pagination button{
+    color: white;
+}
+
+@media (max-width:700px){
+    .company-dashbaord{
+        padding: 2% 0%;
+    }
+    .company-search-bar{
+        width: 80%;
+    }
+    table{
+        font-size: small;
+    }
+    td,th{
+        padding: 8px;
+    }
+    .students-placed{
+        width:40%
+    }
+}
