@@ -9,17 +9,19 @@ const JobsList = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const student_id = localStorage.getItem("student_id");
-    const studentDetails = JSON.parse(localStorage.getItem("student_details")); // Retrieve student details here
-
+    const [studentDetails, setStudentDetails] = useState(null); // Initialize studentDetails with applied_jobs as an empty array
     console.log(studentDetails)
     const navigate = useNavigate();
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/listopenings`);
-            console.log(response.data.jobs)
-            setJobs(response.data.jobs);
+            const studentResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getstudentdetails?student_id=${student_id}`);
+            setStudentDetails(studentResponse.data)
+            // Fetch job details
+            const jobResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/listopenings`);
+            setJobs(jobResponse.data.jobs);
             setLoading(false);
+            // let studentDetails; // Retrieve student details here
         } catch (error) {
             setError('Failed to fetch job details');
             setLoading(false);
@@ -61,6 +63,7 @@ const JobsList = () => {
     }
     return (
         <div>
+            {console.log("studentdetails",studentDetails)}
             <h2 style={{ color: "black", textAlign: "center" }}>Student Dashboard</h2>
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}

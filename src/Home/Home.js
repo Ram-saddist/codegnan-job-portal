@@ -3,6 +3,7 @@ import './Home.css';
 import cover from '../images/2 c.jpg';
 import CompanyDashboard from './CompanyDashboard';
 import BranchDashboard from './BranchDashboard';
+import CollegeDashboard from './CollegeDashboard'; // Import the CollegeDashboard component
 
 export default function Home() {
   const dashboardData = {
@@ -54,17 +55,23 @@ export default function Home() {
 
   const companiesData = dashboardData.COMPANIES;
   const branchList = dashboardData.BRANCH_LIST;
+  const collegesList = dashboardData.COLLEGES_LIST; // Get the colleges list data
 
   return (
-    <div style={{ width: '100%', backgroundColor:"grey" }}>
+    <div style={{ width: '100%' }}>
       {/* Display cover image */}
       <div>
         <img className='codegnan-cover-page' src={cover} alt='cover-page' />
       </div>
+      
       {/* Company Dashboard */}
       <CompanyDashboard companiesData={companiesData} />
+
       {/* Branch Dashboard */}
       <BranchDashboard branchList={branchList} />
+
+      {/* College Dashboard */}
+      <CollegeDashboard collegesList={collegesList} />
     </div>
   );
 }
