@@ -108,7 +108,6 @@ const StudentSignup = () => {
                 console.log("student signup ", response.data)
                 Swal.fire({
                     title: "Signup Successful!",
-                    text: "Your details are added!",
                     icon: "success"
                 });
                 navigate("/login/student")
@@ -268,7 +267,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>10th class marks</label>
+                        <label>10th Percentage</label>
                         <input
                             type="number"
                             name="tenthStandard"
@@ -279,7 +278,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>12th Standard Marks</label>
+                        <label>12th Percentage</label>
                         <input
                             type="number"
                             name="twelfthStandard"

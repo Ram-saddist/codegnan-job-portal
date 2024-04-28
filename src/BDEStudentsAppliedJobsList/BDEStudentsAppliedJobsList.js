@@ -31,7 +31,7 @@ const BDEStudentsAppliedJobsList = () => {
     };
     fetchAppliedStudents();
   }, [jobId]);
-  
+
   const downloadResume = async () => {
     try {
       const selectedStudentIds = filteredStudents.map(student => student.student_id);
@@ -42,7 +42,7 @@ const BDEStudentsAppliedJobsList = () => {
       }, {
         responseType: 'blob' // Set responseType to blob
       });
-      console.log('Selected students accepted:', response.data); 
+      console.log('Selected students accepted:', response.data);
       const blob = new Blob([response.data]);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -53,8 +53,14 @@ const BDEStudentsAppliedJobsList = () => {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Failed to download resumes:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Failed to download resumes. Please check the selected list',
+    });
     }
   };
+
   const downloadExcel = () => {
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(appliedStudents);
@@ -130,15 +136,15 @@ const BDEStudentsAppliedJobsList = () => {
       <div className='filter-list'>
         <div>
           <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
-            <option value="">All Departments</option>
             <option value="CSE">CSE</option>
-            <option value="IT">IT</option>
-            <option value="EEE">EEE</option>
             <option value="ECE">ECE</option>
+            <option value="EEE">EEE</option>
             <option value="MEC">MEC</option>
-            <option value="EIE">EIE</option>
-            <option value="MSC">MSC</option>
+            <option value="CIV">CIV</option>
+            <option value="BSC">BSC</option>
+            <option value="BBA">BBA</option>
             <option value="MCA">MCA</option>
+            <option value="Others">Others</option>
           </select>
         </div>
         <div>
@@ -161,7 +167,7 @@ const BDEStudentsAppliedJobsList = () => {
           </select>
         </div>
         {/* Dropdown menu for selecting a skill */}
-          <div>
+        <div>
           <select value={selectedSkill} onChange={(e) => setSelectedSkill(e.target.value)}>
             <option value="">All Skills</option>
             {jobSkills.map(skill => (
@@ -169,7 +175,7 @@ const BDEStudentsAppliedJobsList = () => {
             ))}
           </select>
         </div>
-      
+
       </div>
       {loading ? (
         <p>Loading...</p>
