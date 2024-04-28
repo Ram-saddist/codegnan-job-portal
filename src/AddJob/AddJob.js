@@ -28,7 +28,7 @@ export default function AddJob() {
     const [jobLocationError, setJobLocationError] = useState('');
     const [specialNoteError, setSpecialNoteError] = useState('');
     // eslint-disable-next-line
-    const [skills, setSkills] = useState(['HTML', 'CSS', 'React', 'Python', 'R language', 'Django']);
+    const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java','NodeJS','Reactjs','Angular','Vuejs','ML','Django','Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Swift','TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting','VB.NET', 'MATLAB','R', 'AWS', 'DevOps']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
     const [buttonClicked, setButtonClicked] = useState(false);

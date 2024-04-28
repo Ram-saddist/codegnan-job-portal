@@ -11,7 +11,7 @@ const StudentSignup = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        age:'',
+        age: '',
         mobileNumber: '',
         qualification: '',
         department: '',
@@ -27,7 +27,7 @@ const StudentSignup = () => {
         resume: null,
         highestGraduationCGPA: 0,
     });// eslint-disable-next-line
-    const [skills, setSkills] = useState(['HTML', 'CSS', 'React', 'Python', 'R language', 'Django']);
+    const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java','NodeJS','Reactjs','Angular','Vuejs','ML','Django','Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Swift','TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting','VB.NET', 'MATLAB','R', 'AWS', 'DevOps']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
 
@@ -79,7 +79,7 @@ const StudentSignup = () => {
             alert("Highest graduation must be a number");
             return false
         }
-        console.log("signup form \n", formData,selectedSkills, "\n\n")
+        console.log("signup form \n", formData, selectedSkills, "\n\n")
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`, {
             name: formData.name,
             email: formData.email,
@@ -110,24 +110,24 @@ const StudentSignup = () => {
                     title: "Signup Successful!",
                     text: "Your details are added!",
                     icon: "success"
-                  });
+                });
                 navigate("/login/student")
             })
             .catch((error) => {
                 console.log("error from student signup", error)
-                if(error.response.status === 409){
+                if (error.response.status === 409) {
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
                         text: "Email already exists",
-                      });
+                    });
                 }
                 else {
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
                         text: "Unable to make signup",
-                      });
+                    });
                 }
             })
         //console.log(formData);
@@ -236,14 +236,23 @@ const StudentSignup = () => {
                 <div className="input-group">
                     <div className="form-group">
                         <label>Department</label>
-                        <input
-                            type="text"
+                        <select
                             name="department"
-                            placeholder='Which Branch'
                             value={formData.department}
                             onChange={handleChange}
                             required
-                        />
+                        >
+                            <option value="">Select Department</option>
+                            <option value="CSE">CSE</option>
+                            <option value="ECE">ECE</option>
+                            <option value="EEE">EEE</option>
+                            <option value="MEC">MEC</option>
+                            <option value="CIV">CIV</option>
+                            <option value="BSC">BSC</option>
+                            <option value="BBA">BBA</option>
+                            <option value="MCA">MCA</option>
+                            <option value="Others">Others</option>
+                        </select>
                     </div>
                     <div className="form-group">
                         <label>Highest Qualification Year of Passing</label>
@@ -318,7 +327,7 @@ const StudentSignup = () => {
                     <div className="form-group">
                         <label>Graduation in CGPA</label>
                         <input
-                            type="text"
+                            type="number"
                             name="highestGraduationCGPA"
                             placeholder='Highest Graduation CGPA'
                             value={formData.highestGraduationCGPA}
@@ -329,33 +338,34 @@ const StudentSignup = () => {
                 </div>
                 {/* sill set*/}
                 <div className="input-group">
-                <div>
-                    <label htmlFor="skills">Skills:</label>
-                    <select
-                        id="skills"
-                        name="skills"
-                        value={currentSkill}
-                        onChange={(e) => setCurrentSkill(e.target.value)}
-                    >
-                        <option value="">Select a skill</option>
-                        {skills.map((skill, index) => (
-                            <option key={index} value={skill}>{skill}</option>
-                        ))}
-                    </select>
+                    <div>
+                        <label htmlFor="skills">Skills:</label>
+                        <select
+                            id="skills"
+                            name="skills"
+                            value={currentSkill}
+                            required
+                            onChange={(e) => setCurrentSkill(e.target.value)}
+                        >
+                            <option value="">Select a skill</option>
+                            {skills.map((skill, index) => (
+                                <option key={index} value={skill}>{skill}</option>
+                            ))}
+                        </select>
 
-                    <button type="button" className='add-skill' onClick={addSkill}>
-                        Add Skill
-                    </button>
-                    <div className='selected-skills'>
-                        {selectedSkills.map((skill, index) => (
-                            <p key={index}>
-                                <span style={{color: 'black'}}>{skill}</span>
-                                <button className='remove-skill' type='button' onClick={() => removeSkill(skill)}>X</button>
-                            </p>
-                        ))}
+                        <button type="button" className='add-skill' onClick={addSkill}>
+                            Add Skill
+                        </button>
+                        <div className='selected-skills'>
+                            {selectedSkills.map((skill, index) => (
+                                <p key={index}>
+                                    <span style={{ color: 'black' }}>{skill}</span>
+                                    <button className='remove-skill' type='button' onClick={() => removeSkill(skill)}>X</button>
+                                </p>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                <div className="form-group">
+                    <div className="form-group">
                         <label>Age</label>
                         <input
                             type="text"
@@ -365,7 +375,7 @@ const StudentSignup = () => {
                             onChange={handleChange}
                             required
                         />
-                </div>
+                    </div>
                 </div>
                 <button disabled={buttonClicked} className='btn'>Signup Now</button>
             </form>
