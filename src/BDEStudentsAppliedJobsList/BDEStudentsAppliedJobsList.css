@@ -62,6 +62,22 @@ input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
 
+.students-jobs-list table{
+    padding: 5px;
+    width:70%;
+    margin: auto;
+}
+
+.students-jobs-list td,.students-jobs-list th{
+    background-color: rgba(230, 255, 254,0.8) !important;
+    padding:10px; 
+    border-radius: 5px;
+}
+
+.students-jobs-list th{
+    background-color: #c36 !important;
+    border: 1px solid white;
+}
 
 
 
@@ -76,5 +92,11 @@ input[type="number"] {
     }
     .filter-list select{
         font-size: 0.8rem;
+    }
+    .students-jobs-list table{
+        width:100%
+    }
+    .students-jobs-list td,.students-jobs-list th{
+        padding: 5px;
     }
 }

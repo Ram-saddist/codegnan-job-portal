@@ -55,5 +55,14 @@
 /* Styles for inactive jobs */
 .apply-job-list-btn.disabled {
     background-color: #ccc; /* Gray background color for inactive button */
+    color:black;
+    font-weight: 700;
     cursor: not-allowed; /* Change cursor to indicate button is not clickable */
+}
+
+.apply-job-list-btn.applied {
+    background-color: #ecc440; /* Gray background color for inactive button */
+    color:black;
+    font-weight: 700;
+    cursor: not-allowed; 
 }

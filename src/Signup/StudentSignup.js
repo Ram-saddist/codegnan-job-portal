@@ -27,7 +27,7 @@ const StudentSignup = () => {
         resume: null,
         highestGraduationCGPA: 0,
     });// eslint-disable-next-line
-    const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java','NodeJS','Reactjs','Angular','Vuejs','ML','Django','Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Swift','TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting','VB.NET', 'MATLAB','R', 'AWS', 'DevOps']);
+    const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java', 'NodeJS', 'Reactjs', 'Angular', 'Vuejs', 'ML', 'Django', 'Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting', 'VB.NET', 'MATLAB', 'R', 'AWS', 'DevOps']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
 
@@ -243,13 +243,23 @@ const StudentSignup = () => {
                         >
                             <option value="">Select Department</option>
                             <option value="CSE">CSE</option>
+                            <option value="CIS">CIS</option>
+                            <option value="IT">IT</option>
                             <option value="ECE">ECE</option>
                             <option value="EEE">EEE</option>
-                            <option value="MEC">MEC</option>
-                            <option value="CIV">CIV</option>
-                            <option value="BSC">BSC</option>
+                            <option value="CIVIL">CIVIL</option>
+                            <option value="MECH">MECH</option>
+                            <option value="AIML">AIML</option>
+                            <option value="AIDS">AIDS</option>
+                            <option value="CSD">CSD</option>
+                            <option value="MBA">MBA</option>
+                            <option value="MTECH CSE">MTECH CSE</option>
+                            <option value="IoT">IoT</option>
                             <option value="BBA">BBA</option>
+                            <option value="BCA">BCA</option>
+                            <option value="BSC">BSC</option>
                             <option value="MCA">MCA</option>
+                            <option value="MSC">MSC</option>
                             <option value="Others">Others</option>
                         </select>
                     </div>

@@ -3,10 +3,7 @@ import { AppBar, Toolbar, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import './Navigation.css';
 
-// Dummy values for isAuth and userType
-const isAuth = true; // Set to true if user is authenticated, false otherwise
-// Set user type to 'student', 'company', 'bde', or 'default'
-
+const isAuth = true; 
 const Navigation = (props) => {
   let navigate = useNavigate();
   const [showNavLinks, setShowNavLinks] = useState(false);
@@ -19,17 +16,14 @@ const Navigation = (props) => {
     setShowNavLinks(false); // Close the navigation menu after clicking a link
     setShowBlur(false); // Close the blur effect
   };
-
   const handleToggle = () => {
     setShowNavLinks(!showNavLinks);
     setShowBlur(!showBlur);
   };
-
   const handleClose = () => {
     setShowNavLinks(false);
     setShowBlur(false);
   };
-
   return (
     <div className={`navigation-container ${showBlur ? 'blur' : ''}`}>
       <AppBar position="fixed" className="navbar" elevation={0}>
@@ -44,19 +38,19 @@ const Navigation = (props) => {
             {isAuth ? (
               userType === "student" ? (
                 <>
-                  
                   {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/student-profile")}>
                     Profile
                   </Button> */}
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/jobslist")}>
                     Jobs List
                   </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentsapplied")}>
+                  {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentsapplied")}>
                     Applied Jobs
-                  </Button>
+                  </Button> */}
                   <Button color="inherit" id="nav-link"  onClick={() => {
                     // Remove userType from localStorage
                     localStorage.removeItem('userType');
+                    localStorage.removeItem('student_id');
                     // Redirect to home page
                     navigate("/");
                   }}>

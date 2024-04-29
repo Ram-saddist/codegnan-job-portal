@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.css';
-import cover from '../images/2 c.jpg';
+import cover from '../images/9.png';
 import CompanyDashboard from './CompanyDashboard';
 import BranchDashboard from './BranchDashboard';
 import CollegeDashboard from './CollegeDashboard'; // Import the CollegeDashboard component
@@ -60,6 +60,7 @@ export default function Home() {
   return (
     <div style={{ width: '100%' }}>
       {/* Display cover image */}
+      
       <div>
         <img className='codegnan-cover-page' src={cover} alt='cover-page' />
       </div>
