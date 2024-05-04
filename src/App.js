@@ -18,6 +18,7 @@ import JobsList from './JobsList/JobsList';
 import StudentsApplied from './StudentsApplied/StudentsApplied';
 import BDEStudentsAppliedJobsList from './BDEStudentsAppliedJobsList/BDEStudentsAppliedJobsList'
 import StudentProfile from './StudentProfile.js/StudentProfile';
+import EmailApplyJob from './EmailApplyJob/EmailApplyJob'
 // import ApplyJob from './ApplyJob/ApplyJob'
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="/bdestudentsappliedjoblist/:jobId" element={<BDEStudentsAppliedJobsList/>}/>
           {/* <Route path="/applyjob" element={<ApplyJob/>}/> */}
           <Route path="/student-profile" element={<StudentProfile/>}/>
+          <Route path="/directapply/:student_id/:job_id" element={<EmailApplyJob/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

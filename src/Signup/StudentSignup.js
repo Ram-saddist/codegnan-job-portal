@@ -132,7 +132,6 @@ const StudentSignup = () => {
         //console.log(formData);
 
     };
-
     return (
         <div className='student-signup-container'>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -299,7 +298,6 @@ const StudentSignup = () => {
                         />
                     </div>
                 </div>
-
                 <div className="input-group">
                     <div className="form-group">
                         <label>Profile Picture</label>
@@ -320,7 +318,6 @@ const StudentSignup = () => {
                         />
                     </div>
                 </div>
-
                 <div className="input-group">
                     <div className="form-group">
                         <label>College Name</label>
@@ -388,7 +385,6 @@ const StudentSignup = () => {
                 </div>
                 <button disabled={buttonClicked} className='btn'>Signup Now</button>
             </form>
-
         </div>
     );
 };
