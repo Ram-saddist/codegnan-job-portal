@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'; // Assuming you're using React Rou
 
 export default function EmailApplyJob() {
     const { student_id, job_id } = useParams(); // Fetching parameters from URL
-
+    
     const [jobDetails, setJobDetails] = useState(null);
     const [loading, setLoading] = useState(true);
 
