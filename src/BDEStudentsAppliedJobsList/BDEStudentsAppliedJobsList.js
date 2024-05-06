@@ -33,17 +33,34 @@ const BDEStudentsAppliedJobsList = () => {
     };
     fetchAppliedStudents();
   }, [jobId]);
+
   const downloadResume = async () => {
     try {
       const selectedStudentIds = filteredStudents.map(student => student.student_id);
-      console.log(selectedStudentIds, jobId)
-      // Call your backend API with selectedStudentIds 
+      console.log(selectedStudentIds, jobId);
+  
+      // Show loading message
+      const loadingSwal = Swal.fire({
+        title: 'Downloading Resumes',
+        html: 'Please wait...',
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        }
+      });
+  
+      // Call your backend API with selectedStudentIds
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume`, {
         student_ids: selectedStudentIds
       }, {
         responseType: 'blob' // Set responseType to blob
       });
+  
       console.log('Selected students accepted:', response.data);
+  
+      // Close loading message
+      loadingSwal.close();
+  
       const blob = new Blob([response.data]);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -61,6 +78,38 @@ const BDEStudentsAppliedJobsList = () => {
       });
     }
   };
+  
+
+
+
+  // const downloadResume = async () => {
+  //   try {
+  //     const selectedStudentIds = filteredStudents.map(student => student.student_id);
+  //     console.log(selectedStudentIds, jobId)
+  //     // Call your backend API with selectedStudentIds 
+  //     const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume`, {
+  //       student_ids: selectedStudentIds
+  //     }, {
+  //       responseType: 'blob' // Set responseType to blob
+  //     });
+  //     console.log('Selected students accepted:', response.data);
+  //     const blob = new Blob([response.data]);
+  //     const url = window.URL.createObjectURL(blob);
+  //     const link = document.createElement('a');
+  //     link.href = url;
+  //     link.setAttribute('download', 'resumes.zip'); // Set the filename for download
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     window.URL.revokeObjectURL(url);
+  //   } catch (error) {
+  //     console.error('Failed to download resumes:', error);
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: 'Oops...',
+  //       text: 'Failed to download resumes. Please check the selected list',
+  //     });
+  //   }
+  // };
   const downloadExcel = () => {
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(appliedStudents);

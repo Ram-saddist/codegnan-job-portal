@@ -1,32 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import './EmailApplyJob.css';
-import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2'
+import './EmailApplyJob.css'
+import { useParams } from 'react-router-dom'; // Assuming you're using React Router for routing
 
 export default function EmailApplyJob() {
-    const { job_id, student_id } = useParams();
-    const [job, setJob] = useState(null);
+    const { student_id, job_id } = useParams(); // Fetching parameters from URL
+
+    const [jobDetails, setJobDetails] = useState(null);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        // Define a function to fetch job details
-        const fetchJobDetails = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${job_id}`);
-                console.log(response)
-                setJob(response.data);
-            } catch (error) {
-                console.error('Error fetching job details:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to fetch job details. Please try again later.',
-                });
-            }
-        };
-        fetchJobDetails();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [job_id]);
-    console.log(job_id, student_id);
+        // Make a backend request using the jobId
+        fetchBackendData(job_id)
+    }, [job_id]); // Only fetch when jobId changes
+
+    // Function to fetch backend data based on jobId
+    const fetchBackendData = async (job_id) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${job_id}`);
+            setJobDetails(response.data)
+            setLoading(false); // Set loading to false when data is fetched
+        } catch (error) {
+            console.error('Error fetching job details:', error);
+            setLoading(false); // Set loading to false even if there's an error
+        }
+    };
     async function applyJob() {
         console.log("apply job ")
        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/applyforjob`, { job_id, student_id })
@@ -49,23 +48,33 @@ export default function EmailApplyJob() {
                     });
             });
     }
+
     return (
-        <div className='email-apply-job'>
-            {console.log(job)}
-            <div className="email-apply-job-card">
-                <h3>{job.companyName}</h3>
-                <p><span className="email-apply-job-key">Job Role:</span> {job.jobRole}</p>
-                <p><span className="email-apply-job-key">Salary:</span> {job.salary}</p>
-                <p><span className="email-apply-job-key">Graduate:</span> {job.graduates}</p>
-                <p><span className="email-apply-job-key">Education Qualification:</span> {job.educationQualification}</p>
-                <p><span className="email-apply-job-key">Department:</span> {job.department}</p>
-                <p><span className="email-apply-job-key">Percentage Criteria:</span> {job.percentage}</p>
-                <p><span className="email-apply-job-key">Eligible Technologies:</span> {job.technologies}</p>
-                <p><span className="email-apply-job-key">Bond:</span> {job.bond}</p>
-                <p><span className="email-apply-job-key">Job Location:</span> {job.jobLocation}</p>
-                <p><span className="email-apply-job-key">Special Note:</span> {job.specialNote}</p>
-                <button onClick={applyJob} className="apply-job-list-btn">Apply</button>
-            </div>
+        <div>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                jobDetails && (
+                    <div className='email-apply-job'>
+
+                        {console.log("job details ", jobDetails)}
+                        <div className="email-apply-job-card">
+                            <h3>{jobDetails.companyName}</h3>
+                            <p><span className="email-apply-job-key">Job Role:</span> {jobDetails.jobRole}</p>
+                            <p><span className="email-apply-job-key">Salary:</span> {jobDetails.salary}</p>
+                            <p><span className="email-apply-job-key">Graduate:</span> {jobDetails.graduates}</p>
+                            <p><span className="email-apply-job-key">Education Qualification:</span> {jobDetails.educationQualification}</p>
+                            <p><span className="email-apply-job-key">Department:</span> {jobDetails.department}</p>
+                            <p><span className="email-apply-job-key">Percentage Criteria:</span> {jobDetails.percentage}</p>
+                            <p><span className="email-apply-job-key">Eligible Technologies:</span> {jobDetails.technologies}</p>
+                            <p><span className="email-apply-job-key">Bond:</span> {jobDetails.bond}</p>
+                            <p><span className="email-apply-job-key">Job Location:</span> {jobDetails.jobLocation}</p>
+                            <p><span className="email-apply-job-key">Special Note:</span> {jobDetails.specialNote}</p>
+                            <button onClick={applyJob} className="apply-job-list-btn">Apply</button>
+                        </div>
+                    </div>
+                )
+            )}
         </div>
     );
 }
