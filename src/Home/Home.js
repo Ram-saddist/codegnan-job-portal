@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.css';
-import cover from '../images/9.png';
+import placement from '../images/placement.png';
 import CompanyDashboard from './CompanyDashboard';
 import BranchDashboard from './BranchDashboard';
 import CollegeDashboard from './CollegeDashboard'; // Import the CollegeDashboard component
@@ -60,9 +60,14 @@ export default function Home() {
   return (
     <div style={{ width: '100%' }}>
       {/* Display cover image */}
-      
-      <div>
-        <img className='codegnan-cover-page' src={cover} alt='cover-page' />
+      <div className='coverpage-container'>
+        <p>
+          <span className='title'>
+            <span style={{color:"#c36"}}>100% </span>
+            Placement Assistance</span><br/>
+          <span className='tag-line'>until you get placed</span>
+        </p>
+        <img src={placement} alt='coverpage-image'/>
       </div>
       
       {/* Company Dashboard */}

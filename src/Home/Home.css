@@ -12,3 +12,41 @@
     width:100%;
     min-height: 1vh;
 }
+.coverpage-container{
+    background-image: url('../images/Home\ image.png');
+    background-size: cover;
+    min-height: 90vh;
+    padding:0% 2%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.coverpage-container img{
+    width:35%
+}
+
+.coverpage-container .title{
+    font-size: 40px !important;
+    color:#37429b;
+    font-weight: bold;
+}
+.coverpage-container .tag-line{
+    font-size: 24px;
+    color:black
+}
+
+@media (max-width:650px){
+    .coverpage-container{
+        flex-direction: column;
+    }
+    .coverpage-container .title{
+        font-size: 25px !important;
+    }
+    .coverpage-container .tag-line{
+        font-size: 18px;
+    }
+    .coverpage-container img{
+        width:100%
+    }
+}
