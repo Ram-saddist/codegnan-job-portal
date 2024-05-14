@@ -40,9 +40,8 @@ const BDEDashboard = () => {
                             <p><span className="job-key">Department:</span>  {job.department}</p>
                             <p><span className="job-key">Percentage Criteria:</span>  {job.percentage}</p>
                             <p><span className="job-key">Eligible Technologies:</span>  {job.technologies}</p>
-                            <p><span className="job-key">Bond:</span>  {job.bond}</p>
-                            <p><span className="job-key">Job Location:</span>  {job.jobLocation}</p>
-                            <p style={{marginBottom:"5%"}}><span className="job-key">Special Note:</span>  {job.specialNote}</p>
+                            <p style={{marginBottom:"5%"}}><span className="job-key">Bond:</span>  {job.bond}</p>
+                            
                             <div className='btns'>  
                                 <Link to={`/bdestudentsappliedjoblist/${job.job_id}`} className='applied-students-list'>Applied Students</Link>
                             </div>

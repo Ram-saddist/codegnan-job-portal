@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'; // Assuming you're using React Rou
 
 export default function EmailApplyJob() {
     const { student_id, job_id } = useParams(); // Fetching parameters from URL
-    
+    const [studentDetails, setStudentDetails] = useState(null);
     const [jobDetails, setJobDetails] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -18,6 +18,8 @@ export default function EmailApplyJob() {
     // Function to fetch backend data based on jobId
     const fetchBackendData = async (job_id) => {
         try {
+            const studentResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getstudentdetails?student_id=${student_id}`);
+            setStudentDetails(studentResponse.data)
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${job_id}`);
             setJobDetails(response.data)
             setLoading(false); // Set loading to false when data is fetched
@@ -70,7 +72,9 @@ export default function EmailApplyJob() {
                             <p><span className="email-apply-job-key">Bond:</span> {jobDetails.bond}</p>
                             <p><span className="email-apply-job-key">Job Location:</span> {jobDetails.jobLocation}</p>
                             <p><span className="email-apply-job-key">Special Note:</span> {jobDetails.specialNote}</p>
-                            <button onClick={applyJob} className="apply-job-list-btn">Apply</button>
+                            <button className={`apply-job-list-btn ${!jobDetails.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(jobDetails.job_id)) ? 'applied' : '')}`} onClick={() => applyJob(jobDetails.job_id)} disabled={!jobDetails.isActive}>
+                                {(!jobDetails.isActive) ? 'Timeout' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(jobDetails.job_id)) ? 'Applied' : 'Apply')}
+                            </button>
                         </div>
                     </div>
                 )

@@ -37,19 +37,24 @@
     font-weight: 400 !important;
 }
 
-.apply-job-list-btn {
-    margin-top: auto; /* Ensures button is at the end of the card */
-    align-self: flex-start; /* Aligns button to the end of the card */
+/* .apply-job-list-btn {
+    margin-top: auto; 
+    align-self: flex-start; 
     border: none;
     cursor: pointer;
     padding: 10px 20px;
     border-radius: 5px;
-}
+} */
 
 /* Styles for active jobs */
 .apply-job-list-btn {
     background-color: green;
     cursor: pointer;
+    margin-top: auto; /* Ensures button is at the end of the card */
+    align-self: flex-start; /* Aligns button to the end of the card */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 /* Styles for inactive jobs */

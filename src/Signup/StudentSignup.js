@@ -63,7 +63,7 @@ const StudentSignup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission
-        console.log(formData)
+        console.log(formData,formData.age)
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
         const graduationRegex = /^\d*\.?\d*$/
         if (!passwordRegex.test(formData.password)) {
@@ -137,22 +137,22 @@ const StudentSignup = () => {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Name</label>
+                        <label>Name *</label>
                         <input
                             type="text"
                             name="name"
-                            placeholder='Full name'
+                            placeholder='Ex:Siva Ram'
                             value={formData.name}
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label>Email</label>
+                        <label>Email *</label>
                         <input
                             type="email"
                             name="email"
-                            placeholder='EmailID'
+                            placeholder='Ex:sivaram@gmail.com'
                             value={formData.email}
                             onChange={handleChange}
                             required
@@ -161,22 +161,22 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Password</label>
+                        <label>Password *</label>
                         <input
                             type="password"
                             name="password"
-                            placeholder='Password'
+                            placeholder='Ex:Ram@123'
                             value={formData.passowrd}
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label>Confirm Password</label>
+                        <label>Confirm Password *</label>
                         <input
                             type="password"
                             name="cpassword"
-                            placeholder='Confirm Password'
+                            placeholder='Ex:Ram@123'
                             value={formData.cpassword}
                             onChange={handleChange}
                             required
@@ -185,22 +185,22 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>WhatsApp Number</label>
+                        <label>WhatsApp Number *</label>
                         <input
                             type="number"
                             name="mobileNumber"
-                            placeholder='Mobile Number'
+                            placeholder='Ex:9999997654'
                             value={formData.mobileNumber}
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label>Highest Qualification</label>
+                        <label>Highest Qualification *</label>
                         <input
                             type="text"
                             name="qualification"
-                            placeholder='Qualification'
+                            placeholder='Ex:Btech'
                             value={formData.qualification}
                             onChange={handleChange}
                             required
@@ -209,22 +209,22 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>City Name</label>
+                        <label>City Name *</label>
                         <input
                             type="text"
                             name="cityname"
-                            placeholder='City'
+                            placeholder='Ex:Vijayawada'
                             value={formData.cityname}
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label>You are from which State </label>
+                        <label>You are from which State *</label>
                         <input
                             type="text"
                             name="state"
-                            placeholder='State'
+                            placeholder='Ex:AndhraPradesh'
                             value={formData.state}
                             onChange={handleChange}
                             required
@@ -233,14 +233,14 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Department</label>
+                        <label>Department *</label>
                         <select
                             name="department"
                             value={formData.department}
                             onChange={handleChange}
                             required
                         >
-                            <option value="">Select Department</option>
+                            <option value="">Select Department *</option>
                             <option value="CSE">CSE</option>
                             <option value="CIS">CIS</option>
                             <option value="IT">IT</option>
@@ -263,11 +263,11 @@ const StudentSignup = () => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Highest Qualification Year of Passing</label>
+                        <label>Highest Qualification Year of Passing *</label>
                         <input
                             type="text"
                             name="yearOfPassing"
-                            placeholder='Year of Passing'
+                            placeholder='Ex:2019'
                             value={formData.yearOfPassing}
                             onChange={handleChange}
                             required
@@ -276,22 +276,22 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>10th Percentage</label>
+                        <label>10th Percentage *</label>
                         <input
                             type="number"
                             name="tenthStandard"
-                            placeholder='10th Grade Percentage'
+                            placeholder='Ex:92'
                             value={formData.tenthStandard}
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label>12th Percentage</label>
+                        <label>12th Percentage *</label>
                         <input
                             type="number"
                             name="twelfthStandard"
-                            placeholder='12th Grade Percentage'
+                            placeholder='Ex:92'
                             value={formData.twelfthStandard}
                             onChange={handleChange}
                             required
@@ -300,7 +300,31 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Profile Picture</label>
+                        <label>College Name *</label>
+                        <input
+                            type="text"
+                            name="collegeName"
+                            placeholder='Ex:Codegnan'
+                            value={formData.collegeName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>CGPA(UnderGraduate) *</label>
+                        <input
+                            type="number"
+                            name="highestGraduationCGPA"
+                            placeholder='Ex:9.2'
+                            value={formData.highestGraduationCGPA}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>Profile Picture *</label>
                         <input
                             type="file"
                             name="profilePic"
@@ -309,7 +333,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume</label>
+                        <label>Resume *</label>
                         <input
                             type="file"
                             name="resume"
@@ -318,34 +342,22 @@ const StudentSignup = () => {
                         />
                     </div>
                 </div>
-                <div className="input-group">
-                    <div className="form-group">
-                        <label>College Name</label>
-                        <input
-                            type="text"
-                            name="collegeName"
-                            placeholder='Graduated College Name'
-                            value={formData.collegeName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Graduation in CGPA</label>
-                        <input
-                            type="number"
-                            name="highestGraduationCGPA"
-                            placeholder='Highest Graduation CGPA'
-                            value={formData.highestGraduationCGPA}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                </div>
+               
                 {/* sill set*/}
                 <div className="input-group">
+                    <div className="form-group">
+                        <label>Age *</label>
+                        <input
+                            type="date"
+                            name="age"
+                            placeholder='Ex:Enter your age'
+                            value={formData.age}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                     <div>
-                        <label htmlFor="skills">Skills:</label>
+                        <label htmlFor="skills">Skills: *</label>
                         <select
                             id="skills"
                             name="skills"
@@ -371,17 +383,7 @@ const StudentSignup = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="form-group">
-                        <label>Age</label>
-                        <input
-                            type="text"
-                            name="age"
-                            placeholder='Enter your age'
-                            value={formData.age}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                    
                 </div>
                 <button disabled={buttonClicked} className='btn'>Signup Now</button>
             </form>
