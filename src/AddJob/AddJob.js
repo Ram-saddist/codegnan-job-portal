@@ -38,6 +38,7 @@ export default function AddJob() {
         if (currentSkill && !selectedSkills.includes(currentSkill)) {
             setSelectedSkills([...selectedSkills, currentSkill]);
         }
+        setCurrentSkill('')
     };
     const removeSkill = (skill) => {
         const updatedSkills = selectedSkills.filter(item => item !== skill);
@@ -47,6 +48,7 @@ export default function AddJob() {
         if (department && !selectedDepartments.includes(department)) {
             setSelectedDepartments([...selectedDepartments, department]);
         }
+        setDepartment('')
     };
 
     const removeDepartment = (departmentToRemove) => {
@@ -56,9 +58,9 @@ export default function AddJob() {
 
     const addYear = () => {
         if (graduates && !selectedYears.includes(graduates)) {
-            setSelectedYears([...selectedYears, graduates]);
-            
+            setSelectedYears([...selectedYears, graduates]); 
         }
+        setGraduates('')
     };
 
     const removeYear = (yearToRemove) => {
@@ -77,46 +79,46 @@ export default function AddJob() {
         let isValid = true;
 
         if (!companyName) {
-            setCompanyNameError('Company name is required');
+            alert('Company name is required');
             isValid = false;
         }
 
         if (!jobRole || jobRole.length < 3) {
-            setJobRoleError('Job role is required.');
+            alert('Job role is required.');
             isValid = false;
         }
-        if (!graduates) {
-            setGraduatesError('Graduates field must be empty.');
+        if (selectedYears.length === 0) {
+            alert('Graduates field must be empty.');
             isValid = false;
         }
         if (!salary) {
-            setSalaryError('Salary field must be empty.');
+            alert('Salary field must be empty.');
             isValid = false;
         }
         if (!educationQualification) {
-            setEducationQualificationError('Education qualification field must be empty.');
+            alert('Education qualification field must be empty.');
             isValid = false;
         }
-        if (!department) {
-            setDepartmentError('Department could not be empty.');
+        if (selectedDepartments.length===0) {
+            alert('Department could not be empty.');
             isValid = false;
         }
         if (!percentage) {
-            setPercentageError('Percentage could not be empty');
+            alert('Percentage could not be empty');
             isValid = false;
         }
-        if (!skills) {
-            setTechnologiesError('Technologies field must be empty.');
+        if (selectedSkills.length===0) {
+            alert('Technologies field must be empty.');
             isValid = false;
         }
         if (!bond) {
-            setBondError('Bond field must be empty.');
+            alert('Bond field must be empty.');
             isValid = false;
         }
         if (!jobLocation) {
-            setJobLocationError('Job location field must be empty.');
+            alert('Job location field must be empty.');
             isValid = false;
-        }
+        } 
         if (!deadLine) {
             alert("Deadline field is required")
             isValid = false
@@ -165,20 +167,20 @@ export default function AddJob() {
                 <h2 className='job-page-title'>Job Description</h2>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Company Name</label>
+                        <label>Company Name <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text" required
-                            placeholder="Company Name"
+                            placeholder="Ex:Codegnan"
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
                         />
                         {companyNameError && <p className="error-message">{companyNameError}</p>}
                     </div>
                     <div className="form-group">
-                        <label>Job Role</label>
+                        <label>Job Role <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text" required
-                            placeholder="role"
+                            placeholder="Ex:Full stack developer"
                             value={jobRole}
                             onChange={(e) => setJobRole(e.target.value)}
                         />
@@ -187,10 +189,10 @@ export default function AddJob() {
                 </div>
                 <div className='input-group'>
                 <div>
-                        <label>Education Qualification</label>
+                        <label>Education Qualification <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text" required
-                            placeholder="Education Qualification"
+                            placeholder="Ex:BTECH"
                             value={educationQualification}
                             onChange={(e) => setEducationQualification(e.target.value)}
                         />
@@ -198,10 +200,10 @@ export default function AddJob() {
                     </div>
                    
                     <div>
-                        <label>Salary</label>
+                        <label>Salary <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text" required
-                            placeholder="Package"
+                            placeholder="Ex:4.6LPA"
                             value={salary}
                             onChange={(e) => setSalary(e.target.value)}
                         />
@@ -210,20 +212,20 @@ export default function AddJob() {
                 </div>
                 <div className="input-group">
                     <div>
-                        <label>Bond</label>
+                        <label>Bond <span style={{color:'red'}}>*</span></label>
                         <input
                             type="number" required
-                            placeholder="bond"
+                            placeholder="Ex:0"
                             value={bond}
                             onChange={(e) => setBond(e.target.value)}
                         />
                         {bondError && <p className="error-message">{bondError}</p>}
                     </div>
                     <div>
-                        <label>Location</label>
+                        <label>Location <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text" required
-                            placeholder="Job Location"
+                            placeholder="Ex:Vijayawada"
                             value={jobLocation}
                             onChange={(e) => setJobLocation(e.target.value)}
                         />
@@ -234,20 +236,20 @@ export default function AddJob() {
                 
                 <div className="input-group">
                     <div>
-                        <label>Academic Percentage</label>
+                        <label>Academic Percentage <span style={{color:'red'}}>*</span></label>
                         <input
                             type="number" required
-                            placeholder="Pass Percentage "
+                            placeholder="Ex:70"
                             value={percentage}
                             onChange={(e) => setPercentage(e.target.value)}
                         />
                         {percentageError && <p className="error-message">{percentageError}</p>}
                     </div>
                     <div>
-                        <label>Dead Line(yyyy-mm-dd hh:mm)</label>
+                        <label>Dead Line(yyyy-mm-dd hh:mm) Will be in 24 hours format <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text" required
-                            placeholder="yyyy-mm-dd hh:mm"
+                            placeholder="Ex:2024-04-16 16:13"
                             value={deadLine}
                             onChange={(e) => setDeadLine(e.target.value)}
                         />
@@ -256,12 +258,11 @@ export default function AddJob() {
                 
                 <div className="input-group">
                 <div>
-                        <label htmlFor="graduates">Graduated Year:</label>
+                        <label htmlFor="graduates">Graduated Year <span style={{color:'red'}}>*</span></label>
                         <select
                             id="graduates"
                             value={graduates}
                             onChange={(e) => setGraduates(e.target.value)}
-                            required
                         >
                             <option value="">Select Graduated Year</option>
                             {years.map((year) => (
@@ -283,12 +284,11 @@ export default function AddJob() {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="departments">Department:</label>
+                        <label htmlFor="departments">Department  <span style={{color:'red'}}>*</span></label>
                         <select
                             id="departments"
                             value={department}
                             onChange={(e) => setDepartment(e.target.value)}
-                            required
                         >
                             <option value="">Select Department</option>
                             <option value="CSE">CSE</option>
@@ -328,7 +328,7 @@ export default function AddJob() {
                 
                 <div className="input-group">
                     <div>
-                        <label htmlFor="skills">Skills:</label>
+                        <label htmlFor="skills">Skills  <span style={{color:'red'}}>*</span></label>
                         <select
                             id="skills"
                             name="skills"

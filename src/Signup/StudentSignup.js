@@ -34,6 +34,7 @@ const StudentSignup = () => {
     const addSkill = () => {
         if (currentSkill && !selectedSkills.includes(currentSkill)) {
             setSelectedSkills([...selectedSkills, currentSkill]);
+            setCurrentSkill('')
         }
     };
     const removeSkill = (skill) => {
@@ -69,6 +70,9 @@ const StudentSignup = () => {
         if (!passwordRegex.test(formData.password)) {
             alert('Password must contain at least one uppercase letter, one lowercase letter, and one digit, and be at least 6 characters long');
             return false;
+        }
+        if(selectedSkills.length===0){
+            alert("select atleast one skill")
         }
 
         if (formData.password !== formData.cpassword) {
@@ -137,7 +141,7 @@ const StudentSignup = () => {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Name *</label>
+                        <label>Name <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text"
                             name="name"
@@ -148,7 +152,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Email *</label>
+                        <label>Email <span style={{color:'red'}}>*</span></label>
                         <input
                             type="email"
                             name="email"
@@ -161,7 +165,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Password *</label>
+                        <label>Password <span style={{color:'red'}}>*</span></label>
                         <input
                             type="password"
                             name="password"
@@ -172,7 +176,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Confirm Password *</label>
+                        <label>Confirm Password <span style={{color:'red'}}>*</span></label>
                         <input
                             type="password"
                             name="cpassword"
@@ -185,7 +189,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>WhatsApp Number *</label>
+                        <label>WhatsApp Number <span style={{color:'red'}}>*</span></label>
                         <input
                             type="number"
                             name="mobileNumber"
@@ -196,7 +200,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Highest Qualification *</label>
+                        <label>Highest Qualification <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text"
                             name="qualification"
@@ -209,7 +213,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>City Name *</label>
+                        <label>City Name <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text"
                             name="cityname"
@@ -220,7 +224,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>You are from which State *</label>
+                        <label>You are from which State <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text"
                             name="state"
@@ -233,14 +237,14 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Department *</label>
+                        <label>Department <span style={{color:'red'}}>*</span></label>
                         <select
                             name="department"
                             value={formData.department}
                             onChange={handleChange}
-                            required
+                            
                         >
-                            <option value="">Select Department *</option>
+                            <option value="">Select Department <span style={{color:'red'}}>*</span></option>
                             <option value="CSE">CSE</option>
                             <option value="CIS">CIS</option>
                             <option value="IT">IT</option>
@@ -263,7 +267,7 @@ const StudentSignup = () => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Highest Qualification Year of Passing *</label>
+                        <label>Highest Qualification Year of Passing <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text"
                             name="yearOfPassing"
@@ -276,7 +280,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>10th Percentage *</label>
+                        <label>10th Percentage <span style={{color:'red'}}>*</span></label>
                         <input
                             type="number"
                             name="tenthStandard"
@@ -287,7 +291,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>12th Percentage *</label>
+                        <label>12th Percentage <span style={{color:'red'}}>*</span></label>
                         <input
                             type="number"
                             name="twelfthStandard"
@@ -300,7 +304,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>College Name *</label>
+                        <label>College Name <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text"
                             name="collegeName"
@@ -311,7 +315,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>CGPA(UnderGraduate) *</label>
+                        <label>CGPA(UnderGraduate) <span style={{color:'red'}}>*</span></label>
                         <input
                             type="number"
                             name="highestGraduationCGPA"
@@ -324,7 +328,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Profile Picture *</label>
+                        <label>Profile Picture <span style={{color:'red'}}>*</span></label>
                         <input
                             type="file"
                             name="profilePic"
@@ -333,7 +337,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume *</label>
+                        <label>Resume <span style={{color:'red'}}>*</span></label>
                         <input
                             type="file"
                             name="resume"
@@ -342,11 +346,10 @@ const StudentSignup = () => {
                         />
                     </div>
                 </div>
-               
                 {/* sill set*/}
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Age *</label>
+                        <label>Date of birth <span style={{color:'red'}}>*</span></label>
                         <input
                             type="date"
                             name="age"
@@ -357,12 +360,11 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="skills">Skills: *</label>
+                        <label htmlFor="skills">Skills: <span style={{color:'red'}}>*</span></label>
                         <select
                             id="skills"
                             name="skills"
                             value={currentSkill}
-                            required
                             onChange={(e) => setCurrentSkill(e.target.value)}
                         >
                             <option value="">Select a skill</option>

@@ -15,22 +15,22 @@ const BDEStudentsAppliedJobsList = () => {
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [rejectedStudents, setRejectedStudents] = useState([]);
   const [selectedSkill, setSelectedSkill] = useState('');
+  const fetchAppliedStudents = async () => {
+    try {
+      console.log(jobId)
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
+      console.log("students list", response.data)
+      console.log(response.data.students_applied)
+      setAppliedStudents(response.data.students_applied);
+      setJobSkills(response.data.jobSkills)
+      setSelectedStudents(response.data.selected_students_ids);
+      setRejectedStudents(response.data.rejected_students_ids);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchAppliedStudents = async () => {
-      try {
-        console.log(jobId)
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
-        console.log("students list", response.data)
-        console.log(response.data.students_applied)
-        setAppliedStudents(response.data.students_applied);
-        setJobSkills(response.data.jobSkills)
-        setSelectedStudents(response.data.selected_students_ids);
-        setRejectedStudents(response.data.rejected_students_ids);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
     fetchAppliedStudents();
   }, [jobId]);
 
@@ -78,38 +78,7 @@ const BDEStudentsAppliedJobsList = () => {
       });
     }
   };
-  
 
-
-
-  // const downloadResume = async () => {
-  //   try {
-  //     const selectedStudentIds = filteredStudents.map(student => student.student_id);
-  //     console.log(selectedStudentIds, jobId)
-  //     // Call your backend API with selectedStudentIds 
-  //     const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume`, {
-  //       student_ids: selectedStudentIds
-  //     }, {
-  //       responseType: 'blob' // Set responseType to blob
-  //     });
-  //     console.log('Selected students accepted:', response.data);
-  //     const blob = new Blob([response.data]);
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement('a');
-  //     link.href = url;
-  //     link.setAttribute('download', 'resumes.zip'); // Set the filename for download
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     window.URL.revokeObjectURL(url);
-  //   } catch (error) {
-  //     console.error('Failed to download resumes:', error);
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: 'Oops...',
-  //       text: 'Failed to download resumes. Please check the selected list',
-  //     });
-  //   }
-  // };
   const downloadExcel = () => {
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(appliedStudents);
@@ -153,6 +122,7 @@ const BDEStudentsAppliedJobsList = () => {
             title: "Accecpted these selected students",
             icon: "success"
           });
+          fetchAppliedStudents()
         }
       } catch (error) {
         console.error('Failed to accept selected students:', error);
@@ -164,6 +134,7 @@ const BDEStudentsAppliedJobsList = () => {
       }
     }
   };
+
   // Filter applied students based on selected department, CGPA, and skill
   const filteredStudents = appliedStudents.filter(student => {
     let departmentMatch = true;
@@ -182,6 +153,7 @@ const BDEStudentsAppliedJobsList = () => {
     }
     return departmentMatch && cgpMatch && skillMatch;
   });
+  
   return (
     <div className='students-jobs-list'>
       <h2 style={{ textAlign: 'center' }}>
@@ -267,7 +239,7 @@ const BDEStudentsAppliedJobsList = () => {
               (
                 filteredStudents.length > 0 ?
                   (
-                    selectedStudents.length > 0 || rejectedStudents.length > 0 ? (
+                    selectedStudents.length >=0 || rejectedStudents.length > 0 ? (
                       filteredStudents.map(student => (
                         <tr key={student.student_id}>
                           <td>

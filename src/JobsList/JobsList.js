@@ -65,6 +65,7 @@ const JobsList = () => {
     return (
         <div>
             {console.log("studentdetails",studentDetails)}
+            {console.log("job details",jobs)}
             <h2 style={{ color: "black", textAlign: "center" }}>Student Dashboard</h2>
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
