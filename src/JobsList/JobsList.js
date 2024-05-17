@@ -78,7 +78,7 @@ const JobsList = () => {
                             <p><span className="job-list-key">Education Qualification:</span> {job.educationQualification}</p>
                             <p><span className="job-list-key">Department:</span> {job.department}</p>
                             <p><span className="job-list-key">Percentage Criteria:</span> {job.percentage}</p>
-                            <p><span className="job-list-key">Eligible Technologies:</span> {job.technologies}</p>
+                            <p><span className="job-list-key">Eligible Technologies:</span> {job.technologies.join(', ')}</p>
                             <p><span className="job-list-key">Bond:</span> {job.bond}</p>
                             <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
                             <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
