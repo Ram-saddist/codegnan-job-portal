@@ -8,7 +8,8 @@ const BDEStudentsAppliedJobsList = () => {
   const { jobId } = useParams();
   const [appliedStudents, setAppliedStudents] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [resumeName,setResumeName]=useState('')
+  const [excelName,setExcelName]=useState('')
   const [jobSkills, setJobSkills] = useState([])
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [selectedCGPA, setSelectedCGPA] = useState('');
@@ -18,6 +19,11 @@ const BDEStudentsAppliedJobsList = () => {
   const fetchAppliedStudents = async () => {
     try {
       console.log(jobId)
+      const resumeNameResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${jobId}`);
+      const { companyName, jobRole } = resumeNameResponse.data;
+      
+      setExcelName(`excel_${companyName}_${jobRole}`)
+      setResumeName(`resumes_${companyName}_${jobRole}`)
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
       console.log("students list", response.data)
       console.log(response.data.students_applied)
@@ -32,14 +38,13 @@ const BDEStudentsAppliedJobsList = () => {
   };
   useEffect(() => {
     fetchAppliedStudents();
+    // eslint-disable-next-line
   }, [jobId]);
 
   const downloadResume = async () => {
     try {
       const selectedStudentIds = filteredStudents.map(student => student.student_id);
       console.log(selectedStudentIds, jobId);
-  
-      // Show loading message
       const loadingSwal = Swal.fire({
         title: 'Downloading Resumes',
         html: 'Please wait...',
@@ -48,24 +53,18 @@ const BDEStudentsAppliedJobsList = () => {
           Swal.showLoading();
         }
       });
-  
-      // Call your backend API with selectedStudentIds
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume`, {
         student_ids: selectedStudentIds
       }, {
         responseType: 'blob' // Set responseType to blob
       });
-  
       console.log('Selected students accepted:', response.data);
-  
-      // Close loading message
       loadingSwal.close();
-  
       const blob = new Blob([response.data]);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'resumes.zip'); // Set the filename for download
+      link.setAttribute('download', `${resumeName}.zip`); // Set the filename for download
       document.body.appendChild(link);
       link.click();
       window.URL.revokeObjectURL(url);
@@ -81,10 +80,12 @@ const BDEStudentsAppliedJobsList = () => {
 
   const downloadExcel = () => {
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(appliedStudents);
+    const worksheet = XLSX.utils.json_to_sheet(filteredStudents);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Students');
-    XLSX.writeFile(workbook, 'applied_students.xlsx');
+    XLSX.writeFile(workbook, `${excelName}.xlsx`);
   };
+
+
   //accepting students 
   const acceptSelectedStudents = async () => {
     // Display a confirmation dialog using SweetAlert

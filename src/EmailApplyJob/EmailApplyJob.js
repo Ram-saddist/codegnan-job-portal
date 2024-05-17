@@ -13,6 +13,7 @@ export default function EmailApplyJob() {
     useEffect(() => {
         // Make a backend request using the jobId
         fetchBackendData(job_id)
+        // eslint-disable-next-line
     }, [job_id]); // Only fetch when jobId changes
 
     // Function to fetch backend data based on jobId

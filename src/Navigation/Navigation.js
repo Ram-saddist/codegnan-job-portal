@@ -1,29 +1,40 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import './Navigation.css';
 
-const isAuth = true; 
-const Navigation = (props) => {
+const Navigation = () => {
   let navigate = useNavigate();
+  let location = useLocation();
   const [showNavLinks, setShowNavLinks] = useState(false);
   const [showBlur, setShowBlur] = useState(false);
-  const userType = localStorage.getItem("userType")
-  console.log("usertype from navigation", userType)
+  const userType = localStorage.getItem("userType");
+
   const handleClick = (location) => {
-    console.log(location);
     navigate(location);
-    setShowNavLinks(false); // Close the navigation menu after clicking a link
-    setShowBlur(false); // Close the blur effect
+    setShowNavLinks(false);
+    setShowBlur(false);
   };
+
   const handleToggle = () => {
     setShowNavLinks(!showNavLinks);
     setShowBlur(!showBlur);
   };
+
   const handleClose = () => {
     setShowNavLinks(false);
     setShowBlur(false);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('userType');
+    localStorage.removeItem('student_id');
+    navigate("/");
+  };
+
+  // Check if the current path is /directapply
+  const isDirectApply = location.pathname.includes('/directapply');
+
   return (
     <div className={`navigation-container ${showBlur ? 'blur' : ''}`}>
       <AppBar position="fixed" className="navbar" elevation={0}>
@@ -34,72 +45,57 @@ const Navigation = (props) => {
             className="logo"
             onClick={() => handleClick("/")}
           />
-          <div className={`nav-links ${showNavLinks ? 'show' : ''}`}>
-            {isAuth ? (
-              userType === "student" ? (
-                <>
-                  {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/student-profile")}>
-                    Profile
-                  </Button> */}
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/jobslist")}>
-                    Jobs List
-                  </Button>
-                  {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentsapplied")}>
-                    Applied Jobs
-                  </Button> */}
-                  <Button color="inherit" id="nav-link"  onClick={() => {
-                    // Remove userType from localStorage
-                    localStorage.removeItem('userType');
-                    localStorage.removeItem('student_id');
-                    // Redirect to home page
-                    navigate("/");
-                  }}>
-                    Logout
-                  </Button>
-                </>
-              ) : userType === "company" ? (
-                <>
-                  {/* <Button color="inherit" id="nav-link" onClick={() => handleClick("/")}>
-                    Home
-                  </Button> */}
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
-                    Add Jobs
-                  </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/myjobs")}>
-                    My Jobs
-                  </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
-                    Profile
-                  </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => {
-                    // Remove userType from localStorage
-                    localStorage.removeItem('userType');
-                    // Redirect to home page
-                    navigate("/");
-                  }}>
-                    Logout
-                  </Button>
-                </>
-              ) : userType === "bde" ? (
-                <>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
-                    Add Job
-                  </Button>
-                  <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
-                    Dashboard
-                  </Button>
-                  <Button  color="inherit" id="nav-link" onClick={() => {
-                    // Remove userType from localStorage
-                    localStorage.removeItem('userType');
-                    // Redirect to home page
-                    navigate("/");
-                  }}>
-                    Logout
-                  </Button>
-                </>
+          {!isDirectApply && (
+            <div className={`nav-links ${showNavLinks ? 'show' : ''}`}>
+              {userType ? (
+                userType === "student" ? (
+                  <>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/jobslist")}>
+                      Jobs List
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </>
+                ) : userType === "company" ? (
+                  <>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
+                      Add Jobs
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/myjobs")}>
+                      My Jobs
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/profile")}>
+                      Profile
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </>
+                ) : userType === "bde" ? (
+                  <>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
+                      Add Job
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
+                      Dashboard
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/login/student")}>
+                      Login
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup/student")}>
+                      Signup
+                    </Button>
+                  </>
+                )
               ) : (
                 <>
-                  {/* Add buttons for default */}
                   <Button color="inherit" id="nav-link" onClick={() => handleClick("/login/student")}>
                     Login
                   </Button>
@@ -107,27 +103,20 @@ const Navigation = (props) => {
                     Signup
                   </Button>
                 </>
-              )
-            ) : (
-              <>
-                <Button color="inherit" id="nav-link" onClick={() => handleClick("/login/student")}>
-                  Login
-                </Button>
-                <Button color="inherit" id="nav-link" onClick={() => handleClick("/signup/student")}>
-                  Signup
-                </Button>
-              </>
-            )}
-            <span className="close-btn" onClick={handleClose}>X</span>
-          </div>
-          <button className={`toggler ${showNavLinks ? 'show' : ''}`} onClick={handleToggle}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+              )}
+              <span className="close-btn" onClick={handleClose}>X</span>
+            </div>
+          )}
+          {!isDirectApply && (
+            <button className={`toggler ${showNavLinks ? 'show' : ''}`} onClick={handleToggle}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          )}
         </Toolbar>
       </AppBar>
-      <div className={`blur-bg ${showBlur ? 'show' : ''}`} onClick={handleClose}></div>
+      {showBlur && !isDirectApply && <div className={`blur-bg ${showBlur ? 'show' : ''}`} onClick={handleClose}></div>}
     </div>
   );
 };

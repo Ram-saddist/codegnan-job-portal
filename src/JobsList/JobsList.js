@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './JobsList.css';
 import Swal from 'sweetalert2'
-import { useNavigate } from 'react-router-dom';
 const JobsList = () => {
     // State variables to store job details
     const [jobs, setJobs] = useState([]);
@@ -11,7 +10,6 @@ const JobsList = () => {
     const student_id = localStorage.getItem("student_id");
     const [studentDetails, setStudentDetails] = useState(null); // Initialize studentDetails with applied_jobs as an empty array
     console.log(studentDetails)
-    const navigate = useNavigate();
     // Function to fetch job details from the backend API
     const fetchJobs = async () => {
         try {
@@ -44,7 +42,7 @@ const JobsList = () => {
                             showConfirmButton: false,
                             timer: 3000
                         });
-                    navigate("/");
+                        fetchJobs();
                     }        
                 })
                 .catch((error) => {
