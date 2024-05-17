@@ -20,6 +20,7 @@ export default function EmailApplyJob() {
         try {
             const studentResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getstudentdetails?student_id=${student_id}`);
             setStudentDetails(studentResponse.data)
+            console.log("student details",studentResponse.data)
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${job_id}`);
             setJobDetails(response.data)
             setLoading(false); // Set loading to false when data is fetched
@@ -72,8 +73,8 @@ export default function EmailApplyJob() {
                             <p><span className="email-apply-job-key">Bond:</span> {jobDetails.bond}</p>
                             <p><span className="email-apply-job-key">Job Location:</span> {jobDetails.jobLocation}</p>
                             <p><span className="email-apply-job-key">Special Note:</span> {jobDetails.specialNote}</p>
-                            <button className={`apply-job-list-btn ${!jobDetails.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(jobDetails.job_id)) ? 'applied' : '')}`} onClick={() => applyJob(jobDetails.job_id)} disabled={!jobDetails.isActive}>
-                                {(!jobDetails.isActive) ? 'Timeout' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(jobDetails.job_id)) ? 'Applied' : 'Apply')}
+                            <button className={`apply-job-list-btn ${!jobDetails.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(jobDetails.id)) ? 'applied' : '')}`} onClick={() => applyJob(jobDetails.job_id)} disabled={!jobDetails.isActive}>
+                                {(!jobDetails.isActive) ? 'Timeout' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(jobDetails.id)) ? 'Applied' : 'Apply')}
                             </button>
                         </div>
                     </div>

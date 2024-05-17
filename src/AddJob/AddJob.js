@@ -29,16 +29,30 @@ export default function AddJob() {
     const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java', 'NodeJS', 'Reactjs', 'Angular', 'Vuejs', 'ML', 'Django', 'Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting', 'VB.NET', 'MATLAB', 'R', 'AWS', 'DevOps']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
+    const [customSkill, setCustomSkill] = useState('');
     const [buttonClicked, setButtonClicked] = useState(false);
     const [selectedDepartments, setSelectedDepartments] = useState([]);
     const [selectedYears, setSelectedYears] = useState([]);
 
 
+    // const addSkill = () => {
+    //     if (currentSkill && !selectedSkills.includes(currentSkill)) {
+    //         setSelectedSkills([...selectedSkills, currentSkill]);
+    //     }
+    //     setCurrentSkill('')
+    // };
     const addSkill = () => {
-        if (currentSkill && !selectedSkills.includes(currentSkill)) {
-            setSelectedSkills([...selectedSkills, currentSkill]);
+        let skillToAdd = currentSkill;
+        if (currentSkill === 'Other' && customSkill.trim() !== '') {
+            skillToAdd = customSkill.trim();
         }
-        setCurrentSkill('')
+        
+        if (skillToAdd && !selectedSkills.includes(skillToAdd)) {
+            setSelectedSkills([...selectedSkills, skillToAdd]);
+        }
+        
+        setCurrentSkill('');
+        setCustomSkill('');
     };
     const removeSkill = (skill) => {
         const updatedSkills = selectedSkills.filter(item => item !== skill);
@@ -88,15 +102,15 @@ export default function AddJob() {
             isValid = false;
         }
         if (selectedYears.length === 0) {
-            alert('Graduates field must be empty.');
+            alert('Graduates field could not be empty.');
             isValid = false;
         }
         if (!salary) {
-            alert('Salary field must be empty.');
+            alert('Salary field could not be empty.');
             isValid = false;
         }
         if (!educationQualification) {
-            alert('Education qualification field must be empty.');
+            alert('Education qualification field could not be empty.');
             isValid = false;
         }
         if (selectedDepartments.length===0) {
@@ -108,15 +122,15 @@ export default function AddJob() {
             isValid = false;
         }
         if (selectedSkills.length===0) {
-            alert('Technologies field must be empty.');
+            alert('Skills field could not be empty.');
             isValid = false;
         }
         if (!bond) {
-            alert('Bond field must be empty.');
+            alert('Bond field could not be empty.');
             isValid = false;
         }
         if (!jobLocation) {
-            alert('Job location field must be empty.');
+            alert('Job location field could not be empty.');
             isValid = false;
         } 
         if (!deadLine) {
@@ -137,7 +151,7 @@ export default function AddJob() {
                     bond,
                     jobLocation,
                     deadLine,
-                    selectedSkills
+                    jobSkills:selectedSkills
                 }).then((response) => {
                     console.log(response);
                     if (response.status === 200) {
@@ -339,7 +353,16 @@ export default function AddJob() {
                             {skills.map((skill, index) => (
                                 <option key={index} value={skill}>{skill}</option>
                             ))}
+                            <option value="Other">Other</option>
                         </select>
+                        {currentSkill === 'Other' && (
+                <input
+                    type="text"
+                    placeholder="Enter custom skill"
+                    value={customSkill}
+                    onChange={(e) => setCustomSkill(e.target.value)}
+                />
+            )}
                         {technologiesError && <p className="error-message">{technologiesError}</p>}
                         <button type="button" className='add-skill' onClick={addSkill}>
                             Add Skill
