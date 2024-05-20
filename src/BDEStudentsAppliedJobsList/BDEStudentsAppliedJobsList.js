@@ -22,7 +22,7 @@ const BDEStudentsAppliedJobsList = () => {
       const resumeNameResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${jobId}`);
       const { companyName, jobRole } = resumeNameResponse.data;
       
-      setExcelName(`excel_${companyName}_${jobRole}`)
+      setExcelName(`${companyName}_${jobRole}`)
       setResumeName(`resumes_${companyName}_${jobRole}`)
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
       console.log("students list", response.data)

@@ -15,6 +15,8 @@ export default function AddJob() {
     const [bond, setBond] = useState('');
     const [jobLocation, setJobLocation] = useState('');
     const [deadLine, setDeadLine] = useState('');
+    const [specialNote,setSpecialNote]=useState('')
+    const [designation,setDesignation]=useState('')
     const [companyNameError, setCompanyNameError] = useState('');
     const [jobRoleError, setJobRoleError] = useState('');
     const [graduatesError, setGraduatesError] = useState('');
@@ -151,6 +153,8 @@ export default function AddJob() {
                     bond,
                     jobLocation,
                     deadLine,
+                    specialNote,
+                    designation,
                     jobSkills:selectedSkills
                 }).then((response) => {
                     console.log(response);
@@ -206,7 +210,7 @@ export default function AddJob() {
                         <label>Education Qualification <span style={{color:'red'}}>*</span></label>
                         <input
                             type="text" required
-                            placeholder="Ex:BTECH"
+                            placeholder="Ex:BTECH/MTECH"
                             value={educationQualification}
                             onChange={(e) => setEducationQualification(e.target.value)}
                         />
@@ -298,7 +302,7 @@ export default function AddJob() {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="departments">Department  <span style={{color:'red'}}>*</span></label>
+                        <label htmlFor="departments">Branch/Stream  <span style={{color:'red'}}>*</span></label>
                         <select
                             id="departments"
                             value={department}
@@ -306,7 +310,7 @@ export default function AddJob() {
                         >
                             <option value="">Select Department</option>
                             <option value="CSE">CSE</option>
-                            <option value="CIS">CIS</option>
+                            <option value="ISE">ISE</option>
                             <option value="IT">IT</option>
                             <option value="ECE">ECE</option>
                             <option value="EEE">EEE</option>
@@ -338,8 +342,26 @@ export default function AddJob() {
                         </div>
                     </div>
                 </div>
-
-                
+                <div className="input-group">
+                    <div>
+                        <label>Designation</label>
+                        <input
+                            type="text" 
+                            placeholder="Ex:HR"
+                            value={designation}
+                            onChange={(e) => setDesignation(e.target.value)}
+                        />  
+                    </div>
+                    <div>
+                        <label>Special Note<span style={{color:'red'}}>*</span></label>
+                        <input
+                            type="text" required
+                            placeholder="Ex:Immediate recruitment"
+                            value={specialNote}
+                            onChange={(e) => setSpecialNote(e.target.value)}
+                        />  
+                    </div>
+                </div>
                 <div className="input-group">
                     <div>
                         <label htmlFor="skills">Skills  <span style={{color:'red'}}>*</span></label>
@@ -375,7 +397,7 @@ export default function AddJob() {
                                 </p>
                             ))}
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <button disabled={buttonClicked} className="btn">Add Job</button>
             </form>

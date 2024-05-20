@@ -13,6 +13,9 @@ const StudentSignup = () => {
         email: '',
         age: '',
         mobileNumber: '',
+        collegeUSNNumber: '',
+        githubLink: '',
+        arrears: null,
         qualification: '',
         department: '',
         password: '',
@@ -82,16 +85,42 @@ const StudentSignup = () => {
     const handleFileChange = (e) => {
         const fieldName = e.target.name;
         const file = e.target.files[0];
-
-        setFormData({
-            ...formData,
-            [fieldName]: file,
-        });
+    
+        let validTypes = [];
+    
+        if (fieldName === 'resume') {
+            validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        } else if (fieldName === 'profilePic') {
+            validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        }
+    
+        if (file && validTypes.includes(file.type)) {
+            setFormData({
+                ...formData,
+                [fieldName]: file,
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid File Type',
+                text: fieldName === 'resume' ? 'Please upload a PDF or Word document.' : 'Please upload an image file (JPEG, PNG, GIF).',
+            });
+            e.target.value = ''; 
+        }
     };
+    
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        Swal.fire({
+            title: 'Signing up...',
+            text: 'Please wait while we process your registration',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
         // Handle form submission
         console.log(formData, formData.age)
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -125,6 +154,9 @@ const StudentSignup = () => {
             qualification: formData.qualification,
             mobileNumber: Number(formData.mobileNumber),
             age: Number(age),
+            collegeUSNNumber: formData.collegeUSNNumber,
+            githubLink: formData.githubLink,
+            arrears: formData.arrears,
             resume: formData.resume,
             profilePic: formData.profilePic,
             tenthStandard: Number(formData.tenthStandard),
@@ -242,6 +274,30 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
+                        <label>College USN/ID Number <span style={{ color: 'red' }}>*</span></label>
+                        <input
+                            type="text"
+                            name="collegeUSNNumber"
+                            placeholder='Ex:100002108F00'
+                            value={formData.collegeUSNNumber}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Github Link <span style={{ color: 'red' }}>*</span></label>
+                        <input
+                            type="text"
+                            name="githubLink"
+                            placeholder='Ex:https://github.com/ram-saddist.com'
+                            value={formData.githubLink}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="input-group">
+                    <div className="form-group">
                         <label>City Name <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text"
@@ -275,7 +331,7 @@ const StudentSignup = () => {
                         >
                             <option value="">Select Department <span style={{ color: 'red' }}>*</span></option>
                             <option value="CSE">CSE</option>
-                            <option value="CIS">CIS</option>
+                            <option value="ISE">ISE</option>
                             <option value="IT">IT</option>
                             <option value="ECE">ECE</option>
                             <option value="EEE">EEE</option>
@@ -361,15 +417,17 @@ const StudentSignup = () => {
                         <input
                             type="file"
                             name="profilePic"
+                            accept=".jpg,.jpeg,.png,.gif"
                             onChange={handleFileChange}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume <span style={{ color: 'red' }}>*</span></label>
+                        <label>Resume (doc,pdf,docx) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="resume"
+                            accept=".pdf,.doc,.docx"
                             onChange={handleFileChange}
                             required
                         />
@@ -420,7 +478,21 @@ const StudentSignup = () => {
                     </div>
 
                 </div>
-                <button onClick={()=>{console.log(age)}} disabled={buttonClicked} className='btn'>Signup Now</button>
+                <div className="input-group">
+                    <div className="form-group">
+                        <label>Arrears <span style={{ color: 'red' }}>*</span></label>
+                        <input
+                            type="number"
+                            name="arrears"
+                            placeholder='Ex:0'
+                            value={formData.arrears}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                </div>
+                <button onClick={() => { console.log(age) }} disabled={buttonClicked} className='btn'>Signup Now</button>
             </form>
         </div>
     );

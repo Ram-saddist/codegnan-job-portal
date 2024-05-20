@@ -74,9 +74,9 @@ const JobsList = () => {
                             <h3>{job.companyName}</h3>
                             <p><span className="job-list-key">Job Role:</span> {job.jobRole}</p>
                             <p><span className="job-list-key">Salary:</span> {job.salary}</p>
-                            <p><span className="job-list-key">Graduate:</span> {job.graduates}</p>
+                            <p><span className="job-list-key">Graduate:</span> {job.graduates.join(', ')}</p>
                             <p><span className="job-list-key">Education Qualification:</span> {job.educationQualification}</p>
-                            <p><span className="job-list-key">Department:</span> {job.department}</p>
+                            <p><span className="job-list-key">Branch/Stream:</span> {job.department.join(', ')}</p>
                             <p><span className="job-list-key">Percentage Criteria:</span> {job.percentage}</p>
                             <p><span className="job-list-key">Eligible Technologies:</span> {job.technologies.join(', ')}</p>
                             <p><span className="job-list-key">Bond:</span> {job.bond}</p>

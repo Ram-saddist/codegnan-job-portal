@@ -66,9 +66,9 @@ export default function EmailApplyJob() {
                             <h3>{jobDetails.companyName}</h3>
                             <p><span className="email-apply-job-key">Job Role:</span> {jobDetails.jobRole}</p>
                             <p><span className="email-apply-job-key">Salary:</span> {jobDetails.salary}</p>
-                            <p><span className="email-apply-job-key">Graduate:</span> {jobDetails.graduates}</p>
+                            <p><span className="email-apply-job-key">Graduate:</span> {jobDetails.graduates.join(', ')}</p>
                             <p><span className="email-apply-job-key">Education Qualification:</span> {jobDetails.educationQualification}</p>
-                            <p><span className="email-apply-job-key">Department:</span> {jobDetails.department}</p>
+                            <p><span className="email-apply-job-key">Branch/Stream:</span> {jobDetails.department.join(', ')}</p>
                             <p><span className="email-apply-job-key">Percentage Criteria:</span> {jobDetails.percentage}</p>
                             <p><span className="email-apply-job-key">Eligible Technologies:</span> {jobDetails.jobSkills.join(', ')}</p>
                             <p><span className="email-apply-job-key">Bond:</span> {jobDetails.bond}</p>
