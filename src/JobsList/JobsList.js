@@ -77,9 +77,9 @@ const JobsList = () => {
                             <p><span className="job-list-key">Graduate:</span> {job.graduates.join(', ')}</p>
                             <p><span className="job-list-key">Education Qualification:</span> {job.educationQualification}</p>
                             <p><span className="job-list-key">Branch/Stream:</span> {job.department.join(', ')}</p>
-                            <p><span className="job-list-key">Percentage Criteria:</span> {job.percentage}</p>
+                            <p><span className="job-list-key">Percentage Criteria:</span> {job.percentage}%</p>
                             <p><span className="job-list-key">Eligible Technologies:</span> {job.technologies.join(', ')}</p>
-                            <p><span className="job-list-key">Bond:</span> {job.bond}</p>
+                            <p><span className="job-list-key">Bond:</span> {job.bond} years</p>
                             <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
                             <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
                             <button className={`apply-job-list-btn ${!job.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(job.job_id)) ? 'applied' : '')}`} onClick={() => applyJob(job.job_id)} disabled={!job.isActive}>

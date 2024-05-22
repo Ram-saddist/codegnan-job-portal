@@ -1,5 +1,5 @@
 .company-dashbaord{
-    background-color: black !important;
+    background-color: #e1e7ff  !important;
     display: flex;
     padding:2% 10%;
     flex-direction: column;
@@ -9,6 +9,7 @@
 }
 .success{
     margin: auto;
+    color: #32398d;
 }
 .company-search-bar{
     width: 40%;
@@ -21,25 +22,34 @@
 
 table{
     padding: 10px;
+    border-collapse: collapse;
 }
 
 td,th{
-    background-color: rgba(175, 169, 169, 0.4) !important;
+    background-color:  #e1e7ff !important;
     padding:20px; 
-    border-radius: 5px;
+    color:#124241;
+    border-collapse: collapse;
+    border:1px solid rgba(52, 64, 154,0.4) !important;
+    border:none !important;
+    border-bottom-style: solid !important;
+}
+th{
+    color:white;
+    background-color: #32398d !important;
+    border-radius: 5px 5px 0px 0px;
 }
 
-th{
-    background-color: black !important;
-    border: 1px solid white;
-}
 .pagination{
     display: flex;
     justify-content: center;
     margin-top: 20px;  
+    
+    color: #34409a !important;
 }
 .pagination button{
     color: white;
+    background-color: #124241;
 }
 
 @media (max-width:700px){

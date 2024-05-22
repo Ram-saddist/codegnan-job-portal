@@ -40,7 +40,7 @@ export default function CompanyDashboard({ companiesData }) {
         className='company-search-bar'
       />
       {/* Display table */}
-      <table cellSpacing="4px">
+      <table>
         <thead>
           <tr>
             <th>Company Name</th>

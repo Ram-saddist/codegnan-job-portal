@@ -1,5 +1,5 @@
 .college-dashboard {
-  background-color: black !important;
+  background-color: #e1e7ff !important;
   display: flex;
   padding: 2% 10%;
   flex-direction: column;
@@ -10,6 +10,11 @@
 
 .title {
   margin: auto;
+  color: #32398d;
+}
+table{
+  padding: 10px;
+  border-collapse: collapse;
 }
 
 .college-search-bar {
@@ -32,7 +37,7 @@
 }
 
 .college-name {
-  background-color: black !important;
+  background-color: #e1e7ff !important;
   border: 1px solid white;
   padding: 20px;
 }

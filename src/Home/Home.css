@@ -36,7 +36,38 @@
     color:black
 }
 
+.home-cards-container{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 2px 5%;
+    padding:0% 5%
+}
+.home-card{
+    text-align: center;
+    padding:30px 10px;
+    border-radius: 10px;
+    margin: 8% 0%;
+    margin-bottom: 20%;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.home-card img{
+    width:30%
+}
+.home-card-text{
+    font-size: 13px;
+    font-weight: 500;
+}
+.home-card *{
+    color: black !important;
+}
+
+
+
 @media (max-width:650px){
+    .home-cards-container{
+        padding:0% 10%
+    }
     .coverpage-container{
         flex-direction: column;
     }
@@ -48,5 +79,15 @@
     }
     .coverpage-container img{
         width:100%
+    }
+}
+
+@media (max-width:426px){
+    .home-cards-container{
+        padding:0% 25%
+
+    }
+    .home-card{
+        margin-bottom: 10%;
     }
 }

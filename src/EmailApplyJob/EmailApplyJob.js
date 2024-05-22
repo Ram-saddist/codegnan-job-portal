@@ -69,9 +69,9 @@ export default function EmailApplyJob() {
                             <p><span className="email-apply-job-key">Graduate:</span> {jobDetails.graduates.join(', ')}</p>
                             <p><span className="email-apply-job-key">Education Qualification:</span> {jobDetails.educationQualification}</p>
                             <p><span className="email-apply-job-key">Branch/Stream:</span> {jobDetails.department.join(', ')}</p>
-                            <p><span className="email-apply-job-key">Percentage Criteria:</span> {jobDetails.percentage}</p>
+                            <p><span className="email-apply-job-key">Percentage Criteria:</span> {jobDetails.percentage}%</p>
                             <p><span className="email-apply-job-key">Eligible Technologies:</span> {jobDetails.jobSkills.join(', ')}</p>
-                            <p><span className="email-apply-job-key">Bond:</span> {jobDetails.bond}</p>
+                            <p><span className="email-apply-job-key">Bond:</span> {jobDetails.bond} years</p>
                             <p><span className="email-apply-job-key">Job Location:</span> {jobDetails.jobLocation}</p>
                             <p><span className="email-apply-job-key">Special Note:</span> {jobDetails.specialNote}</p>
                             <button className={`apply-job-list-btn ${!jobDetails.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(jobDetails.id)) ? 'applied' : '')}`} onClick={() => applyJob(jobDetails.job_id)} disabled={!jobDetails.isActive}>

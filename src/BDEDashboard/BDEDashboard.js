@@ -35,13 +35,13 @@ const BDEDashboard = () => {
                             <p><span className="job-key">Graduate: </span> {job.graduates.join(', ')}</p>
                             <p><span className="job-key">Education Qualification:</span>  {job.educationQualification}</p>
                             <p><span className="job-key">Branch/Stream:</span>  {job.department.join(', ')}</p>
-                            <p><span className="job-key">Percentage Criteria:</span>  {job.percentage}</p>
+                            <p><span className="job-key">Percentage Criteria:</span>  {job.percentage}%</p>
                             <p><span className="job-key">Eligible Technologies:</span>  {job.technologies.join(', ')}</p>
                             <p><span className="job-key">Job Location:</span>  {job.jobLocation
                             }</p>
                             <p><span className="job-key">Special Note:</span>  {job.specialNote
                             }</p>
-                            <p style={{ marginBottom: "5%" }}><span className="job-key">Bond:</span>  {job.bond}</p>
+                            <p style={{ marginBottom: "5%" }}><span className="job-key">Bond:</span> {job.bond} years</p>
                             <div className='btns'>
                                 <Link to={`/bdestudentsappliedjoblist/${job.job_id}`} className='applied-students-list'>Applied Students</Link>
                             </div>
