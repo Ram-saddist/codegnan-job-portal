@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "newcodegnanjobportal",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 30,
+      "apiKeyExpirationDate": "2024-07-25T07:14:37.190Z",
+      "keyDescription": "newcodegnanjobportal"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}

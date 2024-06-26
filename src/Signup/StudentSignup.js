@@ -89,7 +89,7 @@ const StudentSignup = () => {
         let validTypes = [];
     
         if (fieldName === 'resume') {
-            validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            validTypes = ['application/pdf'];
         } else if (fieldName === 'profilePic') {
             validTypes = ['image/jpeg', 'image/png', 'image/gif'];
         }
@@ -103,7 +103,7 @@ const StudentSignup = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Invalid File Type',
-                text: fieldName === 'resume' ? 'Please upload a PDF or Word document.' : 'Please upload an image file (JPEG, PNG, GIF).',
+                text: fieldName === 'resume' ? 'Please upload a PDF document.' : 'Please upload an image file (JPEG, PNG, GIF).',
             });
             e.target.value = ''; 
         }
@@ -194,8 +194,6 @@ const StudentSignup = () => {
                     });
                 }
             })
-        //console.log(formData);
-
     };
     return (
         <div className='student-signup-container'>
@@ -423,11 +421,11 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume (doc,pdf,docx) <span style={{ color: 'red' }}>*</span></label>
+                        <label>Resume (pdf) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="resume"
-                            accept=".pdf,.doc,.docx"
+                            accept=".pdf"
                             onChange={handleFileChange}
                             required
                         />

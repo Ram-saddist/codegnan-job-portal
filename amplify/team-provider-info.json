@@ -1,0 +1,38 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newcodegnanjobportal-dev-739b2-authRole",
+      "UnauthRoleArn": "arn:aws:iam::654654589864:role/amplify-newcodegnanjobportal-dev-739b2-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::654654589864:role/amplify-newcodegnanjobportal-dev-739b2-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newcodegnanjobportal-dev-739b2-deployment",
+      "UnauthRoleName": "amplify-newcodegnanjobportal-dev-739b2-unauthRole",
+      "StackName": "amplify-newcodegnanjobportal-dev-739b2",
+      "StackId": "arn:aws:cloudformation:us-east-1:654654589864:stack/amplify-newcodegnanjobportal-dev-739b2/d3d579e0-32bf-11ef-81a6-0e08a8e0b5b1",
+      "AmplifyAppId": "d1gngrnr75rn0x"
+    },
+    "categories": {
+      "api": {
+        "newcodegnanjobportal": {}
+      }
+    }
+  },
+  "newjobapp": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newcodegnanjobportal-newjobapp-73a3e-authRole",
+      "UnauthRoleArn": "arn:aws:iam::654654589864:role/amplify-newcodegnanjobportal-newjobapp-73a3e-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::654654589864:role/amplify-newcodegnanjobportal-newjobapp-73a3e-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newcodegnanjobportal-newjobapp-73a3e-deployment",
+      "UnauthRoleName": "amplify-newcodegnanjobportal-newjobapp-73a3e-unauthRole",
+      "StackName": "amplify-newcodegnanjobportal-newjobapp-73a3e",
+      "StackId": "arn:aws:cloudformation:us-east-1:654654589864:stack/amplify-newcodegnanjobportal-newjobapp-73a3e/1b99e9a0-33ba-11ef-9e2f-0affd16768d7",
+      "AmplifyAppId": "dvqs6bfhi8833"
+    },
+    "categories": {
+      "api": {
+        "newcodegnanjobportal": {}
+      }
+    }
+  }
+}

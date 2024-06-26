@@ -1,0 +1,44 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newcodegnanjobportal-newjobapp-73a3e-authRole",
+      "UnauthRoleArn": "arn:aws:iam::654654589864:role/amplify-newcodegnanjobportal-newjobapp-73a3e-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::654654589864:role/amplify-newcodegnanjobportal-newjobapp-73a3e-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newcodegnanjobportal-newjobapp-73a3e-deployment",
+      "UnauthRoleName": "amplify-newcodegnanjobportal-newjobapp-73a3e-unauthRole",
+      "StackName": "amplify-newcodegnanjobportal-newjobapp-73a3e",
+      "StackId": "arn:aws:cloudformation:us-east-1:654654589864:stack/amplify-newcodegnanjobportal-newjobapp-73a3e/1b99e9a0-33ba-11ef-9e2f-0affd16768d7",
+      "AmplifyAppId": "dvqs6bfhi8833"
+    }
+  },
+  "api": {
+    "newcodegnanjobportal": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2024-07-25T07:14:37.190Z",
+              "apiKeyExpirationDays": 30,
+              "description": "newcodegnanjobportal"
+            },
+            "authenticationType": "API_KEY"
+          }
+        },
+        "GraphQLAPIIdOutput": "gn3q4adc3jcvverhu4xgbvccqu",
+        "GraphQLAPIEndpointOutput": "https://wmtp3liburgt3hncuudtn3xrhq.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-irxxcgrshfh4dfd74sx4ekhbju"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-newcodegnanjobportal-newjobapp-73a3e-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apinewcodegnanjobportal"
+      },
+      "lastPushTimeStamp": "2024-06-26T12:52:46.099Z",
+      "lastPushDirHash": "sZwWpaPoeZvtD1/6DvfC1VgQ+gI="
+    }
+  }
+}

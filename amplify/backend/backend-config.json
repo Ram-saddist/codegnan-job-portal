@@ -1,0 +1,22 @@
+{
+  "api": {
+    "newcodegnanjobportal": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2024-07-25T07:14:37.190Z",
+              "apiKeyExpirationDays": 30,
+              "description": "newcodegnanjobportal"
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  }
+}

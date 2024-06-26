@@ -1,0 +1,7 @@
+{
+    "AppSyncApiName": "newcodegnanjobportal",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-newcodegnanjobportal-newjobapp-73a3e-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/3897e6d5de03f951114923f94fe8688ad1ab33c3"
+}

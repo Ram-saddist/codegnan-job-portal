@@ -53,7 +53,6 @@ export default function Home() {
        "ECE": 269,
        "EEE": 74,
        "ISE": 68,
-       "ECE": 50,
        "CS": 23,
        "MCA": 20
      }
@@ -89,8 +88,9 @@ export default function Home() {
             <span style={{ color: "#c36" }}>100% </span>
             Placement Assistance</span><br />
           <span className='tag-line'>until you get placed</span>
+          <span className=''>One Stop Solution For Consulting, Recruitment & Training</span>
         </p>
-        <img src={placement} alt='coverpage-image' />
+        <img src={placement} alt='coverpage' />
       </div>
       <div className="home-cards-container">
         <StudentComponent />
