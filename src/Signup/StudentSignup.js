@@ -89,7 +89,7 @@ const StudentSignup = () => {
         let validTypes = [];
     
         if (fieldName === 'resume') {
-            validTypes = ['application/pdf'];
+            validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         } else if (fieldName === 'profilePic') {
             validTypes = ['image/jpeg', 'image/png', 'image/gif'];
         }
@@ -103,7 +103,7 @@ const StudentSignup = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Invalid File Type',
-                text: fieldName === 'resume' ? 'Please upload a PDF document.' : 'Please upload an image file (JPEG, PNG, GIF).',
+                text: fieldName === 'resume' ? 'Please upload a PDF or Word document.' : 'Please upload an image file (JPEG, PNG, GIF).',
             });
             e.target.value = ''; 
         }
@@ -179,21 +179,15 @@ const StudentSignup = () => {
             })
             .catch((error) => {
                 console.log("error from student signup", error)
-                if (error.response.status === 409) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Email already exists",
-                    });
-                }
-                else {
+                
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
                         text: "Unable to make signup",
                     });
-                }
             })
+        //console.log(formData);
+
     };
     return (
         <div className='student-signup-container'>
@@ -411,7 +405,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Profile Picture <span style={{ color: 'red' }}>*</span></label>
+                        <label>Profile Picture (2 MB) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="profilePic"
@@ -421,11 +415,11 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume (pdf) <span style={{ color: 'red' }}>*</span></label>
+                        <label>Resume (5MB doc,pdf,docx) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="resume"
-                            accept=".pdf"
+                            accept=".pdf,.doc,.docx"
                             onChange={handleFileChange}
                             required
                         />
