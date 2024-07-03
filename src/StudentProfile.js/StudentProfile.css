@@ -1,3 +1,41 @@
-.studentprofile-main{
+.studentprofile-container {
     min-height: 80vh;
+    padding: 15px;
+}
+
+.studentprofile-container .student-profile-key {
+    color: black;
+    font-weight: 400 !important;
+}
+
+.studentprofile-container p {
+    color: #363f8f; /* Blue color for values */
+    font-family: "Arimo", sans-serif;
+    font-weight: 700;
+    margin: 15px 0;
+    font-style: normal;
+}
+
+.file-upload {
+    border: 1px solid #ccc; /* Default border style */
+    /* Adjust width as needed */
+    color:black;
+    padding: 10px; /* Padding for better visual appearance */
+    cursor: pointer; /* Change cursor to pointer when hovering */
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 4px; /* Rounded corners */
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.file-upload:hover {
+    border-color: #999; /* Darker border color on hover */
+}
+
+.studentprofile-container .btn-update{
+    border-radius: 5px;
+    background-color: #363f8f;
+    color: white;
+    border: none;
+    padding:8px;
+    cursor:pointer
 }

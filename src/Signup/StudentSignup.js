@@ -29,6 +29,7 @@ const StudentSignup = () => {
         profilePic: '',
         resume: null,
         highestGraduationCGPA: 0,
+        otp: null
     });
     const [age, setAge] = useState('');
     const handleAgeChange = (e) => {
@@ -62,6 +63,7 @@ const StudentSignup = () => {
     const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java', 'NodeJS', 'Reactjs', 'Angular', 'Vuejs', 'ML', 'Django', 'Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting', 'VB.NET', 'MATLAB', 'R', 'AWS', 'DevOps']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
+    const [showOTPInput, setShowOTPInput] = useState(false);
 
     const addSkill = () => {
         if (currentSkill && !selectedSkills.includes(currentSkill)) {
@@ -85,15 +87,15 @@ const StudentSignup = () => {
     const handleFileChange = (e) => {
         const fieldName = e.target.name;
         const file = e.target.files[0];
-    
+
         let validTypes = [];
-    
+
         if (fieldName === 'resume') {
             validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         } else if (fieldName === 'profilePic') {
             validTypes = ['image/jpeg', 'image/png', 'image/gif'];
         }
-    
+
         if (file && validTypes.includes(file.type)) {
             setFormData({
                 ...formData,
@@ -105,11 +107,18 @@ const StudentSignup = () => {
                 title: 'Invalid File Type',
                 text: fieldName === 'resume' ? 'Please upload a PDF or Word document.' : 'Please upload an image file (JPEG, PNG, GIF).',
             });
-            e.target.value = ''; 
+            e.target.value = '';
         }
     };
-    
 
+    const generateOtp = () => {
+        console.log("email value", formData.email)
+        setShowOTPInput(true);
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/studentemailvalidation`, { email: formData.email })
+            .then((res) => {
+                console.log("res from generateotp function",res)
+            })
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -179,12 +188,12 @@ const StudentSignup = () => {
             })
             .catch((error) => {
                 console.log("error from student signup", error)
-                
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Unable to make signup",
-                    });
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Unable to make signup",
+                });
             })
         //console.log(formData);
 
@@ -204,18 +213,36 @@ const StudentSignup = () => {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Email <span style={{ color: 'red' }}>*</span></label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder='Ex:sivaram@gmail.com'
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
+                    <div className="form-group otp-parent">
+                        <div>
+                            <label>Email <span style={{ color: 'red' }}>*</span></label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder='Ex:sivaram@gmail.com'
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <span className='generateotp-btn' onClick={generateOtp}>Generate OTP</span>
                     </div>
                 </div>
+                {showOTPInput && (
+                    <div className='input-group'>
+                        <div className="form-group">
+                            <label>Enter OTP <span style={{ color: 'red' }}>*</span></label>
+                            <input
+                                type="text"
+                                name="otp"
+                                placeholder='Ex: 92145'
+                                value={formData.otp}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </div>
+                )}
                 <div className="input-group">
                     <div className="form-group">
                         <label>Password <span style={{ color: 'red' }}>*</span></label>
@@ -425,7 +452,7 @@ const StudentSignup = () => {
                         />
                     </div>
                 </div>
-                {/* sill set*/}
+
                 <div className="input-group">
                     <div className="form-group">
                         <label>Date of birth <span style={{ color: 'red' }}>*</span></label>
