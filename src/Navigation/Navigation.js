@@ -54,7 +54,7 @@ const Navigation = () => {
                       Jobs List
                     </Button>
                     <Button color="inherit" id="nav-link" onClick={() => handleClick("/student-profile")}>
-                      Student Profile
+                      Profile
                     </Button>
                     <Button color="inherit" id="nav-link" onClick={handleLogout}>
                       Logout
