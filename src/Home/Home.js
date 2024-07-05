@@ -11,8 +11,9 @@ import BranchDashboard from './BranchDashboard';
 import CollegeDashboard from './CollegeDashboard'; // Import the CollegeDashboard component
 
 export default function Home() {
-  
-   const dashboardData = {
+
+  /*
+     const dashboardData = {
      "YOP_DICT": {
        "2022.0": 377,
        "2020.0": 363,
@@ -57,23 +58,39 @@ export default function Home() {
        "MCA": 20
      }
    };
-   /*
-   const [dashboardData, setDashboardData] = useState({})
+  */
+
+
+  const [dashboardData, setDashboardData] = useState({
+    "YOP_DICT": {
+      "2022.0": 377,
+    },
+    "COMPANIES": {
+      "Mphasis": 292,
+    },
+    "COLLEGES_LIST": {
+      "PES Institute of Technology and Management": 10
+    },
+    "BRANCH_LIST": {
+      "CSE": 336,
+    }
+  })
   useEffect(() => {
     // Fetch dashboard data from the backend API
     const fetchDashboardData = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/refreshdashboard`);
-        setDashboardData(response.data);
         console.log(response.data)
+        setDashboardData(response.data);
+
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
     };
 
     fetchDashboardData();
-  }, []);*/
-  
+  }, []);
+
 
   const companiesData = dashboardData.COMPANIES;
   const branchList = dashboardData.BRANCH_LIST;
@@ -98,11 +115,19 @@ export default function Home() {
         <DrivesComponent />
         <AverageSalaryComponent />
       </div>
-      
-      <CompanyDashboard companiesData={companiesData} />
+      {
+        dashboardData ? (
+          <div>
+            <CompanyDashboard companiesData={companiesData} />
+            <BranchDashboard branchList={branchList} />
+            <CollegeDashboard collegesList={collegesList} />
+          </div>
+        ) : (null)
+      }
+      {/* <CompanyDashboard companiesData={companiesData} />
       <BranchDashboard branchList={branchList} />
-      <CollegeDashboard collegesList={collegesList} />
-     
+      <CollegeDashboard collegesList={collegesList} /> */}
+
     </div>
   );
 }
@@ -121,7 +146,7 @@ const StudentComponent = () => {
 
   return (
     <div className="home-card">
-      <img src={noOfStudents} alt='noofstudents'/>
+      <img src={noOfStudents} alt='noofstudents' />
       <h1 className="home-card-title">{count}</h1>
       <p className="home-card-text">Total No. Of Students Till Date</p>
     </div>
@@ -142,7 +167,7 @@ const DrivesComponent = () => {
 
   return (
     <div className="home-card">
-       <img src={drives} alt='noofstudents'/>
+      <img src={drives} alt='noofstudents' />
       <h1 className="home-card-title">{count} Drives</h1>
       <p className="home-card-text">Total No. Of Drives Conducted</p>
     </div>
@@ -163,7 +188,7 @@ const AverageSalaryComponent = () => {
 
   return (
     <div className="home-card">
-       <img src={averagePackage} alt='noofstudents'/>
+      <img src={averagePackage} alt='noofstudents' />
       <h1 className="home-card-title">{count} LPA</h1>
       <p className="home-card-text">Average Salary Package</p>
     </div>
@@ -187,7 +212,7 @@ const HighestSalaryComponent = () => {
 
   return (
     <div className="home-card">
-       <img src={highestPackage} alt='noofstudents'/>
+      <img src={highestPackage} alt='noofstudents' />
       <h1 className="home-card-title">{count} LPA</h1>
       <p className="home-card-text">Highest Salary Package</p>
     </div>

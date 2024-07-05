@@ -35,8 +35,27 @@
     font-size: 1rem;
     color: black;
 }
+.student-signup-container .radio-group {
+    display: flex;
+    align-items: center;
+}
+
+.student-signup-container .radio-option {
+    display: flex;
+    align-items: baseline;
+    margin-right: 30px;
+}
+
+.student-signup-container .radio-option input {
+    margin-right: 15px;
+}
 
 .student-signup-container .otp-parent{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.student-signup-container .check{
     display: flex;
     align-items: center;
     justify-content: space-between;

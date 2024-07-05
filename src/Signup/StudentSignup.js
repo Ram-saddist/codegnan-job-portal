@@ -15,7 +15,7 @@ const StudentSignup = () => {
         mobileNumber: '',
         collegeUSNNumber: '',
         githubLink: '',
-        arrears: null,
+        arrears: '',
         qualification: '',
         department: '',
         password: '',
@@ -28,9 +28,11 @@ const StudentSignup = () => {
         twelfthStandard: '',
         profilePic: '',
         resume: null,
-        highestGraduationCGPA: 0,
+        highestGraduationCGPA: '',
     });
+    const [otp, setOtp] = useState('')
     const [age, setAge] = useState('');
+    const [check, setCheck] = useState(false)
     const handleAgeChange = (e) => {
         const selectedDate = e.target.value;
         const calculatedAge = calculateAge(selectedDate);
@@ -62,16 +64,31 @@ const StudentSignup = () => {
     const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java', 'NodeJS', 'Reactjs', 'Angular', 'Vuejs', 'ML', 'Django', 'Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Swift', 'TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting', 'VB.NET', 'MATLAB', 'R', 'AWS', 'DevOps']);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
-
+    const [isOther, setIsOther] = useState(false);
+    const [newSkill, setNewSkill] = useState('');
+    const [showOTPInput, setShowOTPInput] = useState(false);
     const addSkill = () => {
-        if (currentSkill && !selectedSkills.includes(currentSkill)) {
-            setSelectedSkills([...selectedSkills, currentSkill]);
-            setCurrentSkill('')
+        const skillToAdd = isOther ? newSkill : currentSkill;
+        if (skillToAdd && !selectedSkills.includes(skillToAdd)) {
+            setSelectedSkills([...selectedSkills, skillToAdd]);
+            setCurrentSkill('');
+            setIsOther(false);
+            setNewSkill('');
+            if (isOther && !skills.includes(skillToAdd)) {
+                setSkills([...skills, skillToAdd]);
+            }
         }
     };
+
     const removeSkill = (skill) => {
         const updatedSkills = selectedSkills.filter(item => item !== skill);
         setSelectedSkills(updatedSkills);
+    };
+
+    const handleSkillChange = (e) => {
+        const value = e.target.value;
+        setCurrentSkill(value);
+        setIsOther(value === 'Other');
     };
 
     const handleChange = (e) => {
@@ -85,42 +102,91 @@ const StudentSignup = () => {
     const handleFileChange = (e) => {
         const fieldName = e.target.name;
         const file = e.target.files[0];
-    
+
         let validTypes = [];
-    
+        let maxSize = 0;
         if (fieldName === 'resume') {
-            validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            validTypes = ['application/pdf'];
+            maxSize = 5 * 1024 * 1024; // 5 MB
         } else if (fieldName === 'profilePic') {
             validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            maxSize = 2 * 1024 * 1024; // 2 MB
         }
-    
-        if (file && validTypes.includes(file.type)) {
+
+        if (file) {
+            if (!validTypes.includes(file.type)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid File Type',
+                    text: fieldName === 'resume' ? 'Please upload a PDF document.' : 'Please upload an image file (JPEG, PNG, GIF).',
+                });
+                e.target.value = '';
+                return;
+            }
+
+            if (file.size > maxSize) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File Too Large',
+                    text: fieldName === 'resume' ? 'Resume must be less than 5 MB.' : 'Profile picture must be less than 2 MB.',
+                });
+                e.target.value = '';
+                return;
+            }
+
             setFormData({
                 ...formData,
                 [fieldName]: file,
             });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid File Type',
-                text: fieldName === 'resume' ? 'Please upload a PDF or Word document.' : 'Please upload an image file (JPEG, PNG, GIF).',
-            });
-            e.target.value = ''; 
         }
     };
-    
 
+    const generateOtp = () => {
+        console.log("email value", formData.email)
+        setShowOTPInput(true);
+        Swal.fire({
+            title: "Check your email for OTP",
+            icon: "success"
+        });
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/studentotp`, { email: formData.email })
+            .then((res) => {
+                console.log("res from generateotp function", res)
+
+            })
+    }
+    const handleOTPChange = (e) => {
+        const value = e.target.value;
+        setOtp(value);
+        if (value.length === 6) {
+            // Make a backend request
+            axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/verifystudentotp`, { otp: Number(value), email: formData.email })
+                .then(response => {
+                    // Handle the response from the backend
+                    console.log('OTP verified:', response.data);
+                    if (response.status === 200) {
+                        setCheck(true)
+                        setButtonClicked(true);
+
+                    }
+                    // You can also add logic here to enable the signup button
+                })
+                .catch(error => {
+                    // Handle any errors from the backend
+                    console.error('Error verifying OTP:', error);
+                });
+        }
+    }
+
+    const handleArrearsChange = (e) => {
+        const value = e.target.value === 'yes' ? true : false;
+        setFormData({
+            ...formData,
+            arrears: value,
+        });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Swal.fire({
-            title: 'Signing up...',
-            text: 'Please wait while we process your registration',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
         // Handle form submission
         console.log(formData, formData.age)
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -131,6 +197,7 @@ const StudentSignup = () => {
         }
         if (selectedSkills.length === 0) {
             alert("select atleast one skill")
+            return false
         }
 
         if (formData.password !== formData.cpassword) {
@@ -141,6 +208,14 @@ const StudentSignup = () => {
             alert("Highest graduation must be a number");
             return false
         }
+        Swal.fire({
+            title: 'Signing up...',
+            text: 'Please wait while we process your registration',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
         console.log("signup form \n", formData, selectedSkills, "\n\n")
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/signup`, {
             name: formData.name,
@@ -172,19 +247,19 @@ const StudentSignup = () => {
                 console.log("", response.data)
                 console.log("student signup ", response.data)
                 Swal.fire({
-                    title: "Signup Successful!",
+                    title: "Signup Successful",
                     icon: "success"
                 });
                 navigate("/login/student")
             })
             .catch((error) => {
                 console.log("error from student signup", error)
-                
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Unable to make signup",
-                    });
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Unable to make signup",
+                });
             })
         //console.log(formData);
 
@@ -204,18 +279,42 @@ const StudentSignup = () => {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Email <span style={{ color: 'red' }}>*</span></label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder='Ex:sivaram@gmail.com'
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
+                    <div className="form-group otp-parent">
+                        <div>
+                            <label>Email <span style={{ color: 'red' }}>*</span></label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder='Ex:sivaram@gmail.com'
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <span className='generateotp-btn' onClick={generateOtp}>Generate OTP</span>
                     </div>
                 </div>
+                {showOTPInput && (
+                    <div className='input-group'>
+                        <div className="form-group ">
+                            <label>Enter OTP <span style={{ color: 'red' }}>*</span></label>
+                            <input
+                                type="text"
+                                name="otp"
+                                placeholder='Ex: 92145'
+                                value={otp}
+                                onChange={handleOTPChange}
+                                required
+                            />
+                        </div>
+                        {
+                            check &&
+                            <div className="check">
+                                <img width="10%" src='https://media.tenor.com/bm8Q6yAlsPsAAAAj/verified.gif' alt='email_verification' />
+                            </div>
+                        }
+                    </div>
+                )}
                 <div className="input-group">
                     <div className="form-group">
                         <label>Password <span style={{ color: 'red' }}>*</span></label>
@@ -319,7 +418,7 @@ const StudentSignup = () => {
                             name="department"
                             value={formData.department}
                             onChange={handleChange}
-
+                            required
                         >
                             <option value="">Select Department <span style={{ color: 'red' }}>*</span></option>
                             <option value="CSE">CSE</option>
@@ -415,11 +514,11 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume (5MB pdf) <span style={{ color: 'red' }}>*</span></label>
+                        <label>Resume (5MB - pdf) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="resume"
-                            accept=".pdf,.doc,.docx"
+                            accept=".pdf"
                             onChange={handleFileChange}
                             required
                         />
@@ -443,22 +542,35 @@ const StudentSignup = () => {
                         )}
                     </div>
                     <div>
-                        <label htmlFor="skills">Skills: <span style={{ color: 'red' }}>*</span></label>
+                        <label>Skills: <span style={{ color: 'red' }}>*</span></label>
                         <select
                             id="skills"
                             name="skills"
                             value={currentSkill}
-                            onChange={(e) => setCurrentSkill(e.target.value)}
+                            onChange={handleSkillChange}
                         >
                             <option value="">Select a skill</option>
                             {skills.map((skill, index) => (
                                 <option key={index} value={skill}>{skill}</option>
                             ))}
+                            <option value="Other">Other</option>
                         </select>
+
+                        {isOther && (
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Enter a new skill"
+                                    value={newSkill}
+                                    onChange={(e) => setNewSkill(e.target.value)}
+                                />
+                            </div>
+                        )}
 
                         <button type="button" className='add-skill' onClick={addSkill}>
                             Add Skill
                         </button>
+
                         <div className='selected-skills'>
                             {selectedSkills.map((skill, index) => (
                                 <p key={index}>
@@ -473,18 +585,40 @@ const StudentSignup = () => {
                 <div className="input-group">
                     <div className="form-group">
                         <label>Arrears <span style={{ color: 'red' }}>*</span></label>
-                        <input
-                            type="number"
-                            name="arrears"
-                            placeholder='Ex:0'
-                            value={formData.arrears}
-                            onChange={handleChange}
-                            required
-                        />
+                        <div className="radio-group">
+                            <div className="radio-option">
+                                <input
+                                    type="radio"
+                                    id="arrearsYes"
+                                    name="arrears"
+                                    value="yes"
+                                    checked={formData.arrears === true}
+                                    onChange={handleArrearsChange}
+                                    required
+                                />
+                                <label htmlFor="arrearsYes">Yes</label>
+                            </div>
+                            <div className="radio-option">
+                                <input
+                                    type="radio"
+                                    id="arrearsNo"
+                                    name="arrears"
+                                    value="no"
+                                    checked={formData.arrears === false}
+                                    onChange={handleArrearsChange}
+                                    required
+                                />
+                                <label htmlFor="arrearsNo">No</label>
+                            </div>
+                        </div>
                     </div>
-
+                    <div className="form-group">
+                        <p style={{color:"red",marginTop:"10px"}}>
+                        Validate your email till then you can't signup
+                        </p>
+                    </div>
                 </div>
-                <button onClick={() => { console.log(age) }} disabled={buttonClicked} className='btn'>Signup Now</button>
+                <button disabled={!buttonClicked} className='btn'>Signup Now</button>
             </form>
         </div>
     );

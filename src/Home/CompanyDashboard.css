@@ -44,12 +44,18 @@ th{
     display: flex;
     justify-content: center;
     margin-top: 20px;  
-    
     color: #34409a !important;
 }
 .pagination button{
-    color: white;
-    background-color: #124241;
+    color: black !important;
+    
+}
+.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+    background-color: #124241 !important; 
+    color: white !important;
+}
+.css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon path{
+    color: black !important;
 }
 
 @media (max-width:700px){
@@ -69,3 +75,4 @@ th{
         width:40%
     }
 }
+
