@@ -19,18 +19,23 @@ export default function StudentLogin() {
         localStorage.setItem("userType", response.data.userType);
         localStorage.setItem("student_id", response.data.student_id);
         navigate('/');
-      } else {
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      if(error.response.status===404){
+        Swal.fire({
+          icon: "error",
+          title: "Login failed. User not found",
+        });
+        return 
+      }
+      else if(error.response.status===400){
         Swal.fire({
           icon: "error",
           title: "Invalid credentials",
         });
+        return 
       }
-    } catch (error) {
-      console.error("Login failed:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Login failed. User not found",
-      });
     }
   };
 

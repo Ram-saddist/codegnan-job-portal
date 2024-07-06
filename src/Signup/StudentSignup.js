@@ -258,7 +258,7 @@ const StudentSignup = () => {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Unable to make signup",
+                    text: "Unable to signup",
                 });
             })
         //console.log(formData);
@@ -291,7 +291,10 @@ const StudentSignup = () => {
                                 required
                             />
                         </div>
-                        <span className='generateotp-btn' onClick={generateOtp}>Generate OTP</span>
+                        {
+                            !check && <span className='generateotp-btn' onClick={generateOtp}>Generate OTP</span>
+                        }
+
                     </div>
                 </div>
                 {showOTPInput && (
@@ -310,7 +313,7 @@ const StudentSignup = () => {
                         {
                             check &&
                             <div className="check">
-                                <img width="10%" src='https://media.tenor.com/bm8Q6yAlsPsAAAAj/verified.gif' alt='email_verification' />
+                                <img style={{marginTop:"10px"}} width="10%" src='https://media.tenor.com/bm8Q6yAlsPsAAAAj/verified.gif' alt='email_verification' />
                             </div>
                         }
                     </div>
@@ -480,7 +483,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>College Name <span style={{ color: 'red' }}>*</span></label>
+                        <label>Graduated College Name(PG/UG) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text"
                             name="collegeName"
@@ -612,11 +615,14 @@ const StudentSignup = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <p style={{color:"red",marginTop:"10px"}}>
-                        Validate your email till then you can't signup
-                        </p>
-                    </div>
+                    {
+                        !check &&
+                        <div className="form-group">
+                            <p style={{ color: "red", marginTop: "10px" }}>
+                                Validate your email till then you can't signup
+                            </p>
+                        </div>
+                    }
                 </div>
                 <button disabled={!buttonClicked} className='btn'>Signup Now</button>
             </form>

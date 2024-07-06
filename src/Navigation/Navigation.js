@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, Button } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import './Navigation.css';
+import logo from '../images/Codegnan Logo.png'
 
 const Navigation = () => {
   let navigate = useNavigate();
@@ -40,7 +41,7 @@ const Navigation = () => {
       <AppBar position="fixed" className="navbar" elevation={0}>
         <Toolbar className="tool">
           <img
-            src="https://codegnan.com/wp-content/uploads/2024/02/Codegnan%E2%87%94Destination1.png"
+            src={logo}
             alt="Codegnan Logo"
             className="logo"
             onClick={() => handleClick("/")}

@@ -7,10 +7,10 @@
   padding: 0 20px;
 }
 
+
 .logo {
-  width: auto;
+  width: 15%;
   /* Make the image responsive */
-  height: 40px;
   /* Set the desired height */
   cursor: pointer;
 }
@@ -118,5 +118,8 @@
     position: absolute;
     right:2%;
     top:3%
+  }
+  .logo{
+    width:35%
   }
 }

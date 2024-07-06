@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './StudentProfile.css';
+import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
 
 export default function StudentProfile() {
@@ -44,6 +45,10 @@ export default function StudentProfile() {
         }
       );
       if(response.status===200){
+        Swal.fire({
+          title: "Resume Updated Successfully",
+          icon: "success"
+      });
         navigate("/jobslist")
       } 
       console.log('Update Resume Response:', response);
