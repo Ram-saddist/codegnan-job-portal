@@ -143,6 +143,10 @@ const StudentSignup = () => {
 
     const generateOtp = () => {
         console.log("email value", formData.email)
+        if(formData.email===""){
+            alert("Please enter valid emailID")
+            return ;
+        }
         setShowOTPInput(true);
         Swal.fire({
             title: "Check your email for OTP",
