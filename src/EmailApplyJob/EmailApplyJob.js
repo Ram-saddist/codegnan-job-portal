@@ -41,7 +41,7 @@ export default function EmailApplyJob() {
                         showConfirmButton: false,
                         timer: 3000
                     });
-                    window.location.href = "https://www.placement.codegnan.com/"
+                    window.location.href = "https://www.placements.codegnan.com/"
                 }
             })
             .catch((error) => {
