@@ -107,10 +107,10 @@ const StudentSignup = () => {
         let maxSize = 0;
         if (fieldName === 'resume') {
             validTypes = ['application/pdf'];
-            maxSize = 5 * 1024 * 1024; // 5 MB
+            maxSize = 20 * 1024; // 20 KB
         } else if (fieldName === 'profilePic') {
             validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            maxSize = 2 * 1024 * 1024; // 2 MB
+            maxSize = 10 * 1024; // 10 KB
         }
 
         if (file) {
@@ -128,7 +128,7 @@ const StudentSignup = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'File Too Large',
-                    text: fieldName === 'resume' ? 'Resume must be less than 5 MB.' : 'Profile picture must be less than 2 MB.',
+                    text: fieldName === 'resume' ? 'Resume must be less than 20 KB.' : 'Profile picture must be less than 10 KB.',
                 });
                 e.target.value = '';
                 return;
@@ -511,7 +511,7 @@ const StudentSignup = () => {
                 </div>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Profile Picture (2 MB) <span style={{ color: 'red' }}>*</span></label>
+                        <label>Profile Picture (10 KB) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="profilePic"
@@ -521,7 +521,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume (5MB - pdf) <span style={{ color: 'red' }}>*</span></label>
+                        <label>Resume (20KB - pdf) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="resume"
@@ -628,7 +628,8 @@ const StudentSignup = () => {
                         </div>
                     }
                 </div>
-                <button disabled={!buttonClicked} className='btn'>Signup Now</button>
+                <button className='btn'>Signup Now</button>
+                {/* <button disabled={!buttonClicked} className='btn'>Signup Now</button> */}
             </form>
         </div>
     );
