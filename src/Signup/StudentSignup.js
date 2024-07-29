@@ -128,7 +128,7 @@ const StudentSignup = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'File Too Large',
-                    text: fieldName === 'resume' ? 'Resume must be less than 20 KB.' : 'Profile picture must be less than 10 KB.',
+                    text: fieldName === 'resume' ? 'Resume must be less than 100 KB.' : 'Profile picture must be less than 10 KB.',
                 });
                 e.target.value = '';
                 return;
@@ -521,7 +521,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Resume (20KB - pdf) <span style={{ color: 'red' }}>*</span></label>
+                        <label>Resume (100KB - pdf) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="file"
                             name="resume"

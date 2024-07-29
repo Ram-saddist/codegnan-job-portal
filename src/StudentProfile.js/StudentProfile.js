@@ -60,8 +60,22 @@ export default function StudentProfile() {
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+    const file = e.target.files[0];
+    const maxSize = 100 * 1024; // 100 KB
+
+    if (file) {
+        if (file.size > maxSize) {
+            Swal.fire({
+                icon: 'error',
+                title: 'File Too Large',
+                text: 'The uploaded file must be less than 100 KB.',
+            });
+            e.target.value = ''; // Clear the input
+        } else {
+            setFile(file);
+        }
+    }
+};
 
   return (
     <div className='studentprofile-container'>
@@ -78,6 +92,7 @@ export default function StudentProfile() {
           <form encType="multipart/form-data" onSubmit={updateResume}>
             <div className="file-upload-container">
               <input className='file-upload' type="file" onChange={handleFileChange} />
+              <span style={{ color: 'red' }}>*</span>
               <p>
               <button className='btn-update' type="submit">Update resume</button>
               </p>
