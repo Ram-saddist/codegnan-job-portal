@@ -107,7 +107,7 @@ const StudentSignup = () => {
         let maxSize = 0;
         if (fieldName === 'resume') {
             validTypes = ['application/pdf'];
-            maxSize = 20 * 1024; // 20 KB
+            maxSize = 100 * 1024; // 100 KB
         } else if (fieldName === 'profilePic') {
             validTypes = ['image/jpeg', 'image/png', 'image/gif'];
             maxSize = 10 * 1024; // 10 KB
