@@ -5,11 +5,11 @@ export default function Footer() {
     <div className='footer'>
       <div className='branches'>
         <h3 style={{margin: "10px"}}>OUR BRANCHES</h3>
-        <div className='city'>
+        {/* <div className='city'>
           <p className='city-name'>Bengaluru</p>
           <p className='address'>#951, 16th Main, BTM 2nd Stage, Bengaluru, Karnataka, 560076.
           </p>
-        </div>
+        </div> */}
         
         <div className='city'>
           <p className='city-name'>Hyderabad</p>

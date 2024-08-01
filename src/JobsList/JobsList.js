@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './JobsList.css';
 import Swal from 'sweetalert2'
+import JobDeadline from './JobDeadline'; // Import the JobDeadline component
+
 const JobsList = () => {
     // State variables to store job details
     const [jobs, setJobs] = useState([]);
@@ -17,6 +19,7 @@ const JobsList = () => {
             setStudentDetails(studentResponse.data)
             // Fetch job details
             const jobResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/listopenings`);
+            console.log("jobResponse.data.jobs",jobResponse.data.jobs)
             setJobs(jobResponse.data.jobs);
             setLoading(false);
             // let studentDetails; // Retrieve student details here
@@ -81,6 +84,7 @@ const JobsList = () => {
                             <p><span className="job-list-key">Eligible Technologies:</span> {job.technologies.join(', ')}</p>
                             <p><span className="job-list-key">Bond:</span> {job.bond} years</p>
                             <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
+                            <JobDeadline deadLine={job.deadLine} />
                             <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
                             <button className={`apply-job-list-btn ${!job.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(job.job_id)) ? 'applied' : '')}`} onClick={() => applyJob(job.job_id)} disabled={!job.isActive}>
                                 {(!job.isActive) ? 'Timeout' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(job.job_id)) ? 'Applied' : 'Apply')}
