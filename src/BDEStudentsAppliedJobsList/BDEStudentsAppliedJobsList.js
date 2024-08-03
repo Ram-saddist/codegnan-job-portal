@@ -2,33 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './BDEStudentsAppliedJobsList.css';
 import axios from 'axios';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import MultipleSelect from './MultipleSelect'; // Import the MultipleSelect component for departments
+import SkillsSelect from './SkillsSelect'; // Import the SkillsSelect component
+
 const BDEStudentsAppliedJobsList = () => {
   const { jobId } = useParams();
   const [appliedStudents, setAppliedStudents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [resumeName,setResumeName]=useState('')
-  const [excelName,setExcelName]=useState('')
-  const [jobSkills, setJobSkills] = useState([])
-  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [resumeName, setResumeName] = useState('');
+  const [excelName, setExcelName] = useState('');
+  const [jobSkills, setJobSkills] = useState([]);
+  const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [selectedCGPA, setSelectedCGPA] = useState('');
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [rejectedStudents, setRejectedStudents] = useState([]);
-  const [selectedSkill, setSelectedSkill] = useState('');
+  const [selectedSkills, setSelectedSkills] = useState([]);
+
   const fetchAppliedStudents = async () => {
     try {
-      console.log(jobId)
       const resumeNameResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${jobId}`);
       const { companyName, jobRole } = resumeNameResponse.data;
-      
-      setExcelName(`${companyName}_${jobRole}`)
-      setResumeName(`resumes_${companyName}_${jobRole}`)
+      setExcelName(`${companyName}_${jobRole}`);
+      setResumeName(`resumes_${companyName}_${jobRole}`);
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getappliedstudentslist?job_id=${jobId}`);
-      console.log("students list", response.data)
-      console.log(response.data.students_applied)
       setAppliedStudents(response.data.students_applied);
-      setJobSkills(response.data.jobSkills)
+      setJobSkills(response.data.jobSkills);
       setSelectedStudents(response.data.selected_students_ids);
       setRejectedStudents(response.data.rejected_students_ids);
       setLoading(false);
@@ -36,15 +36,52 @@ const BDEStudentsAppliedJobsList = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchAppliedStudents();
-    // eslint-disable-next-line
   }, [jobId]);
+
+  const handleDepartmentChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedDepartments(
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const handleSkillChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedSkills(
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const filteredStudents = appliedStudents.filter(student => {
+    let departmentMatch = true;
+    let cgpaMatch = true;
+    let skillMatch = true;
+
+    if (selectedDepartments.length > 0 && !selectedDepartments.includes(student.department)) {
+      departmentMatch = false;
+    }
+
+    if (selectedCGPA && parseFloat(student.highestGraduationCGPA) < parseFloat(selectedCGPA)) {
+      cgpaMatch = false;
+    }
+
+    if (selectedSkills.length > 0 && !selectedSkills.some(skill => student.studentSkills?.includes(skill))) {
+      skillMatch = false;
+    }
+
+    return departmentMatch && cgpaMatch && skillMatch;
+  });
 
   const downloadResume = async () => {
     try {
       const selectedStudentIds = filteredStudents.map(student => student.student_id);
-      console.log(selectedStudentIds, jobId);
       const loadingSwal = Swal.fire({
         title: 'Downloading Resumes',
         html: 'Please wait...',
@@ -56,20 +93,18 @@ const BDEStudentsAppliedJobsList = () => {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/downloadresume`, {
         student_ids: selectedStudentIds
       }, {
-        responseType: 'blob' // Set responseType to blob
+        responseType: 'blob'
       });
-      console.log('Selected students accepted:', response.data);
       loadingSwal.close();
       const blob = new Blob([response.data]);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${resumeName}.zip`); // Set the filename for download
+      link.setAttribute('download', `${resumeName}.zip`);
       document.body.appendChild(link);
       link.click();
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Failed to download resumes:', error);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -85,10 +120,7 @@ const BDEStudentsAppliedJobsList = () => {
     XLSX.writeFile(workbook, `${excelName}.xlsx`);
   };
 
-
-  //accepting students 
   const acceptSelectedStudents = async () => {
-    // Display a confirmation dialog using SweetAlert
     const result = await Swal.fire({
       title: 'Confirm Acceptance',
       text: 'Are you sure you want to reject the remaining students?',
@@ -97,36 +129,28 @@ const BDEStudentsAppliedJobsList = () => {
       confirmButtonText: 'Accept',
       cancelButtonText: 'Cancel'
     });
-    // If the user confirms, send the selected student IDs to the backend API
     if (result.isConfirmed) {
       try {
         const selectedStudentIds = filteredStudents.map(student => student.student_id);
-        console.log(selectedStudentIds, jobId)
-
         if (selectedStudentIds.length === 0) {
-          alert("No students selected. Please select at least one student.");
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'No students selected. Please check the selected list',
           });
-          return; // Exit function to prevent API call
+          return;
         }
-        // Call your backend API with selectedStudentIds
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/updatejobapplicants`, {
           selected_student_ids: selectedStudentIds, job_id: jobId
         });
-        console.log('Selected students accepted:', response.data);
-        console.log(response)
         if (response.status === 200) {
           Swal.fire({
-            title: "Accecpted these selected students",
+            title: "Accepted these selected students",
             icon: "success"
           });
-          fetchAppliedStudents()
+          fetchAppliedStudents();
         }
       } catch (error) {
-        console.error('Failed to accept selected students:', error);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -136,25 +160,6 @@ const BDEStudentsAppliedJobsList = () => {
     }
   };
 
-  // Filter applied students based on selected department, CGPA, and skill
-  const filteredStudents = appliedStudents.filter(student => {
-    let departmentMatch = true;
-    let cgpMatch = true;
-    let skillMatch = true;
-    if (selectedDepartment && student.department !== selectedDepartment) {
-      departmentMatch = false;
-    }
-    if (selectedCGPA && parseFloat(student.highestGraduationCGPA) < parseFloat(selectedCGPA)) {
-      cgpMatch = false;
-    }
-    if (selectedSkill && student.studentSkills?.includes(selectedSkill)) {
-      skillMatch = true;
-    } else if (selectedSkill && !student.studentSkills?.includes(selectedSkill)) {
-      skillMatch = false;
-    }
-    return departmentMatch && cgpMatch && skillMatch;
-  });
-  
   return (
     <div className='students-jobs-list'>
       <h2 style={{ textAlign: 'center' }}>
@@ -166,30 +171,10 @@ const BDEStudentsAppliedJobsList = () => {
         </div>
       </h2>
       <div className='filter-list'>
-        <div>
-          <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
-            <option value="">All Department</option>
-            <option value="CSE">CSE</option>
-            <option value="CIS">CIS</option>
-            <option value="IT">IT</option>
-            <option value="ECE">ECE</option>
-            <option value="EEE">EEE</option>
-            <option value="CIVIL">CIVIL</option>
-            <option value="MECH">MECH</option>
-            <option value="AIML">AIML</option>
-            <option value="AIDS">AIDS</option>
-            <option value="CSD">CSD</option>
-            <option value="MBA">MBA</option>
-            <option value="MTECH CSE">MTECH CSE</option>
-            <option value="IoT">IoT</option>
-            <option value="BBA">BBA</option>
-            <option value="BCA">BCA</option>
-            <option value="BSC">BSC</option>
-            <option value="MCA">MCA</option>
-            <option value="MSC">MSC</option>
-            <option value="Others">Others</option>
-          </select>
-        </div>
+        <MultipleSelect 
+          selectedDepartments={selectedDepartments}
+          handleChange={handleDepartmentChange}
+        />
         <div>
           <select
             className='cgpa'
@@ -209,55 +194,43 @@ const BDEStudentsAppliedJobsList = () => {
             <option value="10">10</option>
           </select>
         </div>
-        {/* Dropdown menu for selecting a skill */}
-        <div>
-          <select value={selectedSkill} onChange={(e) => setSelectedSkill(e.target.value)}>
-            <option value="">All Skills</option>
-            {jobSkills.map(skill => (
-              <option key={skill} value={skill}>{skill}</option>
-            ))}
-          </select>
-        </div>
+        <SkillsSelect 
+          jobSkills={jobSkills} 
+          selectedSkills={selectedSkills} 
+          handleChange={handleSkillChange} 
+        />
       </div>
       <table>
         <thead>
           <tr>
             <th style={{ color: "white" }}>Applied Students  ({filteredStudents.length})</th>
-            <th style={{ color: "white" }}>Selected Students 
-            ({filteredStudents.length>0?selectedStudents.length:null})</th>
+            <th style={{ color: "white" }}>Selected Students
+              ({filteredStudents.length > 0 ? selectedStudents.length : null})</th>
             <th style={{ color: "white" }}>Rejected Students
-            ({filteredStudents.length>0?rejectedStudents.length:null})</th>
+              ({filteredStudents.length > 0 ? rejectedStudents.length : null})</th>
           </tr>
         </thead>
         <tbody>
           {
             loading ?
-              (
-                <tr>
-                  <td colSpan="3">Loading...</td>
-                </tr>
-              ) :
+              (<tr><td colSpan="3">Loading...</td></tr>) :
               (
                 filteredStudents.length > 0 ?
                   (
-                    selectedStudents.length >=0 || rejectedStudents.length > 0 ? (
-                      filteredStudents.map(student => (
-                        <tr key={student.student_id}>
-                          <td>
-                            {student.name}<br />
-                            {student.email}
-                          </td>
-                          <td>{selectedStudents.includes(student.student_id) ? 'Selected' : ''}</td>
-                          <td>{rejectedStudents.includes(student.student_id) ? 'Rejected' : ''}</td>
-                        </tr>
-                      ))
-                    ) : null
-
+                    filteredStudents.map(student => (
+                      <tr key={student.student_id}>
+                        <td>
+                          {student.name}<br />
+                          {student.email}
+                        </td>
+                        <td>{selectedStudents.includes(student.student_id) ? 'Selected' : ''}</td>
+                        <td>{rejectedStudents.includes(student.student_id) ? 'Rejected' : ''}</td>
+                      </tr>
+                    ))
                   ) : (
                     <tr>
-                        {console.log("empty filter")}
-                        <td colSpan="3">No students have applied for this job.</td>
-                      </tr>
+                      <td colSpan="3">No students have applied for this job.</td>
+                    </tr>
                   )
               )
           }
@@ -265,6 +238,5 @@ const BDEStudentsAppliedJobsList = () => {
       </table>
     </div>
   );
-
 };
 export default BDEStudentsAppliedJobsList;

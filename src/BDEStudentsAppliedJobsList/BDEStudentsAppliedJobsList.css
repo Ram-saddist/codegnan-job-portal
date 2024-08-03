@@ -9,9 +9,10 @@
 .filter-list{
     display: flex;
     padding:10px;
-    box-shadow: 0px 0.2px 4px rgba(0,0,0,0.5);
-    width: 45%;
+    /* box-shadow: 0px 0.2px 4px rgba(0,0,0,0.5); */
+    width: 60%;
     justify-content: space-between;
+    align-items: center;
     margin:2% auto;
     padding:1% 2%;
     border-radius: 25px;
@@ -23,8 +24,28 @@
     font-size: 0.97rem;
 }
 
+.menu-item{
+    color: black !important;
+    font-weight:bold !important;
+}
+.filter-list .cgpa{
+    border:1px solid rgba(0,0,0,0.2) !important;
+    padding: 16px 10px !important;
+    border-radius: 5px;
+}
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+    border: none !important;
+    padding: 15px 10px 10px 10px !important;
+    font-weight: bold !important;
+}
+
+.Mui-selected,.Mui-selected:hover {
+    background-color: #32398d !important;
+    color: white !important;
+}
+
 .resume-download{
-   
     background-color: #ecb833 !important;
 }
 .btn-excel,.resume-download, .btn-accept-job-students{
@@ -79,7 +100,14 @@ input[type="number"] {
     border: 1px solid white;
 }
 
-
+@media (max-width:800px){
+    .filter-list{
+        flex-direction: column;
+    }
+    .filter-list .cgpa{
+        width: 300px;
+    }
+}
 
 @media (max-width:500px){
     .btn-excel{
