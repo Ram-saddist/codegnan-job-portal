@@ -84,8 +84,9 @@ const JobsList = () => {
                             <p><span className="job-list-key">Eligible Technologies:</span> {job.technologies.join(', ')}</p>
                             <p><span className="job-list-key">Bond:</span> {job.bond} years</p>
                             <p><span className="job-list-key">Job Location:</span> {job.jobLocation}</p>
-                            <JobDeadline deadLine={job.deadLine} />
-                            <p><span className="job-list-key">Special Note:</span> {job.specialNote}</p>
+                            <p style={{color:"red"}}><span className="job-list-key">Job Location:</span> {job.deadLine}</p>
+                            {/* <JobDeadline deadLine={job.deadLine} /> */}
+                            <p><span  className="job-list-key">Special Note:</span> {job.specialNote}</p>
                             <button className={`apply-job-list-btn ${!job.isActive ? 'disabled' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(job.job_id)) ? 'applied' : '')}`} onClick={() => applyJob(job.job_id)} disabled={!job.isActive}>
                                 {(!job.isActive) ? 'Timeout' : ((studentDetails && studentDetails.applied_jobs && studentDetails.applied_jobs.includes(job.job_id)) ? 'Applied' : 'Apply')}
                             </button>
