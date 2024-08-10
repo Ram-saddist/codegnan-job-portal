@@ -15,8 +15,8 @@ export default function AddJob() {
     const [bond, setBond] = useState('');
     const [jobLocation, setJobLocation] = useState('');
     const [deadLine, setDeadLine] = useState('');
-    const [specialNote,setSpecialNote]=useState('')
-    const [designation,setDesignation]=useState('')
+    const [specialNote, setSpecialNote] = useState('')
+    const [designation, setDesignation] = useState('')
     const [companyNameError, setCompanyNameError] = useState('');
     const [jobRoleError, setJobRoleError] = useState('');
     const [graduatesError, setGraduatesError] = useState('');
@@ -28,7 +28,7 @@ export default function AddJob() {
     const [bondError, setBondError] = useState('');
     const [jobLocationError, setJobLocationError] = useState('');
     // eslint-disable-next-line
-    const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java', 'NodeJS', 'Reactjs', 'Angular', 'Vuejs', 'ML', 'Django', 'Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Flask Framework','Bootstrap','MYSQL', 'TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting', 'VB.NET', 'MATLAB', 'R', 'AWS', 'DevOps',"Hybernate","Spring", "Spring Boot","JSP","Servlets"]);
+    const [skills, setSkills] = useState(['HTML', 'CSS', 'JavaScript', 'Python', 'Java', 'NodeJS', 'Reactjs', 'Angular', 'Vuejs', 'ML', 'Django', 'Spring Boot', 'C++', 'C#', 'Ruby', 'PHP', 'Flask Framework', 'Bootstrap', 'MYSQL', 'TypeScript', 'Go', 'Rust', 'Kotlin', 'SQL', 'Shell Scripting', 'VB.NET', 'MATLAB', 'R', 'AWS', 'DevOps', "Hybernate", "Spring", "Spring Boot", "JSP", "Servlets"]);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
     const [customSkill, setCustomSkill] = useState('');
@@ -43,16 +43,39 @@ export default function AddJob() {
     //     }
     //     setCurrentSkill('')
     // };
+
+    const handleDateChange = (e) => {
+        const value = e.target.value;
+        if (!value) {
+            // If the input is cleared, set the deadline to an empty string
+            setDeadLine('');
+            return;
+        }
+        // Format the datetime to match the 24-hour format
+        const [date, time] = value.split('T');
+        const formattedTime = formatTimeTo24Hour(time);
+        const formattedDateTime = `${date} ${formattedTime}`;
+        setDeadLine(formattedDateTime);
+    };
+    const formatTimeTo24Hour = (time) => {
+        if (!time) return '';
+        const [hour, minute] = time.split(':');
+        const hour24 = hour.padStart(2, '0');
+        const minutePadded = minute.padStart(2, '0');
+        return `${hour24}:${minutePadded}`;
+    };
+
+
     const addSkill = () => {
         let skillToAdd = currentSkill;
         if (currentSkill === 'Other' && customSkill.trim() !== '') {
             skillToAdd = customSkill.trim();
         }
-        
+
         if (skillToAdd && !selectedSkills.includes(skillToAdd)) {
             setSelectedSkills([...selectedSkills, skillToAdd]);
         }
-        
+
         setCurrentSkill('');
         setCustomSkill('');
     };
@@ -74,7 +97,7 @@ export default function AddJob() {
 
     const addYear = () => {
         if (graduates && !selectedYears.includes(graduates)) {
-            setSelectedYears([...selectedYears, graduates]); 
+            setSelectedYears([...selectedYears, graduates]);
         }
         setGraduates('')
     };
@@ -115,7 +138,7 @@ export default function AddJob() {
             alert('Education qualification field could not be empty.');
             isValid = false;
         }
-        if (selectedDepartments.length===0) {
+        if (selectedDepartments.length === 0) {
             alert('Department could not be empty.');
             isValid = false;
         }
@@ -123,7 +146,7 @@ export default function AddJob() {
             alert('Percentage could not be empty');
             isValid = false;
         }
-        if (selectedSkills.length===0) {
+        if (selectedSkills.length === 0) {
             alert('Skills field could not be empty.');
             isValid = false;
         }
@@ -134,7 +157,7 @@ export default function AddJob() {
         if (!jobLocation) {
             alert('Job location field could not be empty.');
             isValid = false;
-        } 
+        }
         if (!deadLine) {
             alert("Deadline field is required")
             isValid = false
@@ -145,7 +168,7 @@ export default function AddJob() {
                 await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/postjobs`, {
                     companyName,
                     jobRole,
-                    graduates:selectedYears,
+                    graduates: selectedYears,
                     salary,
                     educationQualification,
                     department: selectedDepartments,
@@ -155,7 +178,7 @@ export default function AddJob() {
                     deadLine,
                     specialNote,
                     designation,
-                    jobSkills:selectedSkills
+                    jobSkills: selectedSkills
                 }).then((response) => {
                     console.log(response);
                     if (response.status === 200) {
@@ -185,7 +208,7 @@ export default function AddJob() {
                 <h2 className='job-page-title'>Job Description</h2>
                 <div className="input-group">
                     <div className="form-group">
-                        <label>Company Name <span style={{color:'red'}}>*</span></label>
+                        <label>Company Name <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text" required
                             placeholder="Ex:Codegnan"
@@ -195,7 +218,7 @@ export default function AddJob() {
                         {companyNameError && <p className="error-message">{companyNameError}</p>}
                     </div>
                     <div className="form-group">
-                        <label>Job Role <span style={{color:'red'}}>*</span></label>
+                        <label>Job Role <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text" required
                             placeholder="Ex:Full stack developer"
@@ -206,8 +229,8 @@ export default function AddJob() {
                     </div>
                 </div>
                 <div className='input-group'>
-                <div>
-                        <label>Education Qualification <span style={{color:'red'}}>*</span></label>
+                    <div>
+                        <label>Education Qualification <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text" required
                             placeholder="Ex:BTECH/MTECH"
@@ -216,9 +239,9 @@ export default function AddJob() {
                         />
                         {educationQualificationError && <p className="error-message">{educationQualificationError}</p>}
                     </div>
-                   
+
                     <div>
-                        <label>Salary <span style={{color:'red'}}>*</span></label>
+                        <label>Salary <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text" required
                             placeholder="Ex:4.6LPA"
@@ -230,7 +253,7 @@ export default function AddJob() {
                 </div>
                 <div className="input-group">
                     <div>
-                        <label>Bond <span style={{color:'red'}}>*</span></label>
+                        <label>Bond <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="number" required
                             placeholder="Ex:0"
@@ -240,7 +263,7 @@ export default function AddJob() {
                         {bondError && <p className="error-message">{bondError}</p>}
                     </div>
                     <div>
-                        <label>Location <span style={{color:'red'}}>*</span></label>
+                        <label>Location <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text" required
                             placeholder="Ex:Vijayawada"
@@ -251,10 +274,10 @@ export default function AddJob() {
                     </div>
                 </div>
 
-                
+
                 <div className="input-group">
                     <div>
-                        <label>Academic Percentage <span style={{color:'red'}}>*</span></label>
+                        <label>Academic Percentage <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="number" required
                             placeholder="Ex:70"
@@ -264,19 +287,20 @@ export default function AddJob() {
                         {percentageError && <p className="error-message">{percentageError}</p>}
                     </div>
                     <div>
-                        <label>Dead Line(yyyy-mm-dd hh:mm) Will be in 24 hours format <span style={{color:'red'}}>*</span></label>
+                        <label>Dead Line will be in 24 hours format <span style={{ color: 'red' }}>*</span></label>
                         <input
-                            type="text" required
-                            placeholder="Ex:2024-04-16 16:13"
-                            value={deadLine}
-                            onChange={(e) => setDeadLine(e.target.value)}
-                        />
+            type="datetime-local"
+            required
+            placeholder="Ex:2024-04-16 16:13"
+            value={deadLine.replace(' ', 'T')}
+            onChange={handleDateChange}
+        />
                     </div>
                 </div>
-                
+
                 <div className="input-group">
-                <div>
-                        <label htmlFor="graduates">Graduated Year <span style={{color:'red'}}>*</span></label>
+                    <div>
+                        <label htmlFor="graduates">Graduated Year <span style={{ color: 'red' }}>*</span></label>
                         <select
                             id="graduates"
                             value={graduates}
@@ -285,8 +309,8 @@ export default function AddJob() {
                             <option value="">Select Graduated Year</option>
                             {years.map((year) => (
                                 <option key={year} value={year} disabled={selectedYears.includes(year)}>
-                                {year}
-                              </option>
+                                    {year}
+                                </option>
                             ))}
                         </select>
                         <button type="button" className='add-skill' onClick={addYear}>
@@ -296,13 +320,13 @@ export default function AddJob() {
                             {selectedYears.map((year, index) => (
                                 <p style={{ color: 'black' }} key={index}>
                                     {year}
-                                    <button className='remove-skill'  type="button" onClick={() => removeYear(year)}>X</button>
+                                    <button className='remove-skill' type="button" onClick={() => removeYear(year)}>X</button>
                                 </p>
                             ))}
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="departments">Branch/Stream  <span style={{color:'red'}}>*</span></label>
+                        <label htmlFor="departments">Branch/Stream  <span style={{ color: 'red' }}>*</span></label>
                         <select
                             id="departments"
                             value={department}
@@ -346,25 +370,25 @@ export default function AddJob() {
                     <div>
                         <label>Designation</label>
                         <input
-                            type="text" 
+                            type="text"
                             placeholder="Ex:HR"
                             value={designation}
                             onChange={(e) => setDesignation(e.target.value)}
-                        />  
+                        />
                     </div>
                     <div>
-                        <label>Special Note<span style={{color:'red'}}>*</span></label>
+                        <label>Special Note<span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="text" required
                             placeholder="Ex:Immediate recruitment"
                             value={specialNote}
                             onChange={(e) => setSpecialNote(e.target.value)}
-                        />  
+                        />
                     </div>
                 </div>
                 <div className="input-group">
                     <div>
-                        <label htmlFor="skills">Skills  <span style={{color:'red'}}>*</span></label>
+                        <label htmlFor="skills">Skills  <span style={{ color: 'red' }}>*</span></label>
                         <select
                             id="skills"
                             name="skills"
@@ -378,13 +402,13 @@ export default function AddJob() {
                             <option value="Other">Other</option>
                         </select>
                         {currentSkill === 'Other' && (
-                <input
-                    type="text"
-                    placeholder="Enter custom skill"
-                    value={customSkill}
-                    onChange={(e) => setCustomSkill(e.target.value)}
-                />
-            )}
+                            <input
+                                type="text"
+                                placeholder="Enter custom skill"
+                                value={customSkill}
+                                onChange={(e) => setCustomSkill(e.target.value)}
+                            />
+                        )}
                         {technologiesError && <p className="error-message">{technologiesError}</p>}
                         <button type="button" className='add-skill' onClick={addSkill}>
                             Add Skill
@@ -397,7 +421,7 @@ export default function AddJob() {
                                 </p>
                             ))}
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <button disabled={buttonClicked} className="btn">Add Job</button>
             </form>
