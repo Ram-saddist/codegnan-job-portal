@@ -88,6 +88,21 @@ const Navigation = () => {
                       Logout
                     </Button>
                   </>
+                ): userType === "admin" ? (
+                  <>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/addjob")}>
+                      Add Job
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
+                      Dashboard
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentslist")}>
+                      Students List
+                    </Button>
+                    <Button color="inherit" id="nav-link" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </>
                 ) : (
                   <>
                     <Button color="inherit" id="nav-link" onClick={() => handleClick("/login/student")}>

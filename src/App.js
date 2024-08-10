@@ -17,8 +17,10 @@ import BDEDashboard from './BDEDashboard/BDEDashboard';
 import JobsList from './JobsList/JobsList';
 import StudentsApplied from './StudentsApplied/StudentsApplied';
 import BDEStudentsAppliedJobsList from './BDEStudentsAppliedJobsList/BDEStudentsAppliedJobsList'
-import StudentProfile from './StudentProfile.js/StudentProfile';
+import StudentsList from './StudentsList/StudentsList'
+import StudentProfile from './StudentProfile/StudentProfile';
 import EmailApplyJob from './EmailApplyJob/EmailApplyJob'
+import AdminLogin from './Login/AdminLogin';
 // import ApplyJob from './ApplyJob/ApplyJob'
 
 export default function App() {
@@ -46,6 +48,8 @@ export default function App() {
           <Route path="/bdestudentsappliedjoblist/:jobId" element={<BDEStudentsAppliedJobsList/>}/>
           {/* <Route path="/applyjob" element={<ApplyJob/>}/> */}
           <Route path="/student-profile" element={<StudentProfile/>}/>
+          <Route path="/studentslist" element={<StudentsList/>}/>
+          <Route path="/adminlogin" element={<AdminLogin/>}/>
           <Route path="/directapply/:student_id/:job_id" element={<EmailApplyJob/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
