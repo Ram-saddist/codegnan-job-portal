@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import MultipleSelect from './MultipleSelect'; // Import the MultipleSelect component for departments
 import SkillsSelect from './SkillsSelect'; // Import the SkillsSelect component
-
 const BDEStudentsAppliedJobsList = () => {
   const { jobId } = useParams();
   const [appliedStudents, setAppliedStudents] = useState([]);
@@ -19,7 +18,6 @@ const BDEStudentsAppliedJobsList = () => {
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [rejectedStudents, setRejectedStudents] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-
   const fetchAppliedStudents = async () => {
     try {
       const resumeNameResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/getjobdetails?job_id=${jobId}`);
@@ -36,11 +34,9 @@ const BDEStudentsAppliedJobsList = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchAppliedStudents();
   }, [jobId]);
-
   const handleDepartmentChange = (event) => {
     const {
       target: { value },
@@ -49,7 +45,6 @@ const BDEStudentsAppliedJobsList = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-
   const handleSkillChange = (event) => {
     const {
       target: { value },
@@ -58,7 +53,6 @@ const BDEStudentsAppliedJobsList = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-
   const filteredStudents = appliedStudents.filter(student => {
     let departmentMatch = true;
     let cgpaMatch = true;
@@ -78,7 +72,6 @@ const BDEStudentsAppliedJobsList = () => {
 
     return departmentMatch && cgpaMatch && skillMatch;
   });
-
   const downloadResume = async () => {
     try {
       const selectedStudentIds = filteredStudents.map(student => student.student_id);
@@ -112,14 +105,18 @@ const BDEStudentsAppliedJobsList = () => {
       });
     }
   };
-
   const downloadExcel = () => {
+    // Map over filteredStudents to convert the studentSkills array into a string
+    const formattedStudents = filteredStudents.map(student => ({
+      ...student,
+      studentSkills: student.studentSkills.join(', '), // Join skills array into a comma-separated string
+    }));
+
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(filteredStudents);
+    const worksheet = XLSX.utils.json_to_sheet(formattedStudents);
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Students');
     XLSX.writeFile(workbook, `${excelName}.xlsx`);
   };
-
   const acceptSelectedStudents = async () => {
     const result = await Swal.fire({
       title: 'Confirm Acceptance',
@@ -159,7 +156,6 @@ const BDEStudentsAppliedJobsList = () => {
       }
     }
   };
-
   return (
     <div className='students-jobs-list'>
       <h2 style={{ textAlign: 'center' }}>
@@ -171,7 +167,7 @@ const BDEStudentsAppliedJobsList = () => {
         </div>
       </h2>
       <div className='filter-list'>
-        <MultipleSelect 
+        <MultipleSelect
           selectedDepartments={selectedDepartments}
           handleChange={handleDepartmentChange}
         />
@@ -194,13 +190,14 @@ const BDEStudentsAppliedJobsList = () => {
             <option value="10">10</option>
           </select>
         </div>
-        <SkillsSelect 
-          jobSkills={jobSkills} 
-          selectedSkills={selectedSkills} 
-          handleChange={handleSkillChange} 
+        <SkillsSelect
+          jobSkills={jobSkills}
+          selectedSkills={selectedSkills}
+          handleChange={handleSkillChange}
         />
       </div>
       <table>
+        {console.log("filtered students", filteredStudents)}
         <thead>
           <tr>
             <th style={{ color: "white" }}>Applied Students  ({filteredStudents.length})</th>

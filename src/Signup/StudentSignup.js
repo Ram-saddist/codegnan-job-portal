@@ -498,7 +498,7 @@ const StudentSignup = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>CGPA(UnderGraduate) <span style={{ color: 'red' }}>*</span></label>
+                        <label>CGPA(Highest Graduation) <span style={{ color: 'red' }}>*</span></label>
                         <input
                             type="number"
                             name="highestGraduationCGPA"
