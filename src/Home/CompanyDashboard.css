@@ -50,7 +50,7 @@ th{
     color: black !important;
     
 }
-.css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+li .Mui-selected{
     background-color: #124241 !important; 
     color: white !important;
 }

@@ -94,7 +94,8 @@ const Navigation = () => {
                       Add Job
                     </Button>
                     <Button color="inherit" id="nav-link" onClick={() => handleClick("/bdedashboard")}>
-                      Dashboard
+                      {/*jobs list = bdedashboard */}
+                     Jobs List
                     </Button>
                     <Button color="inherit" id="nav-link" onClick={() => handleClick("/studentslist")}>
                       Students List
