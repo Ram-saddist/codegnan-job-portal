@@ -225,7 +225,7 @@ const StudentSignup = () => {
             name: formData.name,
             email: formData.email,
             password: formData.password,
-            cityName: formData.city,
+            cityName: formData.cityname,
             department: formData.department,
             yearOfPassing: formData.yearOfPassing,
             state: formData.state,

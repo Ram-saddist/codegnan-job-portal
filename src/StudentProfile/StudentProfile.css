@@ -39,3 +39,50 @@
     padding:8px;
     cursor:pointer
 }
+
+
+.studentprofile-container label {
+    font-size: 1rem;
+    margin: 10px 0px;
+    display: block;
+    color: black;
+}
+
+.studentprofile-container select {
+    width: 30%;
+    display: block;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: black;
+}
+.studentprofile-container option{
+    color: black;
+}
+.other{
+    color: black;
+    padding: 10px 80px 10px 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.selected-skills{
+    display:flex;
+    padding:10px;
+    flex-wrap: wrap;
+}
+.selected-skills *{
+    margin: 5px;
+}
+
+.add-skill{
+    color: black;
+}
+
+.remove-skill{
+    color: black;
+}
